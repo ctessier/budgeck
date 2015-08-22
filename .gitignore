@@ -2,6 +2,7 @@
 .env.*.php
 .env.php
 .env
-artisan*
-storage*
-vendor*
+/public/.htpasswd
+/artisan*
+/storage*
+/vendor*
