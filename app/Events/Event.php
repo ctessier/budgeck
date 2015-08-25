@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace Budgeck\Events;
 
 abstract class Event
 {

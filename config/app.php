@@ -140,10 +140,12 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Budgeck\Providers\AppServiceProvider::class,
+        Budgeck\Providers\EventServiceProvider::class,
+        Budgeck\Providers\RouteServiceProvider::class,
 
+        'Illuminate\Html\HtmlServiceProvider',
+            
     ],
 
     /*
@@ -191,6 +193,8 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+            
+        'HTML'      => 'Illuminate\Html\HtmlFacade'
 
     ],
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Budgeck\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -1,0 +1,1 @@
+{!! HTML::linkRoute('logout', 'Logout') !!}
