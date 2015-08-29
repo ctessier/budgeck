@@ -11,14 +11,18 @@
 |
 */
 
-Route::get('/', 'HomeController@home');
-
+/**
+ * Login
+ */
 Route::get('login', 'Auth\AuthController@getLogin');
 Route::post('login', 'Auth\AuthController@postLogin');
-Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 
+/**
+ * Needs to be authenticated...
+ */
 Route::group(['middleware' => 'auth'], function(){
-    Route::get('test', function(){
-        return 'test';
-    }); 
+
+    Route::get('/', 'HomeController@home');
+    
+    Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 });
