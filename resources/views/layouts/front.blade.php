@@ -6,10 +6,10 @@
                 <meta charset="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <title>@yield('title', 'Budgeck')</title>
-                {{HTML::script('js/jquery-1.11.1.min.js')}}
-                {{HTML::script('js/common.js')}}
-                {{HTML::style('css/foundation.min.css')}}
-                {{HTML::style('css/style.css')}}
+                <link rel="stylesheet" href="/css/foundation.min.css" />
+                <link rel="stylesheet" href="/css/style.css" />
+                <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+                <script type="text/javascript" src="/js/common.js"></script>
                 @yield('head')
         </head>
         <body>
