@@ -1,3 +1,6 @@
+@extends('layouts.front')
+
+@section('content')
 <form method="POST" action="login">
     {!! csrf_field() !!}
 
@@ -19,3 +22,4 @@
         <button type="submit">Login</button>
     </div>
 </form>
+@stop

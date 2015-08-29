@@ -1,0 +1,49 @@
+/*
+ * Budgeck
+ *
+ * Copyright 2015, Clément Tessier
+ *
+ */
+
+
+/* General
+ *--------------------------------------------------------*/
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;        
+}
+html, body {
+        height: 100%;
+        background-color: #fefefe;
+        font-family: Circular, "Helvetica Neue", sans-serif;
+        font-size: 15px;
+        font-weight: 200;
+        color: #565a5c;
+}
+.cf:before,
+.cf:after {
+        content: " "; /* 1 */
+        display: table; /* 2 */
+}
+.cf:after {
+        clear: both;
+}
+/* For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats. */
+.cf {
+        *zoom: 1;
+}
+
+/* Header
+ *--------------------------------------------------------*/
+#top-bar {
+        position: relative;
+        width: 100%;
+        background-color: #fff;
+        border-bottom: 1px solid #e4e6e3;
+        padding: 10px 0;
+}
+header {
+        
+}
