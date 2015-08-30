@@ -9,25 +9,26 @@
 /* General
  *--------------------------------------------------------*/
 * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;        
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;        
 }
 html, body {
-        height: 100%;
-        background-color: #fefefe;
-        font-family: Circular, "Helvetica Neue", sans-serif;
-        font-size: 15px;
-        font-weight: 200;
-        color: #565a5c;
+    position: relative;
+    height: 100%;
+    background-color: #fefefe;
+    font-family: Circular, "Helvetica Neue", sans-serif;
+    font-size: 15px;
+    font-weight: 200;
+    color: #565a5c;
 }
 .cf:before,
 .cf:after {
-        content: " "; /* 1 */
-        display: table; /* 2 */
+    content: " "; /* 1 */
+    display: table; /* 2 */
 }
 .cf:after {
-        clear: both;
+    clear: both;
 }
 /* For IE 6/7 only
  * Include this rule to trigger hasLayout and contain floats. */
@@ -35,145 +36,290 @@ html, body {
         *zoom: 1;
 }
 
-/* Nav
+/* Header
  *--------------------------------------------------------*/
+header {
+    position: relative;
+    height: 45px;
+    background-color: #3ea9e6;
+    margin-bottom: 20px;
+}
+header .logo {
+    font-size: 1.4em;
+    color: #fff;
+    height: 100%;
+    line-height: 45px;
+    letter-spacing: 2px;
+}
 nav {
-        position: relative;
-        width: 100%;
-        height: 43px;
-        background-color: #3ea9e6;
-        margin-bottom: 20px;
+    position: relative;
+    width: 100%;        
 }
 nav ul {
-        list-style-type: none;
-        padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 nav ul li {
-        display: inline;
+    display: inline;
 }
 nav ul li a {
-        display: inline-block;
-        padding: 10px 15px;
-        color: #fff;
-        text-decoration: none;
+    display: inline-block;
+    padding: 11.2px 15px;
+    color: #fff;
+    text-decoration: none;
 }
+nav ul li a:hover,
 nav ul li.active a,
 nav ul li.active a:hover {
-        background-color: #fefefe;
-        color: #565a5c;
-}
-nav ul li a:hover {
-        color: #fff;
+    background-color: #6ec1f3;
 }
 
 /* Headings
- *--------------------------------------------------------*/
+*--------------------------------------------------------*/
 h1, h2, h3, h4, h5, h6 {
-        font-weight: normal;
+    font-weight: normal;
+    margin-bottom: 20px;
 }
 h1 {
-        position: relative;
-        width: 100%;
-        padding-bottom: 5px;
-        border-bottom: 1px solid #eee;
-        margin-bottom: 15px;
-        font-size: 1.6em;
-}
-h2 {
-        
+    position: relative;
+    width: 100%;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+    font-size: 1.6em;
 }
 
 /* Text
- *--------------------------------------------------------*/
+*--------------------------------------------------------*/
 p {
-        text-align: justify;
-        margin-bottom: 15px;
+    text-align: justify;
+    margin-bottom: 15px;
 }
 strong {
-        font-weight: 700;
+    font-weight: 700;
 }
 
 /* Forms
- *--------------------------------------------------------*/
+*--------------------------------------------------------*/
 .form-group {
-        position: relative;
-        display: block;
-        width: 100%;
-        margin-bottom: 10px;        
+    position: relative;
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;        
 }
 .form-group label {
-        display: block;
-        margin-bottom: 5px;
+    display: block;
+    margin-bottom: 5px;
+    line-height: 15px;
+}
+form.horizontal .form-group label {
+    line-height: 40px;
 }
 .form-group input:not([type="submit"]),
 .form-group textarea,
 .form-group select {
-        width: 100%;
-        padding: 8px;
-        border-radius: 4px;
-                -moz-border-radius: 4px;
-                -webkit-border-radius: 4px;
-        border: 1px solid #eee;
-        font-size: 1em;
-        font-weight: normal;
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+    border: 1px solid #eee;
+    font-size: 1em;
+    font-weight: normal;
 }
 
 /* Inline Forms
- *--------------------------------------------------------*/
+*--------------------------------------------------------*/
 form.inline {
-        display: inline-block;
+    display: inline-block;
 }
 form.inline .form-group {
-        display: inline;
+    display: inline;
 }
 form.inline .form-group input,
 form.inline .form-group textarea,
 form.inline .form-group select {
-        width: 280px;
+    width: 280px;
 }
 
 form.inline .form-group.small input,
 form.inline .form-group.small textarea,
 form.inline .form-group.small select {
-        padding: 6px;
-        font-size: .9em;        
+    padding: 6px;
+    font-size: .9em;        
+}
+
+/* Validations Forms
+ *--------------------------------------------------------*/
+.form-group .validation-error-message {
+    color: #FF7070;
+}
+.form-group input.validation-error,
+.form-group textarea.validation-error {
+    border-color: #FF7070;
+}
+form > .validation-error-message {
+    position: relative;
+    color: #FFF;
+    background-color: #FF7070;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 1px solid #eee;
+    border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+}
+form > .validation-success-message {
+    position: relative;
+    color: #FFF;
+    background-color: #00B200;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
 }
 
 /* Buttons
  *--------------------------------------------------------*/
 .btn-base {
-        display: inline-block;
-        text-align: center;
-        padding: 8px 15px;
-        font-size: 1em;
-        cursor: pointer;
-        background-color: #ffb33b;
-        color: #fff;
-        border: none;
-        float: right;
-        text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    padding: 8px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #6ec1f3;
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    margin-top: 10px;
 }
 .btn-base:hover {
-        background-color: #ffa71c;
+    background-color: #3ea9e6;
 }
 .btn-grey {
-        color: #2c2e2f;
-        background-color: #e1e7eb;
+    color: #2c2e2f;
+    background-color: #e1e7eb;
 }
 .btn-grey:hover {
-        background-color: #d5dade;
+    background-color: #d5dade;
 }
 
 /* Container
  *--------------------------------------------------------*/
 .container {
-        width: 62.5em;
-        margin: auto;
+    width: 62.5em;
+    margin: auto;
 }
 .content {
-        position: relative;
-        background-color: #fff;
-        width: 100%;
-        padding: 20px;
-        border: 1px solid #eee;
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #eee;
+}
+
+/* Utility Classes
+*--------------------------------------------------------*/
+.left {
+    float: left !important;
+}
+
+.right {
+    float: right !important;
+}
+
+.align-left {
+    text-align: left !important;
+}
+
+.align-right {
+    text-align: right !important;
+}
+
+.align-justify {
+    text-align: justify !important;
+}
+
+.align-center {
+    text-align: center !important;
+}
+
+.radius {
+    border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+}
+
+/* Tabs
+ *--------------------------------------------------------*/
+ul.tabs li {
+    display: block;
+    border: 1px solid lightgrey;
+    border-bottom: none;
+    width: 100%;
+    height: 100%;
+}
+
+ul.tabs li:last-child {
+    border-bottom: 1px solid lightgrey;
+}
+
+ul.tabs li.active {
+    border-left: 5px solid #6ec1f3;
+}
+
+ul.tabs li.active a {
+    padding-left: 11px;
+}
+
+ul.tabs a {
+    padding: 15px;
+    display: block;
+    text-decoration: none;
+    color: #565a5c;
+}
+
+ul.tabs a:hover {
+    background: #eee;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Overlay
+ *--------------------------------------------------------*/
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(255,255,255,0.7);
+    display: none;
+    padding-top: 25%;
+    padding-left: 50%;
+}
+
+/* Footer
+ *--------------------------------------------------------*/
+#wrapper {
+    min-height: 100%;
+	height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
+	height: 100%;
+	margin: 0 auto -30px; /* the bottom margin is the negative value of the footer's height */
+}   
+#footer {
+    font-size: 0.8em;
+    text-align: center;
+    height: 30px;
+    color: #99a0a3; 
 }

@@ -14,7 +14,7 @@
 /**
  * Login
  */
-Route::get('login', 'Auth\AuthController@getLogin');
+Route::get('login', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
 Route::post('login', 'Auth\AuthController@postLogin');
 
 /**
@@ -22,7 +22,29 @@ Route::post('login', 'Auth\AuthController@postLogin');
  */
 Route::group(['middleware' => 'auth'], function(){
 
-    Route::get('/', 'HomeController@home');
+    // Dashboard
+    Route::get('/', ['as' => 'dashboard', 'uses' => 'DashboardController@index']);
+    
+    // Profile
+    Route::get('profile', ['as' => 'profile', 'uses' => 'ProfileController@index']);
+    Route::post('profile/save', [
+        'as' => 'profile.save',
+        'uses' => 'ProfileController@profileSave'
+    ]);
+    Route::post('profile/savepassword', [
+        'as' => 'profile.savepassword',
+        'uses' => 'ProfileController@passwordSave'
+    ]);
+
+    // Accounts
+    Route::get('accounts', [
+        'as' => 'accounts',
+        'uses' => 'AccountController@index'
+    ]);
+    Route::get('accounts/{id}/year/{year}/month/{month}', [
+        'as' => 'month', 
+        'uses' => 'AccountController@month'
+    ]);
     
     Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 });
