@@ -1,6 +1,7 @@
 (function($, window, document) {
     $(function() {
         initAjaxForms();
+        initAjaxLightbox();
         initTabs();
         $('form').attr('novalidate', 'novalidate');
     });
@@ -16,10 +17,11 @@ function initAjaxForms()
         var url = form.attr('action');
         var method = form.attr('method');
         var data = form.serializeArray();
-        var overlay = $('#overlay');
-
+        var submitButton = form.find('input[type=submit]');
+        var previousSubmitLabel = submitButton.attr('value');
+        
         removeValidations();
-        overlay.show();
+        submitButton.attr('value', 'Patientez...');
 
         $.ajax({
             url: url,
@@ -47,7 +49,7 @@ function initAjaxForms()
             },
             complete: function(jqXHR, textStatus)
             {
-                overlay.hide();
+                submitButton.attr('value', previousSubmitLabel);
             }
         });
 
@@ -76,12 +78,9 @@ function initAjaxForms()
          */
         function showValidations(form, validations, csstag)
         {
-            console.log("showing validations");
             if (typeof (csstag) === 'undefined') {
                 csstag = '';
             }
-
-            console.log(validations);
 
             for (var property in validations) {
                 var validationElement = $('<div class="validation-error-message ' + csstag + '">' + validations[property] + '</div>').hide();
@@ -117,12 +116,10 @@ function initAjaxForms()
                 property = formEscapeName(property);
                 var input = form.find('input[name=' + property + '], textarea[name=' + property + '], select[name=' + property + ']');
                 if (input.length === 0) { //no input found
-                    console.log("no input found name:" + property);
                     continue;
                 }
 
                 //add validation message
-                console.log('adding validation to input ' + property);
                 if (input.attr('type') === 'checkbox') {
                     input.before(validationElement.fadeIn());
                 } else {
@@ -142,7 +139,6 @@ function initAjaxForms()
             if (window.location.href.indexOf('clientes/importer') > -1)
             {
                 var customerIndexToBounce = firstError.closest('.customer-import-form').attr('id');
-                console.log(customerIndexToBounce);
                 customerIndexToBounce = customerIndexToBounce.substring(9, customerIndexToBounce.length);
                 goToCustomer(Number(customerIndexToBounce));
             }
@@ -160,12 +156,12 @@ function formEscapeName(string)
     return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 }
 
-/*
+/**
  * Initialize tabs behaviour
  */
 function initTabs()
 {
-    $('ul.tabs li a').on('click', function(e){
+    $('ul.tabs li[data-tab-id] a').on('click', function(e){
         e.preventDefault();
 
         // Get data-tab-id to enable
@@ -179,4 +175,81 @@ function initTabs()
         $('.tab-content.active').removeClass('active');
         $('.tab-content[data-tab-id=' + data_tab_id + ']').addClass('active');
     });
+}
+
+/**
+ * Initialize lightbox behaviour
+ */
+function initAjaxLightbox() {
+    var lightbox = $('#ajax-lightbox');
+    var background = $('#ajax-lightbox-background');
+    var defaultWidth = lightbox.css('width');
+    var defaultLeft = lightbox.css('left');
+    var opened = false;
+
+    this.open = function(url) {
+        openLightbox(null, url);
+    };
+
+    $('body').on('click', 'a[data-use-lightbox=true]', openLightbox);
+        
+    // close lightbox on escape
+    $(document).keyup(function(e) { 
+        if (e.keyCode === 27) { // esc keycode
+            dismiss();
+        }
+    });
+
+    function openLightbox(e, url) {
+        if (typeof e !== 'undefined' && e !== null) {
+            e.preventDefault();
+        }
+
+        if (typeof url === 'undefined') {
+            var url = $(this).attr('href');
+        }
+
+        background.fadeIn();        
+        window.scrollTo(0, 0);
+
+        lightbox.load(url, function() {
+            //resize to fit content
+            var widthDiv = lightbox.find('div[data-window-width]');
+            if (widthDiv.length === 1) {
+                var width = widthDiv.attr('data-window-width');
+
+                //resize width smaller if the width does not fit on screen.
+                if (width > $(window).width()) {
+                    width = $(window).width() * 0.95;
+                }
+
+                lightbox.css('width', width + 'px');
+                lightbox.css('left', '50%');
+                lightbox.css('margin-left', -width / 2 + 'px');
+            } else {
+                lightbox.css('width', defaultWidth);
+                lightbox.css('left', defaultLeft);
+            }
+            
+            lightbox.fadeIn();            
+            opened = true;
+        });
+    }
+
+    var dismiss = function() {
+        var disable = lightbox.find('div[data-window-disable-cancel=true]');
+        if (disable.length > 0 || ! opened) {
+            return; // don't dismiss if disabled.
+        }
+        background.fadeOut();
+        lightbox.fadeOut(400, function(){
+            lightbox.empty();
+            opened = false;    
+        });        
+    };        
+
+    //Click handlers to dismiss lightbox
+    background.on('click', dismiss);
+    lightbox.on('click', '*[data-lightbox-dismiss=true]', dismiss);
+
 }

@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/', function(){
+    return redirect(route('dashboard')); 
+});
+
 /**
  * Login
  */
@@ -23,28 +27,59 @@ Route::post('login', 'Auth\AuthController@postLogin');
 Route::group(['middleware' => 'auth'], function(){
 
     // Dashboard
-    Route::get('/', ['as' => 'dashboard', 'uses' => 'DashboardController@index']);
+    Route::get('dashboard', [
+        'as' => 'dashboard',
+        'uses' => 'DashboardController@index'
+    ]);
     
     // Profile
-    Route::get('profile', ['as' => 'profile', 'uses' => 'ProfileController@index']);
+    Route::get('profile', [
+        'as' => 'profile',
+        'uses' => 'ProfileController@index'
+    ]);
     Route::post('profile/save', [
         'as' => 'profile.save',
-        'uses' => 'ProfileController@profileSave'
+        'uses' => 'ProfileController@postProfileSave'
     ]);
     Route::post('profile/savepassword', [
         'as' => 'profile.savepassword',
-        'uses' => 'ProfileController@passwordSave'
+        'uses' => 'ProfileController@postPasswordSave'
     ]);
 
-    // Accounts
-    Route::get('accounts', [
-        'as' => 'accounts',
-        'uses' => 'AccountController@index'
+    // Budgets
+    Route::get('accounts/{account_id}/budgets/create', [
+        'as' => 'budgets.create',
+        'uses' => 'AccountCotroller@getCreate'
     ]);
-    Route::get('accounts/{id}/year/{year}/month/{month}', [
-        'as' => 'month', 
-        'uses' => 'AccountController@month'
+    
+    // Incomes
+    Route::get('accounts/{account_id}/incomes/create', [
+        'as' => 'incomes.create',
+        'uses' => 'AccountCotroller@getCreate'
     ]);
     
     Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
+});
+
+Route::group(['prefix' => 'accounts', 'middleware' => 'auth'], function(){
+    Route::get('/', [
+        'as' => 'accounts',
+        'uses' => 'AccountController@index'
+    ]);
+    Route::get('{id}', [
+        'as' => 'accounts.getAccount',
+        'uses' => 'AccountController@getAccount'
+    ])->where('id', '[0-9]+');
+    Route::any('edit/{id?}', [
+        'as' => 'accounts.getEdit',
+        'uses' => 'AccountController@getEdit'
+    ])->where('id', '[0-9]+');
+    Route::post('save/{id?}', [
+        'as' => 'accounts.postCreate',
+        'uses' => 'AccountController@postCreate'
+    ])->where('id', '[0-9]+');
+    Route::get('{id}/year/{year}/month/{month}', [
+        'as' => 'month', 
+        'uses' => 'AccountController@month'
+    ]);
 });

@@ -3,21 +3,9 @@
 @section('title', 'Mon profil')
 
 @section('content')
-<div class="columns large-4">
-    <ul class="tabs">
-        <li class="active" data-tab-id="profile">
-            <a href="#">Mon profil</a>
-        </li>
-        <li data-tab-id="accounts">
-            <a href="#">Mes comptes</a>
-        </li>
-        <li data-tab-id="parameters">
-            <a href="#">Mes paramètres</a>
-        </li>
-    </ul>
-</div>
+@include('profile.sidebar')
 <div class="columns large-8">
-    <div data-tab-id="profile" class="tab-content content active">   
+    <div class="content">   
         <h3>Mes informations personnelles</h3>
         {!! Form::model($user, ['method' => 'post', 'route' => 'profile.save', 'class' => 'horizontal', 'data-ajax-form' => 'true']) !!}
         <div class="row">
@@ -58,7 +46,7 @@
         </div>
         <div class="row">
             <div class="columns large-12">
-                {!! Form::submit('Mettre à jour', array('class' => 'btn-base radius right')) !!}
+                {!! Form::submit('Mettre à jour', ['class' => 'btn-base radius right']) !!}
             </div>
         </div>
         {!! Form::close() !!}
@@ -91,18 +79,18 @@
         <div class="row">
             <div class="columns large-4">
                 <div class="form-group">
-                    {!! Form::label('newpasswordconfirm', 'Confirmation') !!}
+                    {!! Form::label('newpassword_confirmation', 'Confirmation') !!}
                 </div>                
             </div>
             <div class="columns large-8">
                 <div class="form-group">
-                    {!! Form::password('newpasswordconfirm') !!}
+                    {!! Form::password('newpassword_confirmation') !!}
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="columns large-12">
-                {!! Form::submit('Changer mon mot de passe', array('class' => 'btn-base radius right')) !!}
+                {!! Form::submit('Changer mon mot de passe', ['class' => 'btn-base radius right']) !!}
             </div>
         </div>
         {!! Form::close() !!}

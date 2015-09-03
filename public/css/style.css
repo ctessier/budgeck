@@ -45,11 +45,17 @@ header {
     margin-bottom: 20px;
 }
 header .logo {
+    text-decoration: none;
     font-size: 1.4em;
     color: #fff;
     height: 100%;
     line-height: 45px;
     letter-spacing: 2px;
+}
+header .logo .version {
+    letter-spacing: 0;
+    font-size: 0.6em;
+    margin-left: -0.3em;
 }
 nav {
     position: relative;
@@ -97,6 +103,9 @@ p {
 strong {
     font-weight: 700;
 }
+p.info {
+    text-align: left;
+}
 
 /* Forms
 *--------------------------------------------------------*/
@@ -125,6 +134,11 @@ form.horizontal .form-group label {
     border: 1px solid #eee;
     font-size: 1em;
     font-weight: normal;
+}
+.form-group.horizontal label,
+.form-group.horizontal input {
+    display: inline-block;
+    width: auto;
 }
 
 /* Inline Forms
@@ -219,6 +233,7 @@ form > .validation-success-message {
     width: 100%;
     padding: 20px;
     border: 1px solid #eee;
+    margin-bottom: 15px;
 }
 
 /* Utility Classes
@@ -247,6 +262,10 @@ form > .validation-success-message {
     text-align: center !important;
 }
 
+.no-margin {
+    margin: 0 !important;
+}
+
 .radius {
     border-radius: 4px;
         -moz-border-radius: 4px;
@@ -255,6 +274,10 @@ form > .validation-success-message {
 
 /* Tabs
  *--------------------------------------------------------*/
+ul.tabs {
+    margin-bottom: 15px;
+}
+
 ul.tabs li {
     display: block;
     border: 1px solid lightgrey;
@@ -294,19 +317,38 @@ ul.tabs a:hover {
     display: block;
 }
 
-/* Overlay
+/* Tables
  *--------------------------------------------------------*/
-#overlay {
+table {
+    width: 100%;
+} 
+
+/* Lightbox
+ *--------------------------------------------------------*/
+#ajax-lightbox-background {
+    display: none;
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    z-index: 10;
-    background-color: rgba(255,255,255,0.7);
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255,0.5);
+    z-index: 99;
+}
+#ajax-lightbox {
     display: none;
-    padding-top: 25%;
-    padding-left: 50%;
+    width: 30%;
+    top: 20%;
+    left: 35%;
+    position: absolute;	
+    z-index: 100;
+	-webkit-transform:translateZ(0); /* fix for android browser */        
+    background: #fff;
+    padding: 15px;
+    border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+    border: 2px solid #3ea9e6;
 }
 
 /* Footer

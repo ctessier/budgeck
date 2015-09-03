@@ -13,7 +13,6 @@
         @yield('head')
     </head>
     <body>
-        @include('elements.overlay')
         <div id="wrapper">
         @include('elements.header')
         <div class="row">
@@ -22,5 +21,7 @@
         @yield('tail')
         </div>
         @include('elements.footer')
+        <div id="ajax-lightbox-background"></div>
+        <div id="ajax-lightbox"></div>
     </body>
 </html>

@@ -14,7 +14,11 @@
             <div class="form-group">
                 {!! Form::label('password', 'Mot de passe') !!}
                 {!! Form::password('password') !!}
-            </div>            
+            </div>
+            <div class="form-group horizontal">
+                {!! Form::checkbox('remember') !!}
+                {!! Form::label('remember', 'Se souvenir de moi') !!}                
+            </div>
             <div class="form-group">
                 {!! Form::submit('Me connecter', array('class' => 'btn-base radius')) !!}
             </div>

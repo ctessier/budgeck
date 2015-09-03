@@ -3,12 +3,12 @@
 @section('title', 'Mes comptes')
 
 @section('content')
-<div class="columns small-12">
-    <div class="content">
-        <h1>Mes comptes</h1>
-        @foreach ($accounts as $account)
-        {{$account->name}}<br />
-        @endforeach
+@include('profile.sidebar')
+<div class="columns large-8 small-12">
+    <div class="content cf">
+        <h3>Mes comptes</h3>
+        @include('accounts.table-accounts')
+        {!! HTML::linkRoute('accounts.getEdit', 'Ajouter un compte', null, ['class' => 'btn-base radius right', 'data-use-lightbox' => 'true']) !!}
     </div>
 </div>
 @stop
