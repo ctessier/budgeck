@@ -5,48 +5,17 @@ namespace Budgeck\Http\Controllers;
 use Budgeck;
 use Illuminate\Http\Request;
 
-class AccountController extends Controller
+class AccountBudgetController extends Controller
 {
     /**
-     * Show the view listing the accounts of an user
-     * @return \Illuminuate\Http\Response
-     */
-    public function index()
-    {
-        $accounts = $this->user->accounts;
-        view()->share('accounts', $accounts);
-        return view('accounts.index');
-    }
-    
-    /**
-     * Show the view detailing a given account
-     * 
-     * @param int $id
-     * @return \Illuminate\Http\Request
-     */
-    public function getAccount($id)
-    {
-        $account = Budgeck\Account::getUserAccountById($id);
-        if ($account == null)
-        {
-            abort(404);
-        }
-        
-        $accounts = $this->user->accounts;
-        view()->share('accounts', $accounts);
-        view()->share('account', $account);
-        return view('accounts.account');
-    }
-    
-    /**
-     * Show the create account pop-up content
+     * Show the create account budget pop-up content
      * 
      * @return \Illuminate\Http\Response
      */
-    public function getEdit($account_id = null)
+    public function getEdit($account_budget_id = null)
     {
         $isCreation = true;
-        $account = Budgeck\Account::find($account_id);
+        $account = Budgeck\AccountBudget::find($account_budget_id);
         if ($account != null)
         {
             $isCreation = false;
@@ -57,14 +26,14 @@ class AccountController extends Controller
     }
     
     /**
-     * Handles an account create or edit request
+     * Handles an account budget create or edit request
      * 
      * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
     public function postSave(Request $request, $account_id = null)
     {
-        $account = Budgeck\Account::find($account_id);
+        $account = Budgeck\AccountBudget::find($account_id);
         if ($account == null)
         {            
             $account = new Budgeck\Account();
