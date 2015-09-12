@@ -12,19 +12,24 @@ class Account extends BaseModel
     protected $fillable = ['name', 'description'];
     
     /**
-     *
-     * @var type 
+     * Define the rules to create or edit an account 
+     * 
+     * @var array 
      */
-    public $rules = [
-        'name' => 'required'
+    protected $rules = [
+        'name' => 'required|max:45',
+        'description' => 'max:255'
     ];
     
     /**
-     *
-     * @var type 
+     * Define the messages associated to the rules
+     * 
+     * @var array 
      */
-    public $messages = [
-        'name.required' => 'Le nom ne peut pas être vide'
+    protected $messages = [
+        'name.required' => 'Le nom ne peut pas être vide',
+        'name.max' => 'Le nom ne peut pas être aussi long',
+        'description' => 'La description ne peut pas être aussi longue'
     ];
     
     public function budgets()
@@ -52,5 +57,18 @@ class Account extends BaseModel
     public function getCurrentBalance()
     {
         return 'Indisponible';
+    }
+    
+    /**
+     * Return an account object from given id and logged in user
+     * 
+     * @param int $id
+     * @return Budgeck\Account
+     */
+    public static function getUserAccountById($id)
+    {
+        return self::where('id', $id)
+            ->where('user_id', \Auth::user()->id)
+            ->first();
     }
 }

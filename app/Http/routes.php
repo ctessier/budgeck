@@ -76,7 +76,7 @@ Route::group(['prefix' => 'accounts', 'middleware' => 'auth'], function(){
     ])->where('id', '[0-9]+');
     Route::post('save/{id?}', [
         'as' => 'accounts.postCreate',
-        'uses' => 'AccountController@postCreate'
+        'uses' => 'AccountController@postSave'
     ])->where('id', '[0-9]+');
     Route::get('{id}/year/{year}/month/{month}', [
         'as' => 'month', 

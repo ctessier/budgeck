@@ -1,4 +1,5 @@
 <div class="columns large-4">
+    {!! HTML::linkRoute('accounts', 'Mes comptes') !!}
     <ul class="tabs">
         @foreach ($accounts as $acc)
         <li class="{!! ($acc->id == $account->id) ? 'active' : '' !!}">

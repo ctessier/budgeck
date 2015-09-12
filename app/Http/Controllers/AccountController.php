@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Validator;
 class AccountController extends Controller
 {
     /**
-     * 
-     * @return type
+     * Show the view listing the accounts of an user
+     * @return \Illuminuate\Http\Response
      */
     public function index()
     {
@@ -20,33 +20,23 @@ class AccountController extends Controller
     }
     
     /**
+     * Show the view detailing a given account
      * 
-     * @param type $id
-     * @return type
+     * @param int $id
+     * @return \Illuminate\Http\Request
      */
     public function getAccount($id)
     {
-        $account = Budgeck\Account::find($id);
+        $account = Budgeck\Account::getUserAccountById($id);
+        if ($account == null)
+        {
+            abort(404);
+        }
+        
         $accounts = $this->user->accounts;
         view()->share('accounts', $accounts);
         view()->share('account', $account);
         return view('accounts.account');
-    }
-    
-    /**
-     * 
-     * 
-     * @param int $account
-     * @param int $year
-     * @param int $month
-     * @return \Illuminate\Http\Response
-     */
-    public function month($account_id, $year, $month)
-    {
-        $account = Budgeck\Account::find($account);
-        
-        view()->share('account', $account);
-        return view('accounts.month');
     }
     
     /**
@@ -73,20 +63,18 @@ class AccountController extends Controller
      * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
-    public function postCreate(Request $request, $account_id = null)
+    public function postSave(Request $request, $account_id = null)
     {
         $account = Budgeck\Account::find($account_id);
         if ($account == null)
-        {
+        {            
             $account = new Budgeck\Account();
             $account->user_id = $this->user->id;
         }
         
-        //TODO Validate data
-        $v = Validator::make($request->all(), $account->rules, $account->messages);        
-        if ($v->fails())
+        if (!$account->validate($request->all()))
         {
-            return response()->json(['errors' => $v->errors()]);
+            return response()->json(['errors' => $account->errors]);
         }
         
         $account->fill($request->all());
