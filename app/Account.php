@@ -59,6 +59,17 @@ class Account extends BaseModel
         return 'Indisponible';
     }
     
+    public function getBudgetById($id)
+    {
+        foreach ($this->budgets as $budget)
+        {
+            if ($budget->id == $id)
+            {
+                return $budget;
+            }
+        }
+    }
+    
     /**
      * Return an account object from given id and logged in user
      * 

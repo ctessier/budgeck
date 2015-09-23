@@ -2,9 +2,7 @@
 
 namespace Budgeck;
 
-use Illuminate\Database\Eloquent\Model;
-
-class BudgetType extends Model
+class BudgetType extends BaseModel
 {
     const SINGLE = 1;
     const MULTIPLE = 2;

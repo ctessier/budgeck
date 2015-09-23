@@ -9,12 +9,12 @@
         <h3>{{ $account->name }}</h3>
         @endif
         @if ($isCreation)
-        {!! Form::open(['method' => 'post', 'route' => ['accounts.postCreate', null], 'data-ajax-form' => 'true']) !!}
+        {!! Form::open(['method' => 'post', 'route' => ['accounts.postSave', null], 'data-ajax-form' => 'true']) !!}
         @else
-        {!! Form::model($account, ['method' => 'post', 'route' => ['accounts.postCreate', $account->id], 'data-ajax-form' => 'true']) !!}
+        {!! Form::model($account, ['method' => 'post', 'route' => ['accounts.postSave', $account->id], 'data-ajax-form' => 'true']) !!}
         @endif
         <div class="form-group">
-            {!! Form::label('name') !!}
+            {!! Form::label('name', 'Nom du compte') !!}
             {!! Form::text('name', null, ['placeholder' => 'Nom du compte...']) !!}
         </div>
         <div class="form-group">

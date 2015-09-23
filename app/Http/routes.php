@@ -45,18 +45,6 @@ Route::group(['middleware' => 'auth'], function(){
         'as' => 'profile.savepassword',
         'uses' => 'ProfileController@postPasswordSave'
     ]);
-
-    // Budgets
-    Route::get('accounts/{account_id}/budgets/create', [
-        'as' => 'budgets.create',
-        'uses' => 'AccountCotroller@getCreate'
-    ]);
-    
-    // Incomes
-    Route::get('accounts/{account_id}/incomes/create', [
-        'as' => 'incomes.create',
-        'uses' => 'AccountCotroller@getCreate'
-    ]);
     
     Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 });
@@ -75,11 +63,26 @@ Route::group(['prefix' => 'accounts', 'middleware' => 'auth'], function(){
         'uses' => 'AccountController@getEdit'
     ])->where('id', '[0-9]+');
     Route::post('save/{id?}', [
-        'as' => 'accounts.postCreate',
+        'as' => 'accounts.postSave',
         'uses' => 'AccountController@postSave'
     ])->where('id', '[0-9]+');
-    Route::get('{id}/year/{year}/month/{month}', [
-        'as' => 'month', 
-        'uses' => 'AccountController@month'
-    ]);
+//    Route::get('{id}/year/{year}/month/{month}', [
+//        'as' => 'month', 
+//        'uses' => 'AccountController@month'
+//    ]);
+    // Budgets
+    Route::get('{account_id}/budgets/edit/{id?}', [
+        'as' => 'accounts.budgets.getEdit',
+        'uses' => 'AccountBudgetController@getEdit'
+    ])->where('account_id', '[0-9]+')->where('id', '[0-9]+');
+    Route::get('{account_id}/budgets/save/{id?}', [
+        'as' => 'accounts.budgets.postSave',
+        'uses' => 'AccountBudgetController@postSave'
+    ])->where('account_id', '[0-9]+')->where('id', '[0-9]+');
+    
+    // Incomes
+    Route::get('{account_id}/incomes/edit/{id?}', [
+        'as' => 'accounts.incomes.getEdit',
+        'uses' => 'AccountIncomeController@getEdit'
+    ])->where('account_id', '[0-9]+')->where('id', '[0-9]+');
 });

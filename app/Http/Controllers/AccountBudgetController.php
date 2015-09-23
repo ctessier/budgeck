@@ -12,17 +12,30 @@ class AccountBudgetController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function getEdit($account_budget_id = null)
+    public function getEdit($account_id, $id = null)
     {
         $isCreation = true;
-        $account = Budgeck\AccountBudget::find($account_budget_id);
-        if ($account != null)
+        $account = Budgeck\Account::getUserAccountById($account_id);
+        if ($account == null)
+        {
+            abort(404, "Account not found");
+        }
+        else
+        {
+            view()->share('account', $account);
+            $accountBudget = $account->getBudgetById($id);
+        }
+        
+        if ($accountBudget != null)
         {
             $isCreation = false;
         }
-        view()->share('account', $account);
+        view()->share('account_budget', $accountBudget);
         view()->share('isCreation', $isCreation);
-        return view('accounts.edit');
+        view()->share('listAccounts', Budgeck\Account::where('user_id', $this->user->id)->lists('name', 'id'));
+        view()->share('listCategories', Budgeck\Category::where('category_type_id', Budgeck\CategoryType::SPENDING)->lists('name', 'id'));
+        view()->share('listBudgetTypes', Budgeck\BudgetType::lists('name', 'id'));
+        return view('accounts.budgets.edit');
     }
     
     /**
@@ -31,28 +44,13 @@ class AccountBudgetController extends Controller
      * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
-    public function postSave(Request $request, $account_id = null)
+    public function postSave(Request $request, $account_id, $id = null)
     {
-        $account = Budgeck\AccountBudget::find($account_id);
-        if ($account == null)
-        {            
-            $account = new Budgeck\Account();
-            $account->user_id = $this->user->id;
-        }
+        //TODO
         
-        if (!$account->validate($request->all()))
-        {
-            return response()->json(['errors' => $account->errors]);
-        }
-        
-        $account->fill($request->all());
-        if ($account->save())
-        {
-            return response()->json(['redirect' => route('accounts.getAccount', ['id' => $account->id])]);
-        }
-        else
-        {
-            return response()->json(['errors' => ['form' => 'TO DO Error']]);
-        }
+        // Get budget from account if edit
+        // Validate form
+        // Save budget account
+        // Run automate creating of month budget
     }
 }

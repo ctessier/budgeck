@@ -3,7 +3,7 @@
 @section('title', 'Mes comptes')
 
 @section('content')
-@include('profile.sidebar')
+@include('accounts.sidebar')
 <div class="columns large-8 small-12">
     <div class="content cf">
         <h3>Mes comptes</h3>

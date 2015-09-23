@@ -33,4 +33,9 @@ class AccountBudget extends BaseModel
     protected $messages = [
         
     ];
+    
+    public function account()
+    {
+        return $this->belongsTo('Budgeck\Account');
+    }
 }

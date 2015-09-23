@@ -19,9 +19,9 @@
         @endforeach
     </tbody>
 </table>
-{!! HTML::linkRoute('incomes.create', 'Créer un revenu', null, ['class' => 'btn-base radius right']) !!}
+{!! HTML::linkRoute('accounts.incomes.getEdit', 'Créer un revenu', null, ['class' => 'btn-base radius right', 'data-use-lightbox' => 'true']) !!}
 @else
 <p>
-    <a href="">Créer un revenu</a>
+    {!! HTML::linkRoute('accounts.incomes.getEdit', 'Créer un revenu', null, ['data-use-lightbox' => 'true']) !!}
 </p>
 @endif

@@ -7,6 +7,7 @@
             <th>Description</th>
             <th>Montant</th>
             <th>Jour du mois</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -16,6 +17,7 @@
             <td>{{ $budget->description }}</td>
             <td>&euro; {{ $budget->amount }}</td>
             <td>{{ $budget->day }}</td>
+            <td class="align-center">{!! HTML::linkRoute('accounts.budgets.getEdit', 'Modifier', ['account_id' => $account->id, 'id' => $budget->id], ['class' => 'btn-base radius right', 'data-use-lightbox' => 'true']) !!}</td>
         </tr>
         @endforeach
     </tbody>
@@ -28,6 +30,7 @@
             <th>Titre</th>
             <th>Description</th>
             <th>Montant</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -36,14 +39,15 @@
             <td>{{ $budget->title }}</td>
             <td>{{ $budget->description }}</td>
             <td>&euro; {{ $budget->amount }}</td>
+            <td class="align-center">{!! HTML::linkRoute('accounts.budgets.getEdit', 'Modifier', ['account_id' => $account->id, 'id' => $budget->id], ['class' => 'btn-base radius right', 'data-use-lightbox' => 'true']) !!}</td>
         </tr>
         @endforeach
     </tbody>
 </table>
     @endif
-    {!! HTML::linkRoute('budgets.create', 'Créer un budget', null, ['class' => 'btn-base radius right']) !!}
+    {!! HTML::linkRoute('accounts.budgets.getEdit', 'Créer un budget', ['account_id' => $account->id], ['class' => 'btn-base radius right', 'data-use-lightbox' => 'true']) !!}
 @else
 <p>
-    <a href="">Créer un budget</a>
+    {!! HTML::linkRoute('accounts.budgets.getEdit', 'Créer un budget', ['account_id' => $account->id], ['data-use-lightbox' => 'true']) !!}
 </p>
 @endif
