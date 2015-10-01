@@ -1,0 +1,143 @@
+/*
+ * Budgeck
+ *
+ * Copyright 2015, Clément Tessier
+ *
+ */
+
+@import "utility.less";
+@import "tables.less";
+@import "forms.less";
+@import "tabs.less";
+@import "lightbox.less";
+
+/* General
+ *--------------------------------------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;        
+}
+html, body {
+    position: relative;
+    height: 100%;
+    background-color: #fefefe;
+    font-family: Circular, "Helvetica Neue", sans-serif;
+    font-size: 15px;
+    font-weight: 200;
+    color: #565a5c;
+}
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+.cf:after {
+    clear: both;
+}
+/* For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats. */
+.cf {
+        *zoom: 1;
+}
+
+/* Header
+ *--------------------------------------------------------*/
+header {
+    position: relative;
+    height: 45px;
+    background-color: #3ea9e6;
+    margin-bottom: 20px;
+}
+header .logo {
+    text-decoration: none;
+    font-size: 1.4em;
+    color: #fff;
+    height: 100%;
+    line-height: 45px;
+    letter-spacing: 2px;
+}
+header .logo .version {
+    letter-spacing: 0;
+    font-size: 0.6em;
+    margin-left: -0.3em;
+}
+nav {
+    position: relative;
+    width: 100%;        
+}
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+nav ul li {
+    display: inline;
+}
+nav ul li a {
+    display: inline-block;
+    padding: 11.2px 15px;
+    color: #fff;
+    text-decoration: none;
+}
+nav ul li a:hover,
+nav ul li.active a,
+nav ul li.active a:hover {
+    background-color: #6ec1f3;
+}
+
+/* Headings
+*--------------------------------------------------------*/
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+h1 {
+    position: relative;
+    width: 100%;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+    font-size: 1.6em;
+}
+
+/* Text
+*--------------------------------------------------------*/
+p {
+    text-align: justify;
+    margin-bottom: 15px;
+}
+strong {
+    font-weight: 700;
+}
+p.info {
+    text-align: left;
+}
+
+/* Container
+ *--------------------------------------------------------*/
+.container {
+    width: 62.5em;
+    margin: auto;
+}
+.content {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #eee;
+    margin-bottom: 15px;
+}
+
+/* Footer
+ *--------------------------------------------------------*/
+#wrapper {
+    min-height: 100%;
+	height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
+	height: 100%;
+	margin: 0 auto -30px; /* the bottom margin is the negative value of the footer's height */
+}   
+#footer {
+    font-size: 0.8em;
+    text-align: center;
+    height: 30px;
+    color: #99a0a3; 
+}

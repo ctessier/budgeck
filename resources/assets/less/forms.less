@@ -1,0 +1,113 @@
+/* Forms
+*--------------------------------------------------------*/
+.form-group {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;        
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    line-height: 15px;
+}
+form.horizontal .form-group label {
+    line-height: 40px;
+}
+.form-group input:not([type="submit"]),
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+    border: 1px solid #eee;
+    font-size: 1em;
+    font-weight: normal;
+}
+.form-group.horizontal label,
+.form-group.horizontal input {
+    display: inline-block;
+    width: auto;
+}
+
+/* Inline Forms
+*--------------------------------------------------------*/
+form.inline {
+    display: inline-block;
+}
+form.inline .form-group {
+    display: inline;
+}
+form.inline .form-group input,
+form.inline .form-group textarea,
+form.inline .form-group select {
+    width: 280px;
+}
+
+form.inline .form-group.small input,
+form.inline .form-group.small textarea,
+form.inline .form-group.small select {
+    padding: 6px;
+    font-size: .9em;        
+}
+
+/* Validations Forms
+ *--------------------------------------------------------*/
+.form-group .validation-error-message {
+    color: #FF7070;
+}
+.form-group input.validation-error,
+.form-group textarea.validation-error {
+    border-color: #FF7070;
+}
+form > .validation-error-message {
+    position: relative;
+    color: #FFF;
+    background-color: #FF7070;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 1px solid #eee;
+    border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+}
+form > .validation-success-message {
+    position: relative;
+    color: #FFF;
+    background-color: #00B200;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+/* Buttons
+ *--------------------------------------------------------*/
+.btn-base {
+    display: inline-block;
+    text-align: center;
+    padding: 8px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #6ec1f3;
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    margin-top: 10px;
+}
+.btn-base:hover {
+    background-color: #3ea9e6;
+}
+.btn-grey {
+    color: #2c2e2f;
+    background-color: #e1e7eb;
+}
+.btn-grey:hover {
+    background-color: #d5dade;
+}
