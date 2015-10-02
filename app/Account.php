@@ -80,6 +80,23 @@ class Account extends BaseModel
     }
     
     /**
+     * Return an account's income from given id
+     * 
+     * @param int $id
+     * @return Budgeck\AccountIncome
+     */
+    public function getIncomeById($id)
+    {
+        foreach ($this->incomes as $income)
+        {
+            if ($income->id == $id)
+            {
+                return $income;
+            }
+        }
+    }
+    
+    /**
      * Return an account object from given id and logged in user
      * 
      * @param int $id

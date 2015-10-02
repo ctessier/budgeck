@@ -85,4 +85,8 @@ Route::group(['prefix' => 'accounts', 'middleware' => 'auth'], function(){
         'as' => 'accounts.incomes.getEdit',
         'uses' => 'AccountIncomeController@getEdit'
     ])->where('account_id', '[0-9]+')->where('id', '[0-9]+');
+    Route::post('{account_id}/incomes/save/{id?}', [
+        'as' => 'accounts.incomes.postSave',
+        'uses' => 'AccountIncomeController@postSave'
+    ])->where('account_id', '[0-9]+')->where('id', '[0-9]+');
 });

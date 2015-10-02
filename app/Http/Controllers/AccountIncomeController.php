@@ -5,10 +5,10 @@ namespace Budgeck\Http\Controllers;
 use Budgeck;
 use Illuminate\Http\Request;
 
-class AccountBudgetController extends Controller
+class AccountIncomeController extends Controller
 {
     /**
-     * Show the create account budget pop-up content
+     * Show the create account income pop-up content
      * 
      * @return \Illuminate\Http\Response
      */
@@ -23,23 +23,21 @@ class AccountBudgetController extends Controller
         else
         {
             view()->share('account', $account);
-            $accountBudget = $account->getBudgetById($id);
+            $accountIncome = $account->getIncomeById($id);
         }
         
-        if ($accountBudget != null)
+        if ($accountIncome != null)
         {
             $isCreation = false;
         }
-        view()->share('account_budget', $accountBudget);
+        view()->share('account_income', $accountIncome);
         view()->share('isCreation', $isCreation);
-        view()->share('listAccounts', Budgeck\Account::where('user_id', $this->user->id)->lists('name', 'id'));
-        view()->share('listCategories', Budgeck\Category::where('category_type_id', Budgeck\CategoryType::SPENDING)->lists('name', 'id'));
-        view()->share('listBudgetTypes', Budgeck\BudgetType::lists('name', 'id'));
-        return view('accounts.budgets.edit');
+        view()->share('listCategories', Budgeck\Category::where('category_type_id', Budgeck\CategoryType::INCOME)->lists('name', 'id'));
+        return view('accounts.incomes.edit');
     }
     
     /**
-     * Handles an account budget create or edit request
+     * Handles an account income create or edit request
      * 
      * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
@@ -54,20 +52,20 @@ class AccountBudgetController extends Controller
             ]]);
         }
         
-        $budget = $account->getBudgetById($id);
-        if ($budget == null)
+        $income = $account->getIncomeById($id);
+        if ($income == null)
         {
-            $budget = new Budgeck\AccountBudget();
-            $budget->account_id = $account->id;
+            $income = new Budgeck\AccountIncome();
+            $income->account_id = $account->id;
         }
 
-        if (!$budget->validate($request->all()))
+        if (!$income->validate($request->all()))
         {
-            return response()->json(['errors' => $budget->errors]);
+            return response()->json(['errors' => $income->errors]);
         }
         
-        $budget->fill($request->all());
-        if ($budget->save())
+        $income->fill($request->all());
+        if ($income->save())
         {
             return response()->json(['redirect' => route('accounts.getAccount', ['id' => $account->id])]);
         }
