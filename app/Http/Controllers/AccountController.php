@@ -26,13 +26,21 @@ class AccountController extends Controller
      */
     public function getAccount($id)
     {
-        $account = Budgeck\Account::getUserAccountById($id);
+        $account = null;
+        $accounts = $this->user->accounts;
+        foreach ($accounts as $acc)
+        {
+            if ($acc->id == $id)
+            {
+                $account = $acc;
+            }
+        }
+        
         if ($account == null)
         {
             abort(404);
         }
         
-        $accounts = $this->user->accounts;
         view()->share('accounts', $accounts);
         view()->share('account', $account);
         return view('accounts.account');
