@@ -68,7 +68,7 @@ class Account extends BaseModel
      * @param int $id
      * @return Budgeck\AccountBudget
      */
-    public function getBudgetById($id)
+    public function getAccountBudgetById($id)
     {
         foreach ($this->budgets as $budget)
         {
@@ -85,7 +85,7 @@ class Account extends BaseModel
      * @param int $id
      * @return Budgeck\AccountIncome
      */
-    public function getIncomeById($id)
+    public function getAccountIncomeById($id)
     {
         foreach ($this->incomes as $income)
         {

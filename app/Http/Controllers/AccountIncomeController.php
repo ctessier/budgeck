@@ -23,7 +23,7 @@ class AccountIncomeController extends Controller
         else
         {
             view()->share('account', $account);
-            $accountIncome = $account->getIncomeById($id);
+            $accountIncome = $account->getAccountIncomeById($id);
         }
         
         if ($accountIncome != null)
@@ -52,20 +52,20 @@ class AccountIncomeController extends Controller
             ]]);
         }
         
-        $income = $account->getIncomeById($id);
-        if ($income == null)
+        $accountIncome = $account->getAccountIncomeById($id);
+        if ($accountIncome == null)
         {
-            $income = new Budgeck\AccountIncome();
-            $income->account_id = $account->id;
+            $accountIncome = new Budgeck\AccountIncome();
+            $accountIncome->account_id = $account->id;
         }
 
-        if (!$income->validate($request->all()))
+        if (!$accountIncome->validate($request->all()))
         {
-            return response()->json(['errors' => $income->errors]);
+            return response()->json(['errors' => $accountIncome->errors]);
         }
         
-        $income->fill($request->all());
-        if ($income->save())
+        $accountIncome->fill($request->all());
+        if ($accountIncome->save())
         {
             return response()->json(['redirect' => route('accounts.getAccount', ['id' => $account->id])]);
         }
@@ -73,8 +73,5 @@ class AccountIncomeController extends Controller
         {
             return response()->json(['errors' => ['form' => 'TODO Error']]);
         }
-        
-        //TODO
-        //Run automate creating of month budget
     }
 }

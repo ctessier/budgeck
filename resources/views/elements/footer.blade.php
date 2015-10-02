@@ -1,3 +1,3 @@
 <div id="footer">
-    &copy; 2015 Budgeck
+    &copy; {{ date('Y') }} {{ Config::get('budgeck.appName') }}
 </div>

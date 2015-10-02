@@ -2,6 +2,8 @@
 
 namespace Budgeck;
 
+use Carbon\Carbon;
+
 class AccountIncome extends BaseModel
 {
     /**
@@ -47,4 +49,92 @@ class AccountIncome extends BaseModel
     {
         return $this->belongsTo('Budgeck\Account');
     }
+    
+    /**
+     * Create incomes from account income according to defined aheadness
+     */
+    public function createMonthsIncome()
+    {
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+        
+        for ($i=0 ; $i <= config('budgeck.aheadness') ; ++$i)
+        {
+            $income = Income::where('account_income_id', $this->id)
+                ->where('year', $currentYear)
+                ->where('month', $currentMonth)
+                ->withTrashed()
+                ->get();
+            
+            if ($income->isEmpty())
+            {
+                $income = new Income();
+                $income->title = $this->title;
+                $income->description = $this->description;
+                $income->amount = $this->amount;
+                $income->year = $currentYear;
+                $income->month = $currentMonth;
+                $income->expected_date = ($this->day) ? Carbon::create($currentYear, $currentMonth, $this->day) : null;
+                $income->account_id = $this->account_id;
+                $income->category_id = $this->category_id;
+                $income->account_income_id = $this->id;
+                $income->save();
+            }
+            
+            $currentMonth++;
+            if ($currentMonth > 12)
+            {
+                $currentYear++;
+                $currentMonth = 1;
+            }
+        }
+    }
+    
+    /**
+     * Update incomes from updated account income according to defined aheadness
+     * Current month is not updated
+     */
+    public function updateMonthsIncome()
+    {
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+        
+        for ($i=0 ; $i < config('budgeck.aheadness') ; ++$i)
+        {
+            $currentMonth++;
+            if ($currentMonth > 12)
+            {
+                $currentYear++;
+                $currentMonth = 1;
+            }
+            
+            $income = Income::where('account_income_id', $this->id)
+                ->where('year', $currentYear)
+                ->where('month', $currentMonth)
+                ->first();
+            
+            if ($income == null)
+            {
+                $income = new Income();
+            }
+            $income->title = $this->title;
+            $income->description = $this->description;
+            $income->amount = $this->amount;
+            $income->year = $currentYear;
+            $income->month = $currentMonth;
+            $income->expected_date = ($this->day) ? Carbon::create($currentYear, $currentMonth, $this->day) : null;
+            $income->account_id = $this->account_id;
+            $income->category_id = $this->category_id;
+            $income->account_income_id = $this->id;
+            $income->save();
+        }
+    }
 }
+
+AccountIncome::created(function($accountIncome){
+    $accountIncome->createMonthsIncome();
+});
+
+AccountIncome::updated(function($accountIncome){
+    $accountIncome->updateMonthsIncome();
+});

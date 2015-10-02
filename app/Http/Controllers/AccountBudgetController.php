@@ -23,7 +23,7 @@ class AccountBudgetController extends Controller
         else
         {
             view()->share('account', $account);
-            $accountBudget = $account->getBudgetById($id);
+            $accountBudget = $account->getAccountBudgetById($id);
         }
         
         if ($accountBudget != null)
@@ -54,20 +54,20 @@ class AccountBudgetController extends Controller
             ]]);
         }
         
-        $budget = $account->getBudgetById($id);
-        if ($budget == null)
+        $accountBudget = $account->getAccountBudgetById($id);
+        if ($accountBudget == null)
         {
-            $budget = new Budgeck\AccountBudget();
-            $budget->account_id = $account->id;
+            $accountBudget = new Budgeck\AccountBudget();
+            $accountBudget->account_id = $account->id;
         }
 
-        if (!$budget->validate($request->all()))
+        if (!$accountBudget->validate($request->all()))
         {
-            return response()->json(['errors' => $budget->errors]);
+            return response()->json(['errors' => $accountBudget->errors]);
         }
         
-        $budget->fill($request->all());
-        if ($budget->save())
+        $accountBudget->fill($request->all());
+        if ($accountBudget->save())
         {
             return response()->json(['redirect' => route('accounts.getAccount', ['id' => $account->id])]);
         }
@@ -75,8 +75,5 @@ class AccountBudgetController extends Controller
         {
             return response()->json(['errors' => ['form' => 'TODO Error']]);
         }
-        
-        //TODO
-        //Run automate creating of month budget
     }
 }

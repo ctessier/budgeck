@@ -2,6 +2,8 @@
 
 namespace Budgeck;
 
+use Carbon\Carbon;
+
 class AccountBudget extends BaseModel
 {
     /**
@@ -50,4 +52,94 @@ class AccountBudget extends BaseModel
     {
         return $this->belongsTo('Budgeck\Account');
     }
+    
+    /**
+     * Create budgets from account budget according to defined aheadness
+     */
+    public function createMonthsBudget()
+    {
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+        
+        for ($i=0 ; $i <= config('budgeck.aheadness') ; ++$i)
+        {
+            $budget = Budget::where('account_budget_id', $this->id)
+                ->where('year', $currentYear)
+                ->where('month', $currentMonth)
+                ->withTrashed()
+                ->get();
+            
+            if ($budget->isEmpty())
+            {
+                $budget = new Budget();
+                $budget->title = $this->title;
+                $budget->description = $this->description;
+                $budget->amount = $this->amount;
+                $budget->year = $currentYear;
+                $budget->month = $currentMonth;
+                $budget->date = ($this->day) ? Carbon::create($currentYear, $currentMonth, $this->day) : null;
+                $budget->account_id = $this->account_id;
+                $budget->category_id = $this->category_id;
+                $budget->account_budget_id = $this->id;
+                $budget->budget_type_id = $this->budget_type_id;
+                $budget->save();
+            }
+            
+            $currentMonth++;
+            if ($currentMonth > 12)
+            {
+                $currentYear++;
+                $currentMonth = 1;
+            }
+        }
+    }
+    
+    /**
+     * Update budgets from updated account income according to defined aheadness
+     * Current month is not updated
+     */
+    public function updateMonthsBudget()
+    {
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+        
+        for ($i=0 ; $i < config('budgeck.aheadness') ; ++$i)
+        {
+            $currentMonth++;
+            if ($currentMonth > 12)
+            {
+                $currentYear++;
+                $currentMonth = 1;
+            }
+            
+            $budget = Budget::where('account_budget_id', $this->id)
+                ->where('year', $currentYear)
+                ->where('month', $currentMonth)
+                ->first();
+            
+            if ($budget == null)
+            {
+                $budget = new Budget();
+            }
+            $budget->title = $this->title;
+            $budget->description = $this->description;
+            $budget->amount = $this->amount;
+            $budget->year = $currentYear;
+            $budget->month = $currentMonth;
+            $budget->date = ($this->day) ? Carbon::create($currentYear, $currentMonth, $this->day) : null;
+            $budget->account_id = $this->account_id;
+            $budget->category_id = $this->category_id;
+            $budget->account_budget_id = $this->id;
+            $budget->budget_type_id = $this->budget_type_id;
+            $budget->save();
+        }
+    }
 }
+
+AccountBudget::created(function($accountBudget){
+    $accountBudget->createMonthsBudget();
+});
+
+AccountBudget::updated(function($accountBudget){
+    $accountBudget->updateMonthsBudget();
+});

@@ -145,6 +145,7 @@ return [
         Budgeck\Providers\RouteServiceProvider::class,
 
         'Illuminate\Html\HtmlServiceProvider',
+        'Barryvdh\Debugbar\ServiceProvider',
             
     ],
 
@@ -195,7 +196,8 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
             
         'HTML'      => 'Illuminate\Html\HtmlFacade',
-        'Form'      => 'Illuminate\Html\FormFacade'
+        'Form'      => 'Illuminate\Html\FormFacade',
+        'Debugbar'  => 'Barryvdh\Debugbar\Facade',
 
     ],
 
