@@ -46,11 +46,37 @@ class AccountBudgetController extends Controller
      */
     public function postSave(Request $request, $account_id, $id = null)
     {
-        //TODO
+        $account = Budgeck\Account::getUserAccountById($account_id);
+        if ($account == null)
+        {
+            return response()->json(['errors' => [
+                'form' => 'Oops, une erreur s\‘est produite'
+            ]]);
+        }
         
-        // Get budget from account if edit
-        // Validate form
-        // Save budget account
-        // Run automate creating of month budget
+        $budget = $account->getBudgetById($id);
+        if ($budget == null)
+        {
+            $budget = new Budgeck\AccountBudget();
+            $budget->account_id = $account->id;
+        }
+
+        if (!$budget->validate($request->all()))
+        {
+            return response()->json(['errors' => $budget->errors]);
+        }
+        
+        $budget->fill($request->all());
+        if ($budget->save())
+        {
+            return response()->json(['redirect' => route('accounts.getAccount', ['id' => $account->id])]);
+        }
+        else
+        {
+            return response()->json(['errors' => ['form' => 'TO DO Error']]);
+        }
+        
+        //TODO
+        //Run automate creating of month budget
     }
 }

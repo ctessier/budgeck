@@ -75,7 +75,7 @@ Route::group(['prefix' => 'accounts', 'middleware' => 'auth'], function(){
         'as' => 'accounts.budgets.getEdit',
         'uses' => 'AccountBudgetController@getEdit'
     ])->where('account_id', '[0-9]+')->where('id', '[0-9]+');
-    Route::get('{account_id}/budgets/save/{id?}', [
+    Route::post('{account_id}/budgets/save/{id?}', [
         'as' => 'accounts.budgets.postSave',
         'uses' => 'AccountBudgetController@postSave'
     ])->where('account_id', '[0-9]+')->where('id', '[0-9]+');

@@ -40,18 +40,21 @@ class Account extends BaseModel
     public function singleBudgets()
     {
         return $this->hasMany('Budgeck\AccountBudget')
-            ->where('budget_type_id', BudgetType::SINGLE);
+            ->where('budget_type_id', BudgetType::SINGLE)
+            ->orderby('day');
     }
     
     public function multipleBudgets()
     {
         return $this->hasMany('Budgeck\AccountBudget')
-            ->where('budget_type_id', BudgetType::MULTIPLE);
+            ->where('budget_type_id', BudgetType::MULTIPLE)
+            ->orderby('title');
     }
     
     public function incomes()
     {
-        return $this->hasMany('Budgeck\AccountIncome');
+        return $this->hasMany('Budgeck\AccountIncome')
+            ->orderby('day');
     }
     
     public function getCurrentBalance()
@@ -59,6 +62,12 @@ class Account extends BaseModel
         return 'Indisponible';
     }
     
+    /**
+     * Return an account's budget from given id
+     * 
+     * @param int $id
+     * @return Budgeck\AccountBudget
+     */
     public function getBudgetById($id)
     {
         foreach ($this->budgets as $budget)

@@ -2,9 +2,9 @@
 
 @section('content')
 @if ($isCreation)
-{!! Form::open(['method' => 'post', 'route' => ['accounts.budgets.postSave', null], 'data-ajax-form' => 'true']) !!}
+{!! Form::open(['method' => 'post', 'route' => ['accounts.budgets.postSave', $account->id], 'data-ajax-form' => 'true']) !!}
 @else
-{!! Form::model($account_budget, ['method' => 'post', 'route' => ['accounts.budgets.postSave'], 'data-ajax-form' => 'true']) !!}
+{!! Form::model($account_budget, ['method' => 'post', 'route' => ['accounts.budgets.postSave', $account->id, $account_budget->id], 'data-ajax-form' => 'true']) !!}
 @endif
 <div class="row">
     <div class="columns large-12">
@@ -12,16 +12,10 @@
     </div>
 </div>
 <div class="row">
-    <div class="columns large-6">
+    <div class="columns large-12">
         <div class="form-group">
             {!! Form::label('title', 'Titre') !!}
             {!! Form::text('title', null, ['placeholder' => 'Titre...']) !!}
-        </div>
-    </div>
-    <div class="columns large-6">
-        <div class="form-group">
-            {!! Form::label('account_id', 'Compte') !!}
-            {!! Form::select('account_id', $listAccounts) !!}
         </div>
     </div>
 </div>
@@ -65,7 +59,7 @@
     <div class="columns large-12">
         <div class="form-group">
             @if ($isCreation)
-            {!! Form::submit('Créer le compte', ['class' => 'btn-base radius']) !!}
+            {!! Form::submit('Créer le budget', ['class' => 'btn-base radius']) !!}
             @else
             {!! Form::submit('Sauvegarder', ['class' => 'btn-base radius']) !!}
             @endif
