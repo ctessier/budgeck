@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \Budgeck\Console\Commands\Inspire::class,
+        \Budgeck\Console\Commands\BudgeckPrepareMonths::class,
     ];
 
     /**
