@@ -3,9 +3,9 @@
 .env.php
 .env
 /public/.htpasswd
-/artisan*
 /storage*
 /vendor*
 /nbproject*
 /node_modules*
 npm-debug.log
+
