@@ -3,7 +3,6 @@
 .env.php
 .env
 /public/.htpasswd
-/storage*
 /vendor*
 /nbproject*
 /node_modules*
