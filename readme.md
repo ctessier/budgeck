@@ -12,7 +12,7 @@ Budgeck is a budget monitoring web application build with Laravel 5.1. To use th
 - Run *artisan key:generate*
 - Run *artisan migrate --seed*
 
-# Development
+## Development
 
 - Run *npm install*
 - Run *gulp watch*
