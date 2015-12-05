@@ -34,7 +34,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = ['password', 'remember_token'];
     
     /**
-     * 
+     * Get all user's active accounts
      */
     public function accounts() 
     {
