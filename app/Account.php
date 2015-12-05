@@ -57,9 +57,19 @@ class Account extends BaseModel
             ->orderby('day');
     }
     
+    public function monthsBudgets()
+    {
+        return $this->hasMany('Budgeck\Budget');
+    }
+    
+    public function monthsIncomes()
+    {
+        return $this->hasMany('Budgeck\Income');
+    }
+    
     public function getCurrentBalance()
     {
-        return 'Indisponible';
+        //return $this->get
     }
     
     /**
@@ -94,6 +104,23 @@ class Account extends BaseModel
                 return $income;
             }
         }
+    }
+    
+    public function getBudgets($year, $month)
+    {
+        return Budget::where('account_id', $this->id)
+            ->where('year', $year)
+            ->where('month', $month)
+            ->orderby('date')
+            ->get();
+    }
+    
+    public function getIncomes($year, $month)
+    {
+        return Income::where('account_id', $this->id)
+            ->where('year', $year)
+            ->where('month', $month)
+            ->get();
     }
     
     /**

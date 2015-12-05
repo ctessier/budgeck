@@ -29,4 +29,8 @@ class Budget extends BaseModel
     protected $messages = [
         
     ];
+    
+    public function getAmountSpent() {
+        return Spending::where('budget_id', $this->id)->sum('amount');
+    }
 }

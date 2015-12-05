@@ -94,4 +94,29 @@ class AccountController extends Controller
             return response()->json(['errors' => ['form' => 'TO DO Error']]);
         }
     }
+    
+    /**
+     * 
+     * 
+     * @param int $id Account id
+     * @param int $year Year
+     * @param int $month Month
+     * @return \Illuminuate\Http\Response
+     */
+    public function getMonth($id, $year, $month)
+    {
+        $account = \Budgeck\Account::getUserAccountById($id);
+        if ($account == null)
+        {
+            abort(404, "Account not found");
+        }
+        
+        $budgets = $account->getBudgets($year, $month);
+        $incomes = $account->getIncomes($year, $month);
+        
+        return view('accounts.month.index')
+            ->with('account', $account)
+            ->with('budgets', $budgets)
+            ->with('incomes', $incomes);
+    }
 }

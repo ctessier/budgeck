@@ -66,10 +66,10 @@ Route::group(['prefix' => 'accounts', 'middleware' => 'auth'], function(){
         'as' => 'accounts.postSave',
         'uses' => 'AccountController@postSave'
     ])->where('id', '[0-9]+');
-//    Route::get('{id}/year/{year}/month/{month}', [
-//        'as' => 'month', 
-//        'uses' => 'AccountController@month'
-//    ]);
+    Route::get('{id}/year/{year}/month/{month}', [
+        'as' => 'accounts.month',
+        'uses' => 'AccountController@getMonth'
+    ])->where('id', '[0-9]+')->where('year', '[0-9]{4}')->where('month', '[0-9]{1,2}');
     // Budgets
     Route::get('{account_id}/budgets/edit/{id?}', [
         'as' => 'accounts.budgets.getEdit',

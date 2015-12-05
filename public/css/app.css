@@ -4,6 +4,8 @@
  * Copyright 2015, Clément Tessier
  *
  */
+/* Colors
+ *--------------------------------------------------------*/
 /* Utility Classes
 *--------------------------------------------------------*/
 .left {
@@ -210,6 +212,55 @@ ul.tabs a:hover {
   -webkit-border-radius: 4px;
   border: 2px solid #3ea9e6;
 }
+.budget .title {
+  display: inline-block;
+  width: 33%;
+}
+.budget .progress-bar-container {
+  position: relative;
+  height: 20px;
+  background-color: #eee;
+  width: 65%;
+  float: right;
+}
+.budget .progress-bar-container .amount {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.budget .progress-bar-container .progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #FF7070;
+}
+.budget .progress-bar-container .progress-bar .spent {
+  float: right;
+}
+.income .title {
+  display: inline-block;
+  width: 33%;
+}
+.income .progress-bar-container {
+  position: relative;
+  height: 20px;
+  background-color: #eee;
+  width: 65%;
+  float: right;
+}
+.income .progress-bar-container .amount {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.income .progress-bar-container .progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #FF7070;
+}
 /* General
  *--------------------------------------------------------*/
 * {
@@ -247,7 +298,7 @@ body {
 header {
   position: relative;
   height: 45px;
-  background-color: #3ea9e6;
+  background-color: #babcbe;
   margin-bottom: 20px;
 }
 header .logo {
@@ -277,13 +328,16 @@ nav ul li {
 nav ul li a {
   display: inline-block;
   padding: 11.2px 15px;
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
 }
-nav ul li a:hover,
 nav ul li.active a,
 nav ul li.active a:hover {
-  background-color: #6ec1f3;
+  background-color: #ed3a25;
+  color: #ffffff;
+}
+nav ul li a:hover {
+  color: #ed3a25;
 }
 /* Headings
 *--------------------------------------------------------*/
