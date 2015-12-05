@@ -1,4 +1,4 @@
-<div class="columns large-8">
+<div class="columns large-12">
     <div data-tab-id="budgets" class="tab-content content active">
         @foreach ($budgets as $budget)
         {{--*/ $amountSpent = $budget->getAmountSpent() /*--}}

@@ -161,14 +161,14 @@ function formEscapeName(string)
  */
 function initTabs()
 {
-    $('ul.tabs li[data-tab-id] a').on('click', function(e){
+    $('ul.tabs li[data-tab-id] a, ul.tabs-horizontal li[data-tab-id] a').on('click', function(e){
         e.preventDefault();
 
         // Get data-tab-id to enable
         var data_tab_id = $(this).parent('li').attr('data-tab-id');
 
         // Inactive tab and active new tab
-        $('ul.tabs li.active').removeClass('active');
+        $('ul.tabs li.active, ul.tabs-horizontal li.active').removeClass('active');
         $(this).parent('li').addClass('active');
 
         // Inactive tab content and active new tab content

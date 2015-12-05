@@ -1,4 +1,4 @@
-<div class="columns large-8">
+<div class="columns large-12">
     <div data-tab-id="incomes" class="tab-content content">
         @foreach ($incomes as $income)
         <div class="income">

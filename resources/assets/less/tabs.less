@@ -42,3 +42,41 @@ ul.tabs a:hover {
 .tab-content.active {
     display: block;
 }
+
+ul.tabs-horizontal {
+    position: relative;
+    margin-bottom: -1px;
+}
+
+ul.tabs-horizontal li {
+    float: left;
+    list-style-type: none;
+    border: 1px solid lightgrey;
+    border-bottom: none;
+    width: auto;
+}
+
+ul.tabs-horizontal li:not(:first-child) {
+    border-left: none;
+}
+
+ul.tabs-horizontal li.active {
+    border-top: 2px solid #6ec1f3;
+    border-bottom: none;
+}
+
+ul.tabs li.active a {
+}
+
+ul.tabs-horizontal a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px 35px;
+    text-decoration: none;
+    color: #565a5c;
+}
+
+ul.tabs-horizontal a:hover {
+    background: #eee;
+}

@@ -1,5 +1,5 @@
-<div class="columns large-4">
-    <ul class="tabs">
+<div class="columns large-12">
+    <ul class="tabs-horizontal">
         <li class="active" data-tab-id="budgets">
             <a href="#">Budgets</a>
         </li>
