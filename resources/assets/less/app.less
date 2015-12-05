@@ -54,7 +54,7 @@ header {
 header .logo {
     text-decoration: none;
     font-size: 1.4em;
-    color: #fff;
+    color: @color-header-logo;
     height: 100%;
     line-height: 45px;
     letter-spacing: 2px;
@@ -81,13 +81,14 @@ nav ul li a {
     color: @color-header-link;
     text-decoration: none;
 }
-nav ul li.active a,
-nav ul li.active a:hover {
-    background-color: @color-header-link-active-background;
-    color: @color-header-link-active;
-}
 nav ul li a:hover {
     color: @color-header-link-hover;
+    background-color: @color-header-link-hover-background;
+}
+nav ul li.active a,
+nav ul li.active a:hover {
+    color: @color-header-link-active;
+    background-color: @color-header-link-active-background;
 }
 
 /* Headings
@@ -125,7 +126,7 @@ p.info {
 }
 .content {
     position: relative;
-    background-color: #fff;
+    background-color: @color-content-background;
     width: 100%;
     padding: 20px;
     border: 1px solid #eee;
@@ -144,5 +145,5 @@ p.info {
     font-size: 0.8em;
     text-align: center;
     height: 30px;
-    color: #99a0a3; 
+    color: @color-footer-font; 
 }
