@@ -21,7 +21,7 @@ class BudgeckPrepareMonths extends Command
      *
      * @var string
      */
-    protected $description = 'Prepare upcoming months with account budgets and incomes';
+    protected $description = 'Prepare upcoming months with accounts\' budgets and incomes';
 
     /**
      * Create a new command instance.
