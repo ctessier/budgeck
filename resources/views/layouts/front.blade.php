@@ -14,11 +14,12 @@
     </head>
     <body>
         <div id="wrapper">
-        @include('elements.header')
-        <div class="row">
-        @yield('content')
-        </div>                
-        @yield('tail')
+            @include('elements.header')
+            <div class="row">
+                @yield('content')
+            </div>
+            <div class="push"></div>
+            @yield('tail')
         </div>
         @include('elements.footer')
         <div id="ajax-lightbox-background"></div>
