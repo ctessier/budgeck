@@ -8,7 +8,7 @@ Budgeck is a budget monitoring web application build with Laravel 5.1. To use th
 
 - Make sure *storage* directory is writable
 - Run *cp .env.example .env*
-  _If you don't use Homestead, edit the environment variables values to connect to your own database_
+- If you don't use Homestead, edit the environment variables values to connect to your own database
 - Run *composer install*
 - Run *php artisan key:generate*
 - Run *php artisan migrate --seed*
