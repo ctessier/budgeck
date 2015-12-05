@@ -144,8 +144,8 @@ return [
         Budgeck\Providers\EventServiceProvider::class,
         Budgeck\Providers\RouteServiceProvider::class,
 
-        'Illuminate\Html\HtmlServiceProvider',
-        'Barryvdh\Debugbar\ServiceProvider',
+        Illuminate\Html\HtmlServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
             
     ],
 
@@ -195,9 +195,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
             
-        'HTML'      => 'Illuminate\Html\HtmlFacade',
-        'Form'      => 'Illuminate\Html\FormFacade',
-        'Debugbar'  => 'Barryvdh\Debugbar\Facade',
+        //'BudgeckHelper' => 
+        'HTML'      => Illuminate\Html\HtmlFacade::class,
+        'Form'      => Illuminate\Html\FormFacade::class,
+        'Debugbar'  => Barryvdh\Debugbar\Facade::class,
 
     ],
 
