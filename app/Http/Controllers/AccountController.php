@@ -21,16 +21,16 @@ class AccountController extends Controller
     /**
      * Show the view detailing a given account
      * 
-     * @param int $id
+     * @param int $account_id
      * @return \Illuminate\Http\Request
      */
-    public function getAccount($id)
+    public function getAccount($account_id)
     {
         $account = null;
         $accounts = $this->user->accounts;
         foreach ($accounts as $acc)
         {
-            if ($acc->id == $id)
+            if ($acc->id == $account_id)
             {
                 $account = $acc;
             }
@@ -98,14 +98,14 @@ class AccountController extends Controller
     /**
      * 
      * 
-     * @param int $id Account id
+     * @param int $account_id Account id
      * @param int $year Year
      * @param int $month Month
      * @return \Illuminuate\Http\Response
      */
-    public function getMonth($id, $year, $month)
+    public function getMonth($account_id, $year, $month)
     {
-        $account = \Budgeck\Account::getUserAccountById($id);
+        $account = \Budgeck\Account::getUserAccountById($account_id);
         if ($account == null)
         {
             abort(404, "Account not found");
@@ -117,6 +117,8 @@ class AccountController extends Controller
         return view('accounts.month.index')
             ->with('account', $account)
             ->with('budgets', $budgets)
-            ->with('incomes', $incomes);
+            ->with('incomes', $incomes)
+            ->with('year', $year)
+            ->with('month', $month);
     }
 }

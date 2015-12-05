@@ -5,7 +5,7 @@
 @section('content')
 <div class="columns large-7 small-12">
     <div class="content">
-        {!! HTML::linkRoute('accounts.month', 'Suivi du mois en cours', ['id' => 1, 'month' => 11, 'year' => 2015], ['class' => 'btn-base radius']) !!}
+        {!! HTML::linkRoute('accounts.month', 'Suivi du mois en cours', ['account_id' => 1, 'month' => date('m'), 'year' => date('Y')], ['class' => 'btn-base radius']) !!}
     </div>
 </div>
 <div class="columns large-5 small-12">

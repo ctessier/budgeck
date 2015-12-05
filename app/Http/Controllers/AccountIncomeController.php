@@ -12,7 +12,7 @@ class AccountIncomeController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function getEdit($account_id, $id = null)
+    public function getEdit($account_id, $income_id = null)
     {
         $isCreation = true;
         $account = Budgeck\Account::getUserAccountById($account_id);
@@ -23,7 +23,7 @@ class AccountIncomeController extends Controller
         else
         {
             view()->share('account', $account);
-            $accountIncome = $account->getAccountIncomeById($id);
+            $accountIncome = $account->getAccountIncomeById($income_id);
         }
         
         if ($accountIncome != null)
@@ -42,7 +42,7 @@ class AccountIncomeController extends Controller
      * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
-    public function postSave(Request $request, $account_id, $id = null)
+    public function postSave(Request $request, $account_id, $income_id = null)
     {
         $account = Budgeck\Account::getUserAccountById($account_id);
         if ($account == null)
@@ -52,7 +52,7 @@ class AccountIncomeController extends Controller
             ]]);
         }
         
-        $accountIncome = $account->getAccountIncomeById($id);
+        $accountIncome = $account->getAccountIncomeById($income_id);
         if ($accountIncome == null)
         {
             $accountIncome = new Budgeck\AccountIncome();

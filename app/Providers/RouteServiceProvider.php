@@ -24,7 +24,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        //
+        $router->pattern('account_id', '[0-9]+');
+        $router->pattern('budget_id', '[0-9]+');
+        $router->pattern('income_id', '[0-9]+');
+        $router->pattern('year', '[0-9]{4}');
+        $router->pattern('month', '[0-9]{1,2}');
 
         parent::boot($router);
     }

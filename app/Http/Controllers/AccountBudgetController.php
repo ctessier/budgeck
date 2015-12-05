@@ -12,7 +12,7 @@ class AccountBudgetController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function getEdit($account_id, $id = null)
+    public function getEdit($account_id, $budget_id = null)
     {
         $isCreation = true;
         $account = Budgeck\Account::getUserAccountById($account_id);
@@ -23,7 +23,7 @@ class AccountBudgetController extends Controller
         else
         {
             view()->share('account', $account);
-            $accountBudget = $account->getAccountBudgetById($id);
+            $accountBudget = $account->getAccountBudgetById($budget_id);
         }
         
         if ($accountBudget != null)
@@ -44,7 +44,7 @@ class AccountBudgetController extends Controller
      * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
-    public function postSave(Request $request, $account_id, $id = null)
+    public function postSave(Request $request, $account_id, $budget_id = null)
     {
         $account = Budgeck\Account::getUserAccountById($account_id);
         if ($account == null)
@@ -54,7 +54,7 @@ class AccountBudgetController extends Controller
             ]]);
         }
         
-        $accountBudget = $account->getAccountBudgetById($id);
+        $accountBudget = $account->getAccountBudgetById($budget_id);
         if ($accountBudget == null)
         {
             $accountBudget = new Budgeck\AccountBudget();
