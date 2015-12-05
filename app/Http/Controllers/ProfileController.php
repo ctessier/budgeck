@@ -95,7 +95,7 @@ class ProfileController extends Controller
         
         if (!Hash::check($request->get('oldpassword'), $this->user->password))
         {
-            return reponse()->json([
+            return response()->json([
                 'errors' => ['form' => 'Le mot de passe actuel est incorrect.']
             ]);
         }
