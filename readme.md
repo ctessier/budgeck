@@ -1,5 +1,7 @@
 # Budgeck 
 
+[![Build Status](https://travis-ci.org/ctessier/budgeck.svg?branch=master)](https://travis-ci.org/ctessier/budgeck)
+
 Budgeck is a budget monitoring web application build with Laravel 5.1. To use this project, please make a fork.
 
 **This project is still in build phase and yet, all the functionnalities have not been developped.**
