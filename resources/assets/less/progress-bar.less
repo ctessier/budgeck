@@ -1,7 +1,6 @@
 .progress {
     position: relative;
     float: left;
-    width: 65%; 
     height: 100%;
     font-size: .9em;
 
@@ -16,11 +15,10 @@
         margin-top: 12px;
 
         .progress-bar {
-            position: relative;
+            position: absolute;
             top: 0;
             left: 0;
             height: 100%;
-            background-color: #FF7070;
             border-radius: 10px;
 
             .current-amount:before {
@@ -39,11 +37,22 @@
                 position: relative;
                 width: 60px;
                 top: -4px;
-                left: 30px;
+                left: 32px;
                 text-align: center;
                 padding-top: 15px;
                 font-size: .8em;
             }
+        }
+        .progress-bar.awaiting {
+            background-color: #ccc;
+            
+            .current-amount {
+                color: #bbb;
+                left: 25px;
+            }
+        }
+        .progress-bar.awaiting.full {
+            background-color: orange;
         }
         .progress-bar.green {
             background-color: green;

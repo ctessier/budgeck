@@ -30,12 +30,10 @@ class AccountBudgetController extends Controller
         {
             $isCreation = false;
         }
-        view()->share('account_budget', $accountBudget);
-        view()->share('isCreation', $isCreation);
-        view()->share('listAccounts', Budgeck\Account::where('user_id', $this->user->id)->lists('name', 'id'));
-        view()->share('listCategories', Budgeck\Category::where('category_type_id', Budgeck\CategoryType::SPENDING)->lists('name', 'id'));
-        view()->share('listBudgetTypes', Budgeck\BudgetType::lists('name', 'id'));
-        return view('accounts.budgets.edit');
+        
+        return view('accounts.budgets.edit')
+            ->with('account_budget', $accountBudget)
+            ->with('isCreation', $isCreation);
     }
     
     /**

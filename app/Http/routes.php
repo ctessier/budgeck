@@ -81,7 +81,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'accounts'], function(){
         'as' => 'budgets.getEdit',
         'uses' => 'BudgetController@getEdit'
     ]);
-    Route::get('{account_id}/year/{year}/month/{month}/budgets/save/{budget_id?}', [
+    Route::post('{account_id}/year/{year}/month/{month}/budgets/save/{budget_id?}', [
         'as' => 'budgets.postSave',
         'uses' => 'BudgetController@postSave'
     ]);
@@ -90,7 +90,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'accounts'], function(){
         'as' => 'incomes.getEdit',
         'uses' => 'IncomeController@getEdit'
     ]);
-    Route::get('{account_id}/year/{year}/month/{month}/incomes/save/{income_id?}', [
+    Route::post('{account_id}/year/{year}/month/{month}/incomes/save/{income_id?}', [
         'as' => 'incomes.postSave',
         'uses' => 'IncomeController@postSave'
     ]);
@@ -115,3 +115,26 @@ Route::group(['middleware' => 'auth', 'prefix' => 'accounts'], function(){
         'uses' => 'AccountIncomeController@postSave'
     ]);
 });
+
+/**
+ * Budgets routes
+ * Needs to be authenticated...
+*/
+Route::group(['middleware' => 'auth', 'prefix' => 'budgets'], function(){
+    Route::get('{budget_id}/delete', [
+        'as' => 'budgets.delete',
+        'uses' => 'BudgetController@delete'
+    ]);
+});
+
+/**
+ * Incomes routes
+ * Needs to be authenticated...
+*/
+Route::group(['middleware' => 'auth', 'prefix' => 'incomes'], function(){
+    Route::get('{income_id}/delete', [
+        'as' => 'incomes.delete',
+        'uses' => 'IncomeController@delete'
+    ]);
+});
+

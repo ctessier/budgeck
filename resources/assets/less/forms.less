@@ -101,7 +101,8 @@ form > .validation-success-message {
     text-decoration: none;
     margin-top: 10px;
 }
-.btn-base:hover {
+.btn-base:hover,
+.btn-tiny:hover {
     background-color: #3ea9e6;
 }
 .btn-grey {
@@ -110,4 +111,10 @@ form > .validation-success-message {
 }
 .btn-grey:hover {
     background-color: #d5dade;
+}
+.btn-tiny {
+    &:extend(.btn-base);
+    padding: 3px 8px;
+    font-size: .8em;
+    margin-top: 0;
 }

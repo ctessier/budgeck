@@ -40,4 +40,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasMany('\Budgeck\Account');
     }
+    
+    /**
+     * Get all user's active accounts as a list
+     */
+    public function getAccountsList()
+    {
+        return Account::where('user_id', $this->id)
+            ->lists('name', 'id');
+    }
 }

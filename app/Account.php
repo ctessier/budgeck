@@ -111,7 +111,7 @@ class Account extends BaseModel
         return Budget::where('account_id', $this->id)
             ->where('year', $year)
             ->where('month', $month)
-            ->orderby('date')
+            ->orderby('budget_type_id')
             ->get();
     }
     
