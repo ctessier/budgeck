@@ -64,4 +64,18 @@ class Budget extends BaseModel
             ->whereNotNull('debit_date')
             ->sum('amount');
     }
+    
+    /**
+     * Returns list of budgets according to account, year and month
+     */
+    public static function getListFromAccountYearMonth($account_id, $year, $month) 
+    {
+        \Debugbar::info($account_id);
+        \Debugbar::info($year);
+        \Debugbar::info($month);
+        return self::where('account_id', $account_id)
+            ->where('year', $year)
+            ->where('month', $month)
+            ->lists('title', 'id');
+    }
 }

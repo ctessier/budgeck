@@ -112,6 +112,7 @@ class Account extends BaseModel
             ->where('year', $year)
             ->where('month', $month)
             ->orderby('budget_type_id')
+            ->orderby('date')
             ->get();
     }
     

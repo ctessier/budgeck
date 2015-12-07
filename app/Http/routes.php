@@ -85,6 +85,16 @@ Route::group(['middleware' => 'auth', 'prefix' => 'accounts'], function(){
         'as' => 'budgets.postSave',
         'uses' => 'BudgetController@postSave'
     ]);
+    // Add spending
+    Route::get('{account_id}/year/{year}/month/{month}/budgets/{budget_id?}/spendings/edit/{spending_id?}', [
+        'as' => 'budgets.spendings.getEdit',
+        'uses' => 'SpendingController@getEdit'
+    ]);
+    Route::post('{account_id}/year/{year}/month/{month}/budgets/{budget_id?}/spendings/edit/{spending_id?}', [
+        'as' => 'budgets.spendings.postSave',
+        'uses' => 'SpendingController@postSave'
+    ]);
+    
     // Get and save incomes
     Route::get('{account_id}/year/{year}/month/{month}/incomes/edit/{income_id?}', [
         'as' => 'incomes.getEdit',
@@ -137,4 +147,3 @@ Route::group(['middleware' => 'auth', 'prefix' => 'incomes'], function(){
         'uses' => 'IncomeController@delete'
     ]);
 });
-

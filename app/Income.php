@@ -13,7 +13,7 @@ class Income extends BaseModel
         'expected_date', 'account_id', 'category_id', 'account_income_id'];
     
     /**
-     * Define the rules to create or edit a budget 
+     * Define the rules to create or edit a income 
      * 
      * @var array 
      */
