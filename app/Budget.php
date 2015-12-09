@@ -35,7 +35,16 @@ class Budget extends BaseModel
      * @var array 
      */
     protected $messages = [
-        
+        'title.required' => 'Le titre ne peut pas être vide',
+        'title.max' => 'Le titre ne peut pas être aussi long',
+        'description.max' => 'La description ne peut pas être aussi longue',
+        'amount.required' => 'Le montant ne peut pas être vide',
+        'amount.regex' => 'Le format du montant est incorrect',
+        'year.required' => 'Une année doit être sélectionnée',
+        'month.required' => 'Un mois doit être sélectionné',
+        'date.required_if' => 'La date ne peut pas être vide',
+        'account_id.required' => 'Un compte doit être sélectionné',
+        'budget_type_id.required' => 'Un type de budget doit être sélectionné'
     ];
     
     /**
