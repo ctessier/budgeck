@@ -24,7 +24,7 @@ class Spending extends BaseModel
         'debit_date' => 'date_format:Y-m-d',
         'category_id' => 'required|exists:categories,id',
         'budget_id' => 'required|exists:budgets,id',
-        'payment_method_id' => 'required|exists:budgets,id'
+        'payment_method_id' => 'required|exists:payment_methods,id'
     ];
     
     /**
