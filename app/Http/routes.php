@@ -10,10 +10,11 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-Route::get('/', function(){
-    return redirect(route('dashboard')); 
-});
+    
+Route::get('/', [
+    'as' => 'home',
+    'uses' => 'HomeController@getHome'
+]);
 
 /**
  * Login
@@ -25,35 +26,42 @@ Route::post('login', 'Auth\AuthController@postLogin');
  * Needs to be authenticated...
  */
 Route::group(['middleware' => 'auth'], function(){
-
-    // Dashboard
-    Route::get('dashboard', [
-        'as' => 'dashboard',
-        'uses' => 'DashboardController@index'
-    ]);
-    
-    // Profile
-    Route::get('profile', [
-        'as' => 'profile',
-        'uses' => 'ProfileController@index'
-    ]);
-    Route::post('profile/save', [
-        'as' => 'profile.save',
-        'uses' => 'ProfileController@postProfileSave'
-    ]);
-    Route::post('profile/savepassword', [
-        'as' => 'profile.savepassword',
-        'uses' => 'ProfileController@postPasswordSave'
-    ]);
-    
+    // Logout
     Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 });
 
-/**
+/* 
+ * Profile routes
+ * Needs to be authenticated
+ */
+Route::group(['middleware' => 'auth', 'prefix' => 'profile'], function(){
+    // Get edit profile and password form
+    Route::get('/', [
+        'as' => 'profile',
+        'uses' => 'ProfileController@index'
+    ]);
+    // Send edit profile form
+    Route::post('save', [
+        'as' => 'profile.save',
+        'uses' => 'ProfileController@postProfileSave'
+    ]);
+    // Send edit password form
+    Route::post('savepassword', [
+        'as' => 'profile.savepassword',
+        'uses' => 'ProfileController@postPasswordSave'
+    ]); 
+});
+
+/*
  * Accounts routes
  * Needs to be authenticated...
-*/
+ */
 Route::group(['middleware' => 'auth', 'prefix' => 'accounts'], function(){
+    Route::get('{account_id}/history', [
+        'as' => 'history',
+        'uses' => 'HistoryController@getHistory'
+    ]);
+    
     Route::get('/', [
         'as' => 'accounts',
         'uses' => 'AccountController@index'
@@ -85,14 +93,14 @@ Route::group(['middleware' => 'auth', 'prefix' => 'accounts'], function(){
         'as' => 'budgets.postSave',
         'uses' => 'BudgetController@postSave'
     ]);
-    // Add spending
+    // Add transaction
     Route::get('{account_id}/year/{year}/month/{month}/budgets/{budget_id?}/spendings/edit/{spending_id?}', [
-        'as' => 'budgets.spendings.getEdit',
-        'uses' => 'SpendingController@getEdit'
+        'as' => 'budgets.transactions.getEdit',
+        'uses' => 'TransactionController@getEdit'
     ]);
     Route::post('{account_id}/year/{year}/month/{month}/budgets/{budget_id?}/spendings/edit/{spending_id?}', [
-        'as' => 'budgets.spendings.postSave',
-        'uses' => 'SpendingController@postSave'
+        'as' => 'budgets.transactions.postSave',
+        'uses' => 'TransactionController@postSave'
     ]);
     
     // Get and save incomes

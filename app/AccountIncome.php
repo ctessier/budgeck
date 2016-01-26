@@ -74,7 +74,7 @@ class AccountIncome extends BaseModel
                 $income->amount = $this->amount;
                 $income->year = $currentYear;
                 $income->month = $currentMonth;
-                $income->expected_date = ($this->day) ? Carbon::create($currentYear, $currentMonth, $this->day) : null;
+                $income->date = ($this->day) ? Carbon::create($currentYear, $currentMonth, $this->day) : null;
                 $income->account_id = $this->account_id;
                 $income->category_id = $this->category_id;
                 $income->account_income_id = $this->id;

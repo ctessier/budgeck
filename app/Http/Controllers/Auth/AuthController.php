@@ -37,7 +37,7 @@ class AuthController extends Controller
      * 
      * @var string 
      */
-    protected $redirectTo = '/accounts';
+    protected $redirectTo = '/';
     
     /**
      * Redirection route after logout
@@ -146,7 +146,7 @@ class AuthController extends Controller
         $credentials = $this->getCredentials($request);
         
         if (Auth::attempt($credentials, $request->has('remember'))) {
-            return response()->json(['redirect' => route('dashboard')]);
+            return response()->json(['redirect' => $this->redirectTo]);
         }
         
         // If the login attempt was unsuccessful we will increment the number of attempts

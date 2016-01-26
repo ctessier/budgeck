@@ -91,6 +91,23 @@ nav ul li.active a:hover {
     color: @color-header-link-active;
     background-color: @color-header-link-active-background;
 }
+nav ul li ul {
+    display: none;
+    position: absolute;
+    text-align: right;
+    right: 0;
+    z-index: 10;
+    li {
+        display: block;
+    }
+    li a {
+        color: @color-header-link-active;
+        background-color: @color-header-link-active-background;
+    }
+}
+nav ul li:hover ul {
+    display: block;
+}
 
 /* Headings
 *--------------------------------------------------------*/
@@ -130,7 +147,7 @@ p.info {
     background-color: @color-content-background;
     width: 100%;
     padding: 20px;
-    border: 1px solid #eee;
+    border: 1px solid @color-block-border;
     margin-bottom: 15px;
 }
 

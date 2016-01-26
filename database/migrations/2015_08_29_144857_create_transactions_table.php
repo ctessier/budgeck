@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSpendingsTable extends Migration
+class CreateTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,15 +19,16 @@ class CreateSpendingsTable extends Migration
             $table->softDeletes();
         });
         
-        Schema::create('spendings', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('description', 255);
+            $table->string('title', 45);
             $table->float('amount')->unsigned();
-            $table->date('payment_date');
-            $table->date('debit_date')->nullable();
+            $table->date('transaction_date');
+            $table->date('effective_date')->nullable();
             $table->text('comment')->nullable();
             $table->integer('category_id')->nullable()->unsigned();
-            $table->integer('budget_id')->unsigned();
+            $table->integer('budget_id')->unsigned()->nullable();
+            $table->integer('income_id')->unsigned()->nullable();
             $table->integer('payment_method_id')->nullable()->unsigned();
             $table->timestamps();
             $table->softDeletes();
@@ -40,6 +41,11 @@ class CreateSpendingsTable extends Migration
             $table->foreign('budget_id')
                 ->references('id')
                 ->on('budgets')
+                ->onDelete('cascade');
+            
+            $table->foreign('income_id')
+                ->references('id')
+                ->on('incomes')
                 ->onDelete('cascade');
             
             $table->foreign('payment_method_id')
@@ -56,7 +62,7 @@ class CreateSpendingsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('spendings');
+        Schema::drop('transactions');
         Schema::drop('payment_methods');
     }
 }

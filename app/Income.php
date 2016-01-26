@@ -55,4 +55,20 @@ class Income extends BaseModel
             ->whereNotNull('debit_date')
             ->sum('amount');
     }
+    
+    /**
+     *
+     */
+    public static function getFromAccounts($accounts)
+    {
+        $incomes = collect();
+        foreach ($accounts as $account)
+        {
+            $incomes = $incomes->merge(self::select('incomes.*')
+                ->where('account_id', $account->id)
+                ->get()
+            );
+        }
+        return $incomes;
+    }
 }

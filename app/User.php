@@ -42,11 +42,36 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
     
     /**
+     *
+     */
+    public function accountsFromId($account_id)
+    {
+        if ($account_id === 'all')
+        {
+            return $this->accounts;
+        }
+        else
+        {
+            return $this->hasMany('\Budgeck\Account')
+                ->where('id', $account_id);
+        }   
+    }
+    
+    /**
      * Get all user's active accounts as a list
      */
     public function getAccountsList()
     {
         return Account::where('user_id', $this->id)
             ->lists('name', 'id');
+    }
+    
+    /**
+     * Returns the default account of the user.
+     * If the user has no default account, 'all' is returned.
+     */
+    public function getDefaultAccount()
+    {
+        return 'all';
     }
 }

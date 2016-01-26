@@ -3,7 +3,7 @@
 @section('title', 'Mon profil')
 
 @section('content')
-@include('profile.sidebar')
+@include('menu.sidebar.profile')
 <div class="columns large-8">
     <div class="content">   
         <h3>Mes informations personnelles</h3>

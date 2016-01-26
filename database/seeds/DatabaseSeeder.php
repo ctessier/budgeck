@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AccountTableSeeder::class);
         $this->call(IncomeTableSeeder::class);
         $this->call(BudgetTableSeeder::class);
-        $this->call(SpendingTableSeeder::class);
 
         Model::reguard();
     }
