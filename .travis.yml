@@ -13,3 +13,8 @@ before_script:
 script:
   - vendor/bin/phpunit
   
+before_install:
+  - pip install --user codecov
+after_success:
+  - codecov
+  
