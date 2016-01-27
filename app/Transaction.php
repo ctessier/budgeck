@@ -80,6 +80,12 @@ class Transaction extends BaseModel
         
         $query = $transactionsFromBudgets->union($transactionsFromIncomes->getQuery());
         
+        if ($awaiting) {
+            $query->orderBy('transaction_date', 'DESC');
+        } else {
+            $query->orderBy('effective_date', 'DESC');    
+        }
+        
         //TODO: paginator
         return $query->get();
     }
