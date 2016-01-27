@@ -1,11 +1,12 @@
 @extends('layouts.front')
 
-@section('title', $account->description)
+@section('title', 'Détails du compte')
 
 @section('content')
-@include('accounts.sidebar')
+@include('menu.sidebar.profile')
 <div class="columns large-8">
     <div class="content">
+        
         <h2>{{ $account->name }}</h2>
         <h3>Budgets</h3>
         <div class="cf">

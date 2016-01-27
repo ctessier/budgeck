@@ -1,3 +1,39 @@
+.list-accounts {
+    .account {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: @color-account-background;
+        margin-bottom: 10px;
+        
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        span {
+            display: block;
+        }
+        .account-name {
+            font-weight: bold;
+        }
+        .account-description {
+            font-style: italic;
+        }
+        .account-balance {
+            float: right;
+            &.positive {
+                color: green;
+            }
+            &.negative {
+                color: red;
+            }
+        }
+    }
+    &.account::last-child {
+        margin-bottom: 0;
+    }
+}
+
 .budget, .income {
     height: 30px;
     

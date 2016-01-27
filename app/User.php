@@ -74,4 +74,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return 'all';
     }
+    
+    /**
+     * Get total balance of the user (looking through all accounts)
+     */
+    public function getTotalBalance() {
+        //TODO
+        return 0;
+    }
 }

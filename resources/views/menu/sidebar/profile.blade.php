@@ -3,15 +3,17 @@
         <li class="{!! (Route::currentRouteNamed('profile')) ? 'active' : '' !!}">
             {!! HTML::linkRoute('profile', 'Mon profil') !!}
         </li>
-        <li class="{!! (Route::currentRouteNamed('accounts')) ? 'active' : '' !!}">
+        <li class="{!! (Route::currentRouteNamed('accounts') || Route::currentRouteName('accounts.getAccount')) ? 'active' : '' !!}">
             {!! HTML::linkRoute('accounts', 'Mes comptes') !!}
+            @if (Route::currentRouteNamed('accounts') || Route::currentRouteName('accounts.getAccount'))
+            <ul>
+                @foreach ($user->accounts as $account)
+                <li>
+                    {!! HTML::linkRoute('accounts.getAccount', $account->name, ['id' => $account->id]) !!}
+                </li>
+                @endforeach
+            </ul>
+            @endif
         </li>
-        @if (Route::currentRouteNamed('accounts'))
-        <ul>
-            @foreach ($user->accounts as $account)
-            <li>{{$account->name}}</li>
-            @endforeach
-        </ul>
-        @endif
     </ul>
 </div>

@@ -67,9 +67,15 @@ class Account extends BaseModel
         return $this->hasMany('Budgeck\Income');
     }
     
+    /*
+     * Return the balance of the current account
+     * 
+     * @return float
+     */
     public function getCurrentBalance()
     {
-        //return $this->get
+        //TODO
+        return 0;
     }
     
     /**
