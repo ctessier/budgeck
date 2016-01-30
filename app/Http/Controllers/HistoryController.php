@@ -6,7 +6,7 @@ use Budgeck\Transaction;
 
 class HistoryController extends Controller {
     /**
-     * Returns the history page
+     * Return the history page
      *
      * @param int $account_id
      * @return \Illuminate\Http\Response

@@ -4,8 +4,9 @@
 
 @section('content')
 
-@include('accounts.month.tabs')
-@include('accounts.month.budgets')
-@include('accounts.month.incomes')
-
+@include('menu.sidebar.accounts')
+<div class="columns large-8">
+    @include('accounts.month.budgets')
+    @include('accounts.month.incomes')
+</div>
 @stop

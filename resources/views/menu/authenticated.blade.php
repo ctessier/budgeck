@@ -1,8 +1,12 @@
 <li {!! (Route::currentRouteNamed('history')) ? 'class="active"' : '' !!}>
     {!! HTML::linkRoute('history', 'Historique', $user->getDefaultAccount()) !!}
 </li>   
-<li>
-    <a href="">Budgets</a>
+<li {!! (Route::currentRouteNamed('accounts.month')) ? 'class="active"' : '' !!}>
+    {!! HTML::linkRoute('accounts.month', 'Budgets', [
+        'account_id' => $user->getDefaultAccount(),
+        'year' => date('Y'),
+        'month' => date('m')
+    ])!!}
 </li>
 <li>
     <a href="">Graphiques</a>

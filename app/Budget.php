@@ -48,19 +48,27 @@ class Budget extends BaseModel
     ];
     
     /**
-     * Returns the collection of spendings
+     * Return the account of the budget
      */
-    public function spendings()
+    public function account()
     {
-        return $this->hasMany('Budgeck\Spending');
+        return $this->belongsTo('Budgeck\Account');
     }
     
     /**
-     * Returns the sum of the spendings for the budget
+     * Return the collection of spendings
+     */
+    public function transactions()
+    {
+        return $this->hasMany('Budgeck\Transaction');
+    }
+    
+    /**
+     * Return the sum of the spendings for the budget
     */
     public function getAmountSpent()
     {
-        return $this->hasMany('Budgeck\Spending')
+        return $this->hasMany('Budgeck\Transaction')
             ->sum('amount');
     }
     
@@ -69,22 +77,41 @@ class Budget extends BaseModel
     */
     public function getAmountSpentDebited()
     {
-        return $this->hasMany('Budgeck\Spending')
-            ->whereNotNull('debit_date')
+        return $this->hasMany('Budgeck\Transaction')
+            ->whereNotNull('effective_date')
             ->sum('amount');
     }
     
     /**
-     * Returns list of budgets according to account, year and month
+     * Return the list of budgets according to account, year and month
      */
     public static function getListFromAccountYearMonth($account_id, $year, $month) 
     {
-        \Debugbar::info($account_id);
-        \Debugbar::info($year);
-        \Debugbar::info($month);
         return self::where('account_id', $account_id)
             ->where('year', $year)
             ->where('month', $month)
             ->lists('title', 'id');
+    }
+    
+    /**
+     * Return budgets of a given month
+     *
+     * @param int $user_id
+     * @param int $account_id
+     * @param int $year
+     * @param int $month
+     * @return
+     */
+    public static function getUserMonthBudgetsFromAccountId($user_id, $account_id, $year, $month)
+    {
+        if ($account_id !== 'all')
+        {
+            $account = Account::getUserAccountById($account_id);
+            return $account ? $account->getBudgets($year, $month) : null;
+        }
+        else
+        {
+            
+        }
     }
 }

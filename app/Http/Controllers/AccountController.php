@@ -2,7 +2,9 @@
 
 namespace Budgeck\Http\Controllers;
 
-use Budgeck;
+use Budgeck\Account;
+use Budgeck\Budget;
+use Budgeck\Income;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -54,7 +56,7 @@ class AccountController extends Controller
     public function getEdit($account_id = null)
     {
         $isCreation = true;
-        $account = Budgeck\Account::find($account_id);
+        $account = Account::find($account_id);
         if ($account != null)
         {
             $isCreation = false;
@@ -72,10 +74,10 @@ class AccountController extends Controller
      */
     public function postSave(Request $request, $account_id = null)
     {
-        $account = Budgeck\Account::find($account_id);
+        $account = Account::find($account_id);
         if ($account == null)
         {            
-            $account = new Budgeck\Account();
+            $account = new Account();
             $account->user_id = $this->user->id;
         }
         
@@ -105,19 +107,10 @@ class AccountController extends Controller
      */
     public function getMonth($account_id, $year, $month)
     {
-        $account = \Budgeck\Account::getUserAccountById($account_id);
-        if ($account == null)
-        {
-            abort(404, "Account not found");
-        }
-        
-        $budgets = $account->getBudgets($year, $month);
-        $incomes = $account->getIncomes($year, $month);
-        
         return view('accounts.month.index')
-            ->with('account', $account)
-            ->with('budgets', $budgets)
-            ->with('incomes', $incomes)
+            ->with('budgets', Budget::getUserMonthBudgetsFromAccountId($this->user->id, $account_id, $year, $month))
+            ->with('incomes', Income::getUserMonthIncomesFromAccountId($this->user->id, $account_id, $year, $month))
+            ->with('account_id', $account_id)
             ->with('year', $year)
             ->with('month', $month);
     }

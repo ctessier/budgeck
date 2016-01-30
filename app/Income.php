@@ -38,21 +38,29 @@ class Income extends BaseModel
     ];
     
     /**
-     * Returns the sum of the spendings for the budget
-    */
-    public function getAmountSpent()
+     * Return the account of the income
+     */
+    public function account()
     {
-        return $this->hasMany('Budgeck\Spending')
+        return $this->belongsTo('Budgeck\Account');
+    }
+    
+    /**
+     * 
+     */
+    public function getTransactionsAmount()
+    {
+        return $this->hasMany('Budgeck\Transaction')
             ->sum('amount');
     }
     
     /**
-     * Returns the sum of the debited spendings for the budget
-    */
-    public function getAmountSpentDebited()
+     * 
+     */
+    public function getTransactionsAmountCredited()
     {
-        return $this->hasMany('Budgeck\Spending')
-            ->whereNotNull('debit_date')
+        return $this->hasMany('Budgeck\Transaction')
+            ->whereNotNull('effective_date')
             ->sum('amount');
     }
     
@@ -70,5 +78,27 @@ class Income extends BaseModel
             );
         }
         return $incomes;
+    }
+    
+    /**
+     * Return incomes of a given month
+     *
+     * @param int $user_id
+     * @param int $account_id
+     * @param int $year
+     * @param int $month
+     * @return
+     */
+    public static function getUserMonthIncomesFromAccountId($user_id, $account_id, $year, $month)
+    {
+        if ($account_id !== 'all')
+        {
+            $account = Account::getUserAccountById($account_id);
+            return $account ? $account->getIncomes($year, $month) : null;
+        }
+        else
+        {
+            
+        }
     }
 }
