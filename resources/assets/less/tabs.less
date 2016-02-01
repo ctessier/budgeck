@@ -16,8 +16,20 @@ ul.tabs > li:last-child {
     border-bottom: 1px solid lightgrey;
 }
 
-ul.tabs > li.active {
+ul.tabs > li.active > a {
     border-left: 5px solid #6ec1f3;
+}
+
+ul.tabs > li.active ul li.active a {
+    border-left: 5px solid lightgrey;
+}
+
+ul.tabs > li.active {
+    border-left-width: 0;
+}
+
+ul.tabs > li.active ul li a {
+    border-left: 1px solid lightgrey;
 }
 
 ul.tabs > li.active a {
