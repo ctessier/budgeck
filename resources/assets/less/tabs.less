@@ -12,6 +12,10 @@ ul.tabs > li {
     height: 100%;
 }
 
+ul.tabs > li > ul > li {
+    border-top: 1px solid #eee;
+}
+
 ul.tabs > li:last-child {
     border-bottom: 1px solid lightgrey;
 }
@@ -36,6 +40,10 @@ ul.tabs > li.active a {
     padding-left: 11px;
 }
 
+ul.tabs > li.active ul li.active a {
+    padding-left: 31px;
+}
+
 ul.tabs a {
     padding: 15px;
     display: block;
@@ -52,8 +60,8 @@ ul.tabs li.active ul {
     list-style-type: none;
     
     li a {
-        padding: 5px 15px;
-        padding-left: 30px;
+        padding: 8px 15px;
+        padding-left: 35px;
     }
 }
 
