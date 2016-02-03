@@ -102,7 +102,7 @@ class Budget extends BaseModel
      * @param int $month
      * @return
      */
-    public static function getUserMonthBudgetsFromAccountId($user_id, $account_id, $year, $month)
+    public static function getUserMonthBudgetsFromAccountId($account_id, $year, $month)
     {
         if ($account_id !== 'all')
         {
@@ -111,7 +111,19 @@ class Budget extends BaseModel
         }
         else
         {
-            
+            $budgets = null;
+            foreach (\Auth::user()->accounts as $account)
+            {
+                if ($budgets === null)
+                {
+                    $budgets = $account->getBudgets($year, $month);
+                }
+                else 
+                {
+                    $budgets = $budgets->merge($account->getBudgets($year, $month));
+                }
+            }
+            return $budgets;
         }
     }
 }

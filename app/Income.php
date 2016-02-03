@@ -89,7 +89,7 @@ class Income extends BaseModel
      * @param int $month
      * @return
      */
-    public static function getUserMonthIncomesFromAccountId($user_id, $account_id, $year, $month)
+    public static function getUserMonthIncomesFromAccountId($account_id, $year, $month)
     {
         if ($account_id !== 'all')
         {
@@ -98,7 +98,19 @@ class Income extends BaseModel
         }
         else
         {
-            
+            $incomes = null;
+            foreach (\Auth::user()->accounts as $account)
+            {
+                if ($incomes === null)
+                {
+                    $incomes = $account->getIncomes($year, $month);
+                }
+                else 
+                {
+                    $incomes = $incomes->merge($account->getIncomes($year, $month));
+                }
+            }
+            return $incomes;
         }
     }
 }

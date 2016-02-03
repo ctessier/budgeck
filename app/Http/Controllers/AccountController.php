@@ -108,8 +108,8 @@ class AccountController extends Controller
     public function getMonth($account_id, $year, $month)
     {
         return view('accounts.month.index')
-            ->with('budgets', Budget::getUserMonthBudgetsFromAccountId($this->user->id, $account_id, $year, $month))
-            ->with('incomes', Income::getUserMonthIncomesFromAccountId($this->user->id, $account_id, $year, $month))
+            ->with('budgets', Budget::getUserMonthBudgetsFromAccountId($account_id, $year, $month))
+            ->with('incomes', Income::getUserMonthIncomesFromAccountId($account_id, $year, $month))
             ->with('account_id', $account_id)
             ->with('year', $year)
             ->with('month', $month);

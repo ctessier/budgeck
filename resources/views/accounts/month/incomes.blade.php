@@ -30,5 +30,5 @@
         </div>
     </div>
     @endforeach
-    {!!HTML::linkRoute('incomes.getEdit', 'Ajouter un revenu', ['account_id' => $income->account->id, 'year' => $year, 'month' => $month], ['class' => 'btn-tiny radius', 'data-use-lightbox' => 'true'])!!}
+    {!!HTML::linkRoute('incomes.getEdit', 'Ajouter un revenu', ['account_id' => $account_id, 'year' => $year, 'month' => $month], ['class' => 'btn-tiny radius', 'data-use-lightbox' => 'true'])!!}
 </div>
