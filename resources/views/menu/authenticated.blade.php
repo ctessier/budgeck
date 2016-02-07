@@ -15,7 +15,7 @@
     <a>{{$user->firstname}}</a>
     <ul>
         <li>
-            {!! HTML::linkRoute('profile', 'Profil &amp; comptes') !!}
+            {!! HTML::linkRoute('profile', 'Profil &amp; Comptes') !!}
         </li>
         <li>
             {!! HTML::linkRoute('logout', 'Déconnexion') !!}    
