@@ -74,8 +74,22 @@ class Account extends BaseModel
      */
     public function getCurrentBalance()
     {
-        //TODO
-        return 0;
+        // Get total of effective expenses
+        $totalExpenses = Transaction::leftJoin('budgets', 'transactions.budget_id', '=', 'budgets.id')
+            ->leftJoin('accounts', 'budgets.account_id', '=', 'accounts.id')
+            ->whereNotNull('effective_date')
+            ->where('accounts.id', $this->id)
+            ->sum('transactions.amount');
+        
+        // Get total of effective incomes
+        $totalIncomes = Transaction::leftJoin('incomes', 'transactions.income_id', '=', 'incomes.id')
+            ->leftJoin('accounts', 'incomes.account_id', '=', 'accounts.id')
+            ->whereNotNull('effective_date')
+            ->where('accounts.id', $this->id)
+            ->sum('transactions.amount');
+        
+        // Return difference
+        return ($totalIncomes - $totalExpenses);
     }
     
     /**
