@@ -18,10 +18,9 @@ function initAjaxForms()
         var method = form.attr('method');
         var data = form.serializeArray();
         var submitButton = form.find('input[type=submit]');
-        var previousSubmitLabel = submitButton.attr('value');
         
         removeValidations();
-        submitButton.attr('value', 'Patientez...');
+        submitButton.addClass('loading');
 
         $.ajax({
             url: url,
@@ -49,7 +48,7 @@ function initAjaxForms()
             },
             complete: function(jqXHR, textStatus)
             {
-                submitButton.attr('value', previousSubmitLabel);
+                submitButton.removeClass('loading');
             }
         });
 
@@ -181,10 +180,7 @@ function initTabs()
  * Initialize lightbox behaviour
  */
 function initAjaxLightbox() {
-    var lightbox = $('#ajax-lightbox');
-    var background = $('#ajax-lightbox-background');
-    var defaultWidth = lightbox.css('width');
-    var defaultLeft = lightbox.css('left');
+    var container = $('#container-lightbox');
     var opened = false;
 
     this.open = function(url) {
@@ -201,6 +197,8 @@ function initAjaxLightbox() {
     });
 
     function openLightbox(e, url) {
+        var linkElement = $(this);
+        
         if (typeof e !== 'undefined' && e !== null) {
             e.preventDefault();
         }
@@ -209,47 +207,24 @@ function initAjaxLightbox() {
             var url = $(this).attr('href');
         }
 
-        background.fadeIn();        
-        window.scrollTo(0, 0);
-
-        lightbox.load(url, function() {
-            //resize to fit content
-            var widthDiv = lightbox.find('div[data-window-width]');
-            if (widthDiv.length === 1) {
-                var width = widthDiv.attr('data-window-width');
-
-                //resize width smaller if the width does not fit on screen.
-                if (width > $(window).width()) {
-                    width = $(window).width() * 0.95;
-                }
-
-                lightbox.css('width', width + 'px');
-                lightbox.css('left', '50%');
-                lightbox.css('margin-left', -width / 2 + 'px');
-            } else {
-                lightbox.css('width', defaultWidth);
-                lightbox.css('left', defaultLeft);
-            }
-            
-            lightbox.fadeIn();            
+        linkElement.addClass('loading');
+        
+        container.load(url, function() {
+            container.show();
+            window.scrollTo(0, 0);
+            linkElement.removeClass('loading');
             opened = true;
         });
     }
 
     var dismiss = function() {
-        var disable = lightbox.find('div[data-window-disable-cancel=true]');
-        if (disable.length > 0 || ! opened) {
-            return; // don't dismiss if disabled.
-        }
-        background.fadeOut();
-        lightbox.fadeOut(400, function(){
-            lightbox.empty();
-            opened = false;    
-        });        
+        container.hide(function(){
+            container.empty();
+            opened = false;
+        });
     };        
 
     //Click handlers to dismiss lightbox
-    background.on('click', dismiss);
-    lightbox.on('click', '*[data-lightbox-dismiss=true]', dismiss);
+    container.on('click', '*[data-lightbox-dismiss=true]', dismiss);
 
 }

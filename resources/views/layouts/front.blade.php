@@ -22,7 +22,6 @@
             @yield('tail')
         </div>
         @include('elements.footer')
-        <div id="ajax-lightbox-background"></div>
-        <div id="ajax-lightbox"></div>
+        <div id="container-lightbox"></div>
     </body>
 </html>
