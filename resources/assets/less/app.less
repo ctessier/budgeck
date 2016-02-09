@@ -74,25 +74,25 @@ nav ul {
     list-style-type: none;
     padding: 0;
 }
-nav ul li {
+nav > ul > li {
     display: inline;
 }
-nav ul li a {
+nav > ul > li a {
     display: inline-block;
     padding: 11.2px 15px;
     color: @color-header-link;
     text-decoration: none;
 }
-nav ul li a:hover {
+nav > ul > li a:hover {
     color: @color-header-link-hover;
     background-color: @color-header-link-hover-background;
 }
-nav ul li.active a,
-nav ul li.active a:hover {
+nav > ul > li.active a,
+nav > ul > li.active a:hover {
     color: @color-header-link-active;
     background-color: @color-header-link-active-background;
 }
-nav ul li ul {
+nav > ul > li ul {
     display: none;
     position: absolute;
     text-align: right;
@@ -102,11 +102,16 @@ nav ul li ul {
         display: block;
     }
     li a {
+        display: block;
         color: @color-header-link-active;
         background-color: @color-header-link-active-background;
+        
+        &:hover {
+            background: @color-header-logo;
+        }
     }
 }
-nav ul li:hover ul {
+nav > ul > li:hover ul {
     display: block;
 }
 
