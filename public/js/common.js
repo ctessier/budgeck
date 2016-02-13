@@ -63,10 +63,17 @@ function initAjaxForms()
 
         function showSuccessMessage(form, successMessage, csstag)
         {
-            var successElement = $('<div class="validation-success-message ' + csstag + '">' + successMessage + '</div>').hide();
-
-            form.prepend(successElement.fadeIn());
-
+            var successElement = form.find('.validation-success-message');
+            if (successElement.length === 0) {
+                successElement = $('<div class="validation-success-message ' + csstag + '">' + successMessage + '</div>').hide();
+                
+                //add at top of form
+                form.prepend(successElement.fadeIn());
+            } else {
+                successElement.fadeOut();
+                successElement.html(successMessage).fadeIn();
+            }
+            
             setTimeout(function(){
                 successElement.fadeOut();
             }, 5000);
