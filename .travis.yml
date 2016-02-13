@@ -5,7 +5,7 @@ php:
   - 5.6
 
 before_install:
-  - pip install --user git+https://github.com/codecov/codecov-python.git@9f342db78514e2392a0d8d5aa01a57ed5b187755
+  - pip install --user git+https://github.com/codecov/codecov-python.git@aa451c4c9984ef422a9151baf941fc422ce8d396
 
 before_script:
   - composer self-update
