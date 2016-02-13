@@ -91,6 +91,7 @@ form > .validation-success-message {
  *--------------------------------------------------------*/
 .btn-base {
     display: inline-block;
+    position: relative;
     text-align: center;
     padding: 8px 15px;
     font-size: 1em;
@@ -117,4 +118,15 @@ form > .validation-success-message {
     padding: 3px 8px;
     font-size: .8em;
     margin-top: 0;
+}
+.btn-base.loading:after,
+.btn-tiny.loading:after {
+    position: absolute;
+    display: block;
+    content: "";
+    width: 16px;
+    height: 16px;
+    background: url('../images/ajax-loader.gif') no-repeat;
+    top: 4px;
+    right: -20px;
 }
