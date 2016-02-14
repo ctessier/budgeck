@@ -5,7 +5,7 @@ php:
   - 5.6
 
 before_install:
-  - pip install --user git+https://github.com/codecov/codecov-python.git@aa451c4c9984ef422a9151baf941fc422ce8d396
+  - pip install --user git+https://github.com/codecov/codecov-python.git@11b7b768d4604c0268dbcccce1561388b604bddb
 
 before_script:
   - composer self-update
@@ -17,5 +17,5 @@ script:
   - vendor/bin/phpunit --coverage-clover=coverage.xml
 
 after_success:
-  - codecov --dump
+  - codecov
   - bash <(curl -s https://codecov.io/bash) -d
