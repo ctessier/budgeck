@@ -45,7 +45,7 @@
     <div class="columns large-6">
         <div class="form-group">
             {!! Form::label('category_id', 'Catégorie par défaut') !!}
-            {!! Form::select('category_id', Budgeck\Category::getSpendingCategoriesList()) !!}
+            {!! Form::select('category_id', Budgeck\Category::getExpenseCategoriesList()) !!}
         </div>
     </div>
     <div class="columns large-6">

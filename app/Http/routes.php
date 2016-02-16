@@ -93,15 +93,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'accounts'], function(){
         'as' => 'budgets.postSave',
         'uses' => 'BudgetController@postSave'
     ]);
-    // Add transaction
-    Route::get('{account_id}/year/{year}/month/{month}/budgets/{budget_id?}/spendings/edit/{spending_id?}', [
-        'as' => 'budgets.transactions.getEdit',
-        'uses' => 'TransactionController@getEdit'
-    ]);
-    Route::post('{account_id}/year/{year}/month/{month}/budgets/{budget_id?}/spendings/edit/{spending_id?}', [
-        'as' => 'budgets.transactions.postSave',
-        'uses' => 'TransactionController@postSave'
-    ]);
     
     // Get and save incomes
     Route::get('{account_id}/year/{year}/month/{month}/incomes/edit/{income_id?}', [
@@ -153,5 +144,20 @@ Route::group(['middleware' => 'auth', 'prefix' => 'incomes'], function(){
     Route::get('{income_id}/delete', [
         'as' => 'incomes.delete',
         'uses' => 'IncomeController@delete'
+    ]);
+});
+
+/**
+ * Transactions routes
+ * Needs to be authenticated
+ */
+Route::group(['middleware' => 'auth', 'prefix' => 'transactions'], function() {
+    Route::get('edit/{transaction_id?}', [
+        'as' => 'transactions.getEdit',
+        'uses' => 'TransactionController@getEdit'
+    ]);
+    Route::post('save/{transaction_id?}', [
+        'as' => 'transactions.postSave',
+        'uses' => 'TransactionController@postSave'
     ]);
 });

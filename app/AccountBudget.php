@@ -24,7 +24,7 @@ class AccountBudget extends BaseModel
         'amount' => ['required', 'regex:"(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)"'],
         'day' => 'required_if:budget_type_id,1|integer:2|min:1|max:31',
         'budget_type_id' => 'required|exists:budget_types,id',
-        'category_id' => 'exists:categories,id'
+        'category_id' => ''
     ];
     
     /**

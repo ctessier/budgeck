@@ -62,8 +62,8 @@
     </div>
     <div class="columns large-6">
         <div class="form-group">
-            {!! Form::label('expected_date', 'Date') !!}
-            {!! Form::text('expected_date', null, ['placeholder' => 'Date...']) !!}
+            {!! Form::label('date', 'Date') !!}
+            {!! Form::text('date', null, ['placeholder' => 'Date...']) !!}
         </div>
     </div>
 </div>

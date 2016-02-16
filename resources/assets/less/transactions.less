@@ -1,0 +1,44 @@
+.transaction {
+    width: 100%;
+    padding: 5px 0;
+    border-bottom: 1px solid #ededed;
+    
+    a {
+        display: table;
+        width: 100%;
+        color: inherit;
+        text-decoration: none;
+    }
+    
+    div {
+        display: table-cell;
+    }
+    
+    &.awaiting {
+        font-weight: 400;
+    }
+    
+    .transaction-date {
+        width: 20%;
+    }
+    .transaction-title {
+        width: 60%;
+    }
+    .transaction-amount {
+        width: 20%;
+        text-align: right;
+    }
+    
+    &.expense .transaction-amount {
+        color: red;
+    }
+    &.income .transaction-amount {
+        color: green;
+    }
+}
+
+.month-separator {
+    width: 100%;
+    font-weight: bold;
+    border-bottom: 1px solid lightgrey;
+}
