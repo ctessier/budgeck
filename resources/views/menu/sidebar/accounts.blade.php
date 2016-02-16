@@ -9,4 +9,7 @@
         </li>
         @endforeach
     </ul>
+    @if (Route::currentRouteName() === 'history')
+    {!! HTML::linkRoute('transactions.getEdit', 'Ajouter une transaction', ['transaction_id' => null, 'account_id' => Route::getCurrentRoute()->getParameter('account_id')], ['class' => 'btn-base radius', 'data-use-lightbox' => 'true']) !!}
+    @endif
 </div>

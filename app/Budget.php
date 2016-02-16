@@ -2,6 +2,8 @@
 
 namespace Budgeck;
 
+use Auth;
+
 class Budget extends BaseModel
 {   
     /**
@@ -83,14 +85,19 @@ class Budget extends BaseModel
     }
     
     /**
-     * Return the list of budgets according to account, year and month
+     * Return the list of budgets according to year and month
      */
-    public static function getListFromAccountYearMonth($account_id, $year, $month) 
+    public static function getListFromYearMonth($year, $month) 
     {
-        return self::where('account_id', $account_id)
-            ->where('year', $year)
-            ->where('month', $month)
-            ->lists('title', 'id');
+        $collection = self::select('budgets.id', 'budgets.title')
+            ->leftJoin('accounts', 'budgets.account_id', '=', 'accounts.id')
+            ->where('accounts.user_id', Auth::user()->id)
+            ->where('budgets.year', $year)
+            ->where('budgets.month', $month)
+            ->lists('budgets.title', 'budgets.id');
+        
+        $collection->prepend('-- Sélectionner --', 0);
+        return $collection;
     }
     
     /**

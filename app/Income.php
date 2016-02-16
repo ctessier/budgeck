@@ -2,6 +2,8 @@
 
 namespace Budgeck;
 
+use Auth;
+
 class Income extends BaseModel
 {   
     /**
@@ -78,6 +80,22 @@ class Income extends BaseModel
             );
         }
         return $incomes;
+    }
+    
+    /**
+     * Return the list of incomes according to year and month
+     */
+    public static function getListFromYearMonth($year, $month) 
+    {
+        $collection = self::select('incomes.id', 'incomes.title')
+            ->leftJoin('accounts', 'incomes.account_id', '=', 'accounts.id')
+            ->where('accounts.user_id', Auth::user()->id)
+            ->where('incomes.year', $year)
+            ->where('incomes.month', $month)
+            ->lists('incomes.title', 'incomes.id');
+        
+        $collection->prepend('-- Sélectionner --', 0);
+        return $collection;
     }
     
     /**

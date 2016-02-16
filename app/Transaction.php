@@ -4,13 +4,14 @@ namespace Budgeck;
 
 class Transaction extends BaseModel
 {
+    protected $table = "transactions";
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['description', 'amount', 'payment_date', 'comment', 'category_id',
-        'budget_id', 'payment_method_id'];
+    protected $fillable = ['title', 'amount', 'transaction_date', 'effective_date', 'comment', 'category_id', 'budget_id', 'income_id', 'payment_method_id'];
     
     /**
      * Define the rules to create or edit a transaction 
@@ -18,13 +19,14 @@ class Transaction extends BaseModel
      * @var array 
      */
     protected $rules = [
-        'description' => 'required|max:255',
+        'title' => 'required|max:255',
         'amount' => ['required', 'regex:"(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)"'],
-        'payment_date' => 'required|date_format:Y-m-d',
-        'debit_date' => 'date_format:Y-m-d',
+        'transaction_date' => 'required|date_format:Y-m-d',
+        'effective_date' => 'date_format:Y-m-d',
         'category_id' => 'required|exists:categories,id',
-        'budget_id' => 'required|exists:budgets,id',
-        'payment_method_id' => 'required|exists:payment_methods,id'
+        'budget_id' => 'required_without_all:income_id',
+        'income_id' => 'required_without_all:budget_id',
+        'payment_method_id' => 'exists:payment_methods,id'
     ];
     
     /**
@@ -33,8 +35,8 @@ class Transaction extends BaseModel
      * @var array 
      */
     protected $messages = [
-        'description.required' => 'La description ne peut pas être vide',
-        'description.max' => 'La description ne peut pas être aussi longue'
+        'title.required' => 'La description ne peut pas être vide',
+        'title.max' => 'La description ne peut pas être aussi longue'
     ];
     
     public function budget()
@@ -45,6 +47,30 @@ class Transaction extends BaseModel
     public function income()
     {
         return $this->belongsTo('Budgeck\Income');
+    }
+    
+    public function account() {
+        return $this->isSpending() ?
+            $this->budget->account : $this->income->account;
+    }
+    
+    public function isSpending() {
+        return $this->budget_id !== null;
+    }
+    
+    public function isIncome() {
+        return $this->income_id !== null;
+    }
+    
+    /**
+     * Return a transaction by its id
+     */
+    public static function getById($id) {
+        if ($id === null) {
+            return null;
+        } else {
+            return self::find($id);
+        }
     }
     
     /**
@@ -83,7 +109,7 @@ class Transaction extends BaseModel
         if ($awaiting) {
             $query->orderBy('transaction_date', 'DESC');
         } else {
-            $query->orderBy('effective_date', 'DESC');    
+            $query->orderBy('transaction_date', 'DESC');    
         }
         
         //TODO: paginator
