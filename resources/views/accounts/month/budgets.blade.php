@@ -24,9 +24,8 @@
             <span class="amount">&euro; {{$budget->amount}}</span>
         </div>                
         <div class="actions">
-            {!!HTML::linkRoute('budgets.transactions.getEdit', '+', ['account_id' => $budget->account->id, 'year' => $year, 'month' => $month, 'budget_id' => $budget->id], ['class' => 'btn-tiny btn-grey radius', 'data-use-lightbox' => 'true'])!!}
+            {!!HTML::linkRoute('transactions.getEdit', '+', ['transaction_id' => null, 'budget_id' => $budget->id], ['class' => 'btn-tiny btn-grey radius', 'data-use-lightbox' => 'true'])!!}
             {!!HTML::linkRoute('budgets.getEdit', 'M', ['account_id' => $budget->account->id, 'year' => $year, 'month' => $month, 'budget_id' => $budget->id], ['class' => 'btn-tiny btn-grey radius', 'data-use-lightbox' => 'true'])!!}
-            {!!HTML::linkRoute('budgets.delete', 'S', ['budget_id' => $budget->id], ['class' => 'btn-tiny btn-grey radius', 'data-use-lightbox' => 'true'])!!}
         </div>
     </div>
     @endforeach
