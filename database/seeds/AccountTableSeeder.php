@@ -11,15 +11,6 @@ class AccountTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('accounts')->insert([
-            [
-                'id' => 1,
-                'user_id' => 1,
-                'name' => 'CCHQ n°00055678731',
-                'description' => 'Compte courant',
-                'created_at' => new DateTime(),
-                'updated_at' => new DateTime(),
-            ]
-        ]);
+        //
     }
 }

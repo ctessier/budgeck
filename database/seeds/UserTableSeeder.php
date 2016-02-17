@@ -12,10 +12,10 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'email' => 'clement.tessier@ymail.com',
-            'password' => bcrypt('secret'),
-            'firstname' => 'Clément',
-            'lastname' => 'Tessier',
+            'email' => 'demo@budgeck.fr',
+            'password' => bcrypt('demo'),
+            'firstname' => 'Démo',
+            'lastname' => 'Budgeck',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);

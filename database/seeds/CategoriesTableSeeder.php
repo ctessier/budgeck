@@ -42,7 +42,7 @@ class CategoriesTableSeeder extends Seeder
                 'category_type_id' => 2,
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
-            ]            
+            ]
         ]);
     }
 }
