@@ -12,7 +12,7 @@ class Income extends BaseModel
      * @var array
      */
     protected $fillable = ['title', 'description', 'amount', 'year', 'month',
-        'expected_date', 'account_id', 'category_id', 'account_income_id'];
+        'date', 'account_id', 'category_id', 'account_income_id'];
     
     /**
      * Define the rules to create or edit a income 
@@ -25,7 +25,7 @@ class Income extends BaseModel
         'amount' => ['required', 'regex:"(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)"'],
         'year' => 'required|integer:4|min:2014',
         'month' => 'required|integer|min:1|max:12',
-        'expected_date' => 'date_format:Y-m-d',
+        'date' => 'date_format:Y-m-d',
         'account_id' => 'required|exists:accounts,id',
         'category_id' => 'exists:categories,id'
     ];
