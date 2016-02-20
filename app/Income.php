@@ -132,14 +132,14 @@ class Income extends BaseModel
         if ($account_id !== 'all')
         {
             $account = Account::getUserAccountById($account_id);
-            return $account ? $account->getIncomes($year, $month) : null;
+            return $account ? $account->getIncomes($year, $month) : [];
         }
         else
         {
-            $incomes = null;
+            $incomes = [];
             foreach (\Auth::user()->accounts as $account)
             {
-                if ($incomes === null)
+                if (empty($incomes))
                 {
                     $incomes = $account->getIncomes($year, $month);
                 }

@@ -127,14 +127,14 @@ class Budget extends BaseModel
         if ($account_id !== 'all')
         {
             $account = Account::getUserAccountById($account_id);
-            return $account ? $account->getBudgets($year, $month) : null;
+            return $account ? $account->getBudgets($year, $month) : [];
         }
         else
         {
-            $budgets = null;
+            $budgets = [];
             foreach (\Auth::user()->accounts as $account)
             {
-                if ($budgets === null)
+                if (empty($budgets))
                 {
                     $budgets = $account->getBudgets($year, $month);
                 }
