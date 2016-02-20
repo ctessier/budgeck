@@ -93,6 +93,31 @@ class Account extends BaseModel
     }
     
     /**
+     *
+     */
+    public function getLeftOvers() {
+        $currentBalance = $this->getCurrentBalance();
+        $left = $currentBalance;
+        
+        $budgets = $this->getBudgets(date('Y'), date('m'));
+        $incomes = $this->getIncomes(date('Y'), date('m'));
+        
+        if ($budgets !== null) {
+            foreach ($budgets as $budget) {
+                $left -= $budget->getLeftToPay();
+            }
+        }
+        
+        if ($incomes !== null) {
+            foreach ($incomes as $income) {
+                $left += $income->getLeftToGet();
+            }
+        }
+        
+        return $left;
+    }
+    
+    /**
      * Return an account's budget from given id
      * 
      * @param int $id

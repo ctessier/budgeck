@@ -50,6 +50,13 @@ class Income extends BaseModel
     /**
      * 
      */
+    public function transactions() {
+        return $this->hasMany('Budgeck\Transaction');
+    }
+    
+    /**
+     * 
+     */
     public function getTransactionsAmount()
     {
         return $this->hasMany('Budgeck\Transaction')
@@ -96,6 +103,19 @@ class Income extends BaseModel
         
         $collection->prepend('-- Sélectionner --', 0);
         return $collection;
+    }
+    
+    /**
+     *
+     */
+    public function getLeftToGet() {
+        $leftToGet = $this->getTransactionsAmount() - $this->getTransactionsAmountCredited();
+        
+        if ($this->getTransactionsAmount() > $this->amount) {
+            return $leftToGet;
+        } else {
+            return $this->amount - $this->getTransactionsAmountCredited();
+        }
     }
     
     /**

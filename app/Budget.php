@@ -101,6 +101,19 @@ class Budget extends BaseModel
     }
     
     /**
+     *
+     */
+    public function getLeftToPay() {
+        $leftToPay = $this->getAmountSpent() - $this->getAmountSpentDebited();
+        
+        if ($this->getAmountSpent() > $this->amount) {
+            return $leftToPay;
+        } else {
+            return $this->amount - $this->getAmountSpentDebited();
+        }
+    }
+    
+    /**
      * Return budgets of a given month
      *
      * @param int $user_id
