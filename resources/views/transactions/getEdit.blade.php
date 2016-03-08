@@ -47,7 +47,7 @@
     <div class="columns large-6">
         <div class="form-group">
             {!! Form::label('transaction_date', 'Date de transaction') !!}
-            {!! Form::text('transaction_date', null, ['placeholder' => 'Date de transaction...']) !!}
+            {!! Form::text('transaction_date', null, ['placeholder' => 'Date de transaction...', 'class' => 'datepicker']) !!}
         </div>
     </div>
 </div>
@@ -61,7 +61,7 @@
     <div class="columns large-6">
         <div class="form-group">
             {!! Form::label('effective_date', 'Date effective') !!}
-            {!! Form::text('effective_date', null, ['placeholder' => 'Date effective...']) !!}
+            {!! Form::text('effective_date', null, ['placeholder' => 'Date effective...', 'class' => 'datepicker']) !!}
         </div>
     </div>
 </div>

@@ -8,7 +8,9 @@
         <title>@yield('title') | Budgeck</title>
         <link rel="stylesheet" href="/css/foundation.min.css" />
         <link rel="stylesheet" href="/css/app.css" />
+        <link rel="stylesheet" href="/css/jquery-ui.min.css" />
         <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="/js/common.js"></script>
         @yield('head')
     </head>

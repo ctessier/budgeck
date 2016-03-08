@@ -3,6 +3,7 @@
         initAjaxForms();
         initAjaxLightbox();
         initTabs();
+        initDateFields();
         $('form').attr('novalidate', 'novalidate');
     });
 }(window.jQuery, window, document));
@@ -221,6 +222,8 @@ function initAjaxLightbox() {
             window.scrollTo(0, 0);
             linkElement.removeClass('loading');
             opened = true;
+            
+            initDateFields();
         });
     }
 
@@ -234,4 +237,10 @@ function initAjaxLightbox() {
     //Click handlers to dismiss lightbox
     container.on('click', '*[data-lightbox-dismiss=true]', dismiss);
 
+}
+
+function initDateFields() {
+    $(".datepicker").datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
 }
