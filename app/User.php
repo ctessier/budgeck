@@ -32,15 +32,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
-    
+
     /**
      * Get all user's active accounts
      */
-    public function accounts() 
+    public function accounts()
     {
         return $this->hasMany('\Budgeck\Account');
     }
-    
+
     /**
      *
      */
@@ -54,9 +54,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         {
             return $this->hasMany('\Budgeck\Account')
                 ->where('id', $account_id);
-        }   
+        }
     }
-    
+
     /**
      * Get all user's active accounts as a list
      */
@@ -65,7 +65,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return Account::where('user_id', $this->id)
             ->lists('name', 'id');
     }
-    
+
     /**
      * Returns the default account of the user.
      * If the user has no default account, 'all' is returned.
@@ -74,7 +74,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return 'all';
     }
-    
+
     /**
      * Get total balance of the user (looking through all accounts)
      */

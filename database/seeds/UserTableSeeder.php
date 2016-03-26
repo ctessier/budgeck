@@ -11,13 +11,8 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'email' => 'demo@budgeck.fr',
-            'password' => bcrypt('demo'),
-            'firstname' => 'Démo',
-            'lastname' => 'Budgeck',
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime(),
-        ]);
+        factory(Budgeck\User::class, 3)->create()->each( function($user) {
+            $user->accounts()->save(factory(Budgeck\Account::class)->make());
+        });
     }
 }

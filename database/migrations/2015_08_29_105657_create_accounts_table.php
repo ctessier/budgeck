@@ -12,18 +12,24 @@ class CreateAccountsTable extends Migration
      */
     public function up()
     {
+        Schema::create('account_types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 45);
+            $table->timestamps();
+        });
+
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
             $table->string('name', 45);
             $table->string('description', 255);
+            $table->integer('account_type_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->boolean('is_default')->default(false);
             $table->timestamps();
             $table->softDeletes();
-            
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+
+            $table->foreign('account_type_id')->references('id')->on('account_types');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -35,5 +41,6 @@ class CreateAccountsTable extends Migration
     public function down()
     {
         Schema::drop('accounts');
+        Schema::drop('account_types');
     }
 }

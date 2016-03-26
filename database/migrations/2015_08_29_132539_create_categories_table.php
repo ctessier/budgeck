@@ -15,22 +15,19 @@ class CreateCategoriesTable extends Migration
         Schema::create('category_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 45);
-            $table->string('description', 255);
             $table->timestamps();
-            $table->softDeletes();
         });
-        
+
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 45);
             $table->integer('category_type_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
-            
-            $table->foreign('category_type_id')
-                ->references('id')
-                ->on('category_types')
-                ->onDelete('cascade');
+
+            $table->foreign('category_type_id')->references('id')->on('category_types')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

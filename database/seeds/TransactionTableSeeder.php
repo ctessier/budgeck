@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class AccountTableSeeder extends Seeder
+class TransactionTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,20 +11,15 @@ class AccountTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('account_types')->insert([
+        DB::table('transaction_types')->insert([
             [
                 'id' => 1,
-                'name' => 'Chèque'
+                'name' => 'Dépense'
             ],
             [
                 'id' => 2,
-                'name' => 'Epargne'
+                'name' => 'Revenu'
             ]
         ]);
-
-        /*DB::table('accounts')->insert([
-
-
-        ])*/
     }
 }
