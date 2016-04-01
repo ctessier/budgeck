@@ -15,7 +15,11 @@
         <h3>Transactions en attente</h3>
         {{--*/ $currentMonth = null /*--}}
         @foreach ($awaitings as $awaiting)
-        {{--*/ $month = \Carbon\Carbon::createFromFormat('Y-m-d', $awaiting->transaction_date) /*--}}
+        @if ($awaiting->isSpending())
+        {{--*/ $month = \Carbon\Carbon::createFromFormat('m', $awaiting->budget->month) /*--}}
+        @elseif ($awaiting->isIncome())
+        {{--*/ $month = \Carbon\Carbon::createFromFormat('m', $awaiting->income->month) /*--}}
+        @endif
         @if ($currentMonth !== $month->format('m'))
         <div class="month-separator">
             {{ucfirst($month->formatLocalized('%B'))}}
@@ -24,7 +28,7 @@
         @endif
         <div class="transaction awaiting {{$awaiting->budget_id !== null ? 'expense' : 'income'}}">
             <a href="{{route('transactions.getEdit', ['transaction_id' => $awaiting->id])}}" data-use-lightbox="true">
-                <div class="transaction-date">{{$month->format('d/m/Y')}}</div>
+                <div class="transaction-date">{{date('d/m/Y', strtotime($awaiting->transaction_date))}}</div>
                 <div class="transaction-title">{{$awaiting->title}}</div>
                 <div class="transaction-amount">&euro; {{$awaiting->amount}}</div>
             </a>
@@ -32,13 +36,17 @@
         @endforeach
     </div>
     @endif
-    
+
     @if ($transactions->count() > 0)
     <div class="content">
         <h3>Transactions terminées</h3>
         {{--*/ $currentMonth = null /*--}}
         @foreach ($transactions as $transaction)
-        {{--*/ $month = \Carbon\Carbon::createFromFormat('Y-m-d', $transaction->transaction_date) /*--}}
+        @if ($transaction->isSpending())
+        {{--*/ $month = \Carbon\Carbon::createFromFormat('m', $transaction->budget->month) /*--}}
+        @elseif ($transaction->isIncome())
+        {{--*/ $month = \Carbon\Carbon::createFromFormat('m', $transaction->income->month) /*--}}
+        @endif
         @if ($currentMonth !== $month->format('m'))
         <div class="month-separator">
             {{ucfirst($month->formatLocalized('%B'))}}
@@ -47,7 +55,7 @@
         @endif
         <div class="transaction {{$transaction->budget_id !== null ? 'expense' : 'income'}}">
             <a href="{{route('transactions.getEdit', ['transaction_id' => $transaction->id])}}" data-use-lightbox="true">
-                <div class="transaction-date">{{$month->format('d/m/Y') }}</div>
+                <div class="transaction-date">{{date('d/m/Y', strtotime($transaction->transaction_date))}}</div>
                 <div class="transaction-title">{{$transaction->title}}</div>
                 <div class="transaction-amount">&euro; {{$transaction->amount}}</div>
             </a>
