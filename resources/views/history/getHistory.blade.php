@@ -16,9 +16,9 @@
         {{--*/ $currentMonth = null /*--}}
         @foreach ($awaitings as $awaiting)
         @if ($awaiting->isSpending())
-        {{--*/ $month = \Carbon\Carbon::createFromFormat('m', $awaiting->budget->month) /*--}}
+        {{--*/ $month = \Carbon\Carbon::createFromFormat('m', $awaiting->month) /*--}}
         @elseif ($awaiting->isIncome())
-        {{--*/ $month = \Carbon\Carbon::createFromFormat('m', $awaiting->income->month) /*--}}
+        {{--*/ $month = \Carbon\Carbon::createFromFormat('m', $awaiting->month) /*--}}
         @endif
         @if ($currentMonth !== $month->format('m'))
         <div class="month-separator">
@@ -43,9 +43,9 @@
         {{--*/ $currentMonth = null /*--}}
         @foreach ($transactions as $transaction)
         @if ($transaction->isSpending())
-        {{--*/ $month = \Carbon\Carbon::createFromFormat('m', $transaction->budget->month) /*--}}
+        {{--*/ $month = \Carbon\Carbon::createFromFormat('m', $transaction->month) /*--}}
         @elseif ($transaction->isIncome())
-        {{--*/ $month = \Carbon\Carbon::createFromFormat('m', $transaction->income->month) /*--}}
+        {{--*/ $month = \Carbon\Carbon::createFromFormat('m', $transaction->month) /*--}}
         @endif
         @if ($currentMonth !== $month->format('m'))
         <div class="month-separator">
