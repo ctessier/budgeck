@@ -4,6 +4,12 @@ namespace Budgeck\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+
+use Budgeck\Models\Account;
+use Budgeck\Models\AccountBudget;
+use Budgeck\Models\Budget;
+use Budgeck\Models\Transaction;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -24,12 +30,48 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        $router->pattern('account_id', 'all|[0-9]+');
-        $router->pattern('budget_id', '[0-9]+');
-        $router->pattern('income_id', '[0-9]+');
-        $router->pattern('spending_id', '[0-9]+');
+        // Define route parameters patterns
+        $router->pattern('accounts', '[0-9]+');
+        $router->pattern('budgets', '[0-9]+');
+        $router->pattern('transactions', '[0-9]+');
         $router->pattern('year', '[0-9]{4}');
         $router->pattern('month', '[0-9]{1,2}');
+
+        // Define route model binding for account
+        $router->bind('accounts', function ($account_id) {
+            return Account::where([
+                    'id' => $account_id,
+                    'user_id' => Auth::user()->id
+                ])
+                ->firstOrFail();
+        });
+
+        // Define route model binding for a account budget
+        $router->bind('account_budgets', function ($account_budget_id, $route) {
+            return AccountBudget::where([
+                    'id' => $account_budget_id,
+                    'account_id' => $route->getParameter('accounts')->id
+                ])
+                ->firstOrFail();
+        });
+
+        // Define route model binding for a budget
+        $router->bind('budgets', function ($budget_id, $route) {
+            return Budget::where([
+                    'id' => $budget_id,
+                    'account_id' => $route->getParameter('accounts')->id
+                ])
+                ->firstOrFail();
+        });
+
+        // Define route model binding for a transaction
+        $router->bind('transactions', function ($transaction_id, $route) {
+            return Transaction::where([
+                    'id' => $transaction_id,
+                    'account_id' => $route->getParameter('accounts')->id
+                ])
+                ->firstOrFail();
+        });
 
         parent::boot($router);
     }
