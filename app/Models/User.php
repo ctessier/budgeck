@@ -1,6 +1,6 @@
 <?php
 
-namespace Budgeck;
+namespace Budgeck\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -8,7 +8,7 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract
+class User extends BaseModel implements AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword;
 
@@ -24,7 +24,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['email', 'password', 'firstname', 'lastname'];
+    protected $fillable = ['email', 'firstname', 'lastname'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -34,31 +34,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = ['password', 'remember_token'];
 
     /**
-     * Get all user's active accounts
+     * Returns collection of user's accounts
+     *
+     * @return Collection
      */
     public function accounts()
     {
-        return $this->hasMany('\Budgeck\Account');
+        return $this->hasMany($this->getBaseNamespace() . '\Account');
     }
 
     /**
+     * Return user's accounts as a list
      *
-     */
-    public function accountsFromId($account_id)
-    {
-        if ($account_id === 'all')
-        {
-            return $this->accounts;
-        }
-        else
-        {
-            return $this->hasMany('\Budgeck\Account')
-                ->where('id', $account_id);
-        }
-    }
-
-    /**
-     * Get all user's active accounts as a list
+     * @return Array
      */
     public function getAccountsList()
     {
@@ -67,19 +55,31 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * Returns the default account of the user.
-     * If the user has no default account, 'all' is returned.
+     * Returns the default account of the user
+     *
+     * @return Account
      */
-    public function getDefaultAccount()
+    public function defaultAccount()
     {
-        return 'all';
+        return Account::where('user_id', $this->id)
+            ->where('is_default', true)
+            ->firstOrFail();
     }
 
     /**
-     * Get total balance of the user (looking through all accounts)
+     * Returns the total balance of the user (all accounts included)
+     *
+     * @return double
      */
-    public function getTotalBalance() {
-        //TODO
-        return 0;
+    public function getTotalBalance()
+    {
+        $totalBalance = 0;
+
+        foreach ($this->accounts as $account)
+        {
+            $totalBalance += $account->getBalance();
+        }
+
+        return $totalBalance;
     }
 }

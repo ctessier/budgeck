@@ -1,8 +1,8 @@
 <?php
 
-namespace Budgeck;
+namespace Budgeck\Models;
 
 class PaymentMethod extends BaseModel
 {
-    
+
 }
