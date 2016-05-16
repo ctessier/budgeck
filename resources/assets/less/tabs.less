@@ -5,6 +5,7 @@ ul.tabs {
 }
 
 ul.tabs > li {
+    position: relative;
     display: block;
     border: 1px solid lightgrey;
     border-bottom: none;
@@ -13,6 +14,7 @@ ul.tabs > li {
 }
 
 ul.tabs > li > ul > li {
+    position: relative;
     border-top: 1px solid #eee;
 }
 
@@ -58,10 +60,23 @@ ul.tabs a:hover {
 ul.tabs li ul,
 ul.tabs li.active ul {
     list-style-type: none;
-    
+
     li a {
         padding: 8px 15px;
         padding-left: 35px;
+    }
+}
+
+ul.tabs li {
+    .total-balance {
+        position: absolute;
+        top: 18px;
+        right: 10px;
+    }
+    .account-balance {
+        position: absolute;
+        top: 8px;
+        right: 10px;
     }
 }
 

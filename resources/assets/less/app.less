@@ -4,7 +4,6 @@
  * Copyright 2015, Clément Tessier
  *
  */
-
 @import "variables.less";
 @import "utility.less";
 @import "tables.less";
@@ -12,17 +11,20 @@
 @import "tabs.less";
 @import "lightbox.less";
 @import "accounts.less";
+@import "budgets.less";
 @import "progress-bar.less";
 @import "alerts.less";
 @import "transactions.less";
+@import "month-selector.less";
 
 /* General
  *--------------------------------------------------------*/
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;        
+    box-sizing: border-box;
 }
+
 html, body {
     position: relative;
     height: 100%;
@@ -32,67 +34,84 @@ html, body {
     font-weight: 200;
     color: @color-default-font;
 }
+
 .cf:before,
 .cf:after {
     content: " "; /* 1 */
     display: table; /* 2 */
 }
+
 .cf:after {
     clear: both;
 }
+
 /* For IE 6/7 only
  * Include this rule to trigger hasLayout and contain floats. */
 .cf {
-        *zoom: 1;
+    *zoom: 1;
 }
 
 /* Header
  *--------------------------------------------------------*/
 header {
     position: relative;
-    height: 45px;
-    background-color: @color-header-background;
+    height: auto;
     margin-bottom: 20px;
 }
-header .logo {
+
+#topbar {
+    background-color: @color-header-background;
+}
+
+#topbar .logo {
     text-decoration: none;
-    font-size: 1.4em;
+    font-size: 1.35em;
     color: @color-header-logo;
     height: 100%;
-    line-height: 45px;
-    letter-spacing: 2px;
+    line-height: 40px;
+    letter-spacing: 1px;
+    font-weight: bold;
 }
-header .logo .version {
+
+#topbar .logo .version {
     letter-spacing: 0;
     font-size: 0.6em;
-    margin-left: -0.3em;
+    margin-left: -0.2em;
+    font-weight: 100;
 }
+
 nav {
     position: relative;
-    width: 100%;        
+    width: 100%;
 }
+
 nav ul {
     list-style-type: none;
     padding: 0;
 }
+
 nav > ul > li {
     display: inline;
 }
+
 nav > ul > li a {
     display: inline-block;
     padding: 11.2px 15px;
     color: @color-header-link;
     text-decoration: none;
 }
+
 nav > ul > li a:hover {
     color: @color-header-link-hover;
     background-color: @color-header-link-hover-background;
 }
+
 nav > ul > li.active a,
 nav > ul > li.active a:hover {
     color: @color-header-link-active;
     background-color: @color-header-link-active-background;
 }
+
 nav > ul > li ul {
     display: none;
     position: absolute;
@@ -106,14 +125,25 @@ nav > ul > li ul {
         display: block;
         color: @color-header-link-active;
         background-color: @color-header-link-active-background;
-        
+
         &:hover {
             background: @color-header-background;
         }
     }
 }
+
 nav > ul > li:hover ul {
     display: block;
+}
+
+#current-account {
+    background-color: #EEEEEE;
+
+    p {
+        font-size: 0.9em;
+        margin: 3px 0;
+        padding: 0;
+    }
 }
 
 /* Headings
@@ -122,11 +152,12 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
     margin-bottom: 20px;
 }
+
 h1 {
     position: relative;
     width: 100%;
     padding-bottom: 5px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #EEEEEE;
     font-size: 1.6em;
 }
 
@@ -136,9 +167,11 @@ p {
     text-align: justify;
     margin-bottom: 15px;
 }
+
 strong {
     font-weight: 700;
 }
+
 p.info {
     text-align: left;
 }
@@ -149,6 +182,7 @@ p.info {
     width: 62.5em;
     margin: auto;
 }
+
 .content {
     position: relative;
     background-color: @color-content-background;
@@ -162,15 +196,17 @@ p.info {
  *--------------------------------------------------------*/
 #wrapper {
     min-height: 100%;
-	height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
-	height: 100%;
-	margin: 0 auto -30px; /* the bottom margin is the negative value of the footer's height */
-}   
+    height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
+    height: 100%;
+    margin: 0 auto -30px; /* the bottom margin is the negative value of the footer's height */
+}
+
 #footer {
     font-size: 0.8em;
     text-align: center;
-    color: @color-footer-font; 
+    color: @color-footer-font;
 }
+
 #footer, .push {
     height: 30px;
 }
