@@ -11,8 +11,12 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Budgeck\User::class, 3)->create()->each( function($user) {
-            $user->accounts()->save(factory(Budgeck\Account::class)->make());
+        factory(Budgeck\Models\User::class, 3)->create()->each( function($user) {
+            $user->accounts()->save(factory(Budgeck\Models\Account::class)->make());
+            $user->accounts()->save(factory(Budgeck\Models\Account::class)->make([
+                'name' => 'Epargne',
+                'account_type_id' => 2
+            ]));
         });
     }
 }

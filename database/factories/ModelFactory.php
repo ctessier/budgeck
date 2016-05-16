@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(Budgeck\User::class, function ($faker) {
+$factory->define(Budgeck\Models\User::class, function ($faker) {
     return [
         'firstname' => $faker->firstname,
         'lastname' => $faker->lastname,
@@ -21,9 +21,10 @@ $factory->define(Budgeck\User::class, function ($faker) {
     ];
 });
 
-$factory->define(Budgeck\Account::class, function ($faker) {
+$factory->define(Budgeck\Models\Account::class, function ($faker) {
     return [
         'name' => 'Compte chèque',
+        'description' => 'Description goes here.',
         'account_type_id' => 1,
         'is_default' => true
     ];

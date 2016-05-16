@@ -33,6 +33,7 @@ class CreateBudgetsTable extends Migration
             $table->float('amount')->unsigned();
             $table->integer('year')->length(4)->unsigned();
             $table->integer('month')->length(2)->unsigned();
+            $table->boolean('closed')->default(false);
             $table->integer('account_budget_id')->nullable()->unsigned();
             $table->integer('account_id')->unsigned();
             $table->integer('default_category_id')->nullable()->unsigned();

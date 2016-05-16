@@ -14,17 +14,12 @@ class AccountTableSeeder extends Seeder
         DB::table('account_types')->insert([
             [
                 'id' => 1,
-                'name' => 'Chèque'
+                'name' => 'Courant'
             ],
             [
                 'id' => 2,
                 'name' => 'Epargne'
             ]
         ]);
-
-        /*DB::table('accounts')->insert([
-
-
-        ])*/
     }
 }
