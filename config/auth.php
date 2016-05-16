@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'model' => Budgeck\User::class,
+    'model' => Budgeck\Models\User::class,
 
     /*
     |--------------------------------------------------------------------------
