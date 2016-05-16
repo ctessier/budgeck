@@ -17,10 +17,10 @@
             </div>
             <div class="form-group horizontal">
                 {!! Form::checkbox('remember') !!}
-                {!! Form::label('remember', 'Se souvenir de moi') !!}                
+                {!! Form::label('remember', 'Se souvenir de moi') !!}
             </div>
             <div class="form-group">
-                {!! Form::submit('Me connecter', array('class' => 'btn-base radius')) !!}
+                <a class="btn-base radius" data-form-submit="true" >Connexion</a>
             </div>
         {!! Form::close() !!}
     </div>

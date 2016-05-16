@@ -2,12 +2,13 @@
 
 namespace Budgeck\Http\Controllers;
 
-class HomeController extends Controller {
+class HomeController extends Controller
+{
     public function getHome()
     {
         if ($this->user)
         {
-            return redirect(route('history', 'all'));
+            return redirect(route('history'));
         }
         else
         {

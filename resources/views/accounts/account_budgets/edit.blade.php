@@ -3,11 +3,11 @@
 @section('content')
     <div class="row">
         <div class="columns large-12">
-            <h3>Budget</h3>
+            <h3>Budget pour {{ $account->name }}</h3>
         </div>
     </div>
-    {!! Form::model($budget, ['method' => 'put', 'route' => ['accounts.budgets.update', $current_account->id, $budget->id], 'data-ajax-form' => 'true']) !!}
-    @include('accounts.budgets.form')
+    {!! Form::model($account_budget, ['method' => 'put', 'route' => ['accounts.account_budgets.update', $account->id, $account_budget->id], 'data-ajax-form' => 'true']) !!}
+    @include('accounts.account_budgets.form')
     <div class="row">
         <div class="columns large-12">
             <div class="form-group">

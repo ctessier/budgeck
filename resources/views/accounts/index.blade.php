@@ -7,14 +7,27 @@
 <div class="columns large-8 small-12">
     <div class="alert">
         <p class="align-center">
-            Créer un compte et ajoutez-y des budgets et des revenus.<br />Gérez ensuite vos transactions.<br />
-            {!! HTML::linkRoute('accounts.getEdit', 'Ajouter un compte', null, ['class' => 'btn-base radius', 'data-use-lightbox' => 'true']) !!}
+            Créer un compte et associez-y des budgets.<br />
+            {!! HTML::linkRoute('accounts.create', 'Ajouter un compte', [], ['class' => 'btn-base radius', 'data-use-lightbox' => 'true']) !!}
         </p>
     </div>
-    @if (count($accounts) > 0)
+    @if ($user->accounts->count() > 0)
     <div class="content">
         <h3>Mes comptes</h3>
-        @include('accounts.list-accounts')
+        <div class="list-accounts">
+            @foreach($user->accounts as $account)
+            <div class="account">
+                {{--*/ $accountBalance = $account->getBalance() /*--}}
+                {{--*/ $accountProjection = $account->getProjection(date('Y'), date('m')) /*--}}
+                <span class="account-balance">
+                    <span class="{{($accountBalance < 0) ? 'negative' : 'positive'}}">{{ $accountBalance }} &euro;</span>
+                    <span class="{{($accountProjection < 0) ? 'negative' : 'positive'}}">Prévision à la fin du mois : {{ $accountProjection }} &euro;</span>
+                </span>
+                <span class="account-name">{{ $account->name }}</span>
+                <span class="account-description">{{ $account->description }}</span>
+            </div>
+            @endforeach
+        </div>
     </div>
     @endif
 </div>

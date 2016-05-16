@@ -1,15 +1,14 @@
+<li>
+    <a>Tableau de bord</a>
+</li>
 <li {!! (Route::currentRouteNamed('history')) ? 'class="active"' : '' !!}>
-    {!! HTML::linkRoute('history', 'Historique', $user->getDefaultAccount()) !!}
-</li>   
-<li {!! (Route::currentRouteNamed('accounts.month')) ? 'class="active"' : '' !!}>
-    {!! HTML::linkRoute('accounts.month', 'Budgets', [
-        'account_id' => $user->getDefaultAccount(),
+    {!! HTML::linkRoute('history', 'Historique') !!}
+</li>
+<li {!! (Route::currentRouteNamed('monitoring')) ? 'class="active"' : '' !!}>
+    {!! HTML::linkRoute('monitoring', 'Suivi mensuel', [
         'year' => date('Y'),
         'month' => date('m')
     ])!!}
-</li>
-<li>
-    <a href="">Graphiques</a>
 </li>
 <li {!! (Route::currentRouteNamed('profile')) ? 'class="active"' : '' !!}>
     <a>{{$user->firstname}}</a>
@@ -18,7 +17,7 @@
             {!! HTML::linkRoute('profile', 'Profil &amp; Comptes') !!}
         </li>
         <li>
-            {!! HTML::linkRoute('logout', 'Déconnexion') !!}    
+            {!! HTML::linkRoute('logout', 'Déconnexion') !!}
         </li>
     </ul>
 </li>

@@ -2,116 +2,103 @@
 
 namespace Budgeck\Http\Controllers;
 
-use Budgeck\Account;
-use Budgeck\Budget;
-use Budgeck\Income;
 use Illuminate\Http\Request;
+
+use Budgeck\Http\Requests\AccountRequest;
+use Budgeck\Http\Controllers\Controller;
+use Budgeck\Models\Account;
 
 class AccountController extends Controller
 {
     /**
-     * Show the view listing the accounts of an user
-     * @return \Illuminuate\Http\Response
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $accounts = $this->user->accounts;
-        view()->share('accounts', $accounts);
         return view('accounts.index');
     }
-    
+
     /**
-     * Show the view detailing a given account
-     * 
-     * @param int $account_id
-     * @return \Illuminate\Http\Request
-     */
-    public function getAccount($account_id)
-    {
-        $account = null;
-        $accounts = $this->user->accounts;
-        foreach ($accounts as $acc)
-        {
-            if ($acc->id == $account_id)
-            {
-                $account = $acc;
-            }
-        }
-        
-        if ($account == null)
-        {
-            abort(404);
-        }
-        
-        view()->share('accounts', $accounts);
-        view()->share('account', $account);
-        return view('accounts.account');
-    }
-    
-    /**
-     * Show the create account pop-up content
-     * 
+     * Show the form for creating a new resource.
+     *
      * @return \Illuminate\Http\Response
      */
-    public function getEdit($account_id = null)
+    public function create()
     {
-        $isCreation = true;
-        $account = Account::find($account_id);
-        if ($account != null)
-        {
-            $isCreation = false;
-        }
-        view()->share('account', $account);
-        view()->share('isCreation', $isCreation);
-        return view('accounts.edit');
+        return view('accounts.create');
     }
-    
+
     /**
-     * Handles an account create or edit request
-     * 
-     * @param \Illuminate\Http\Request
+     * Store a newly created resource in storage.
+     *
+     * @param  \Budgeck\Http\Requests\AccountRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function postSave(Request $request, $account_id = null)
+    public function store(AccountRequest $request)
     {
-        $account = Account::find($account_id);
-        if ($account == null)
-        {            
-            $account = new Account();
-            $account->user_id = $this->user->id;
-        }
-        
-        if (!$account->validate($request->all()))
-        {
-            return response()->json(['errors' => $account->errors]);
-        }
-        
+        $account = new Account();
         $account->fill($request->all());
-        if ($account->save())
-        {
-            return response()->json(['redirect' => route('accounts.getAccount', ['id' => $account->id])]);
-        }
-        else
-        {
-            return response()->json(['errors' => ['form' => 'TO DO Error']]);
-        }
+        $account->user_id = $this->user->id;
+        $account->save();
+
+        return response()->json([
+            'redirect' => route('accounts.show', ['account_id' => $account->id])
+        ]);
     }
-    
+
     /**
-     * 
-     * 
-     * @param int $account_id Account id
-     * @param int $year Year
-     * @param int $month Month
-     * @return \Illuminuate\Http\Response
+     * Display the specified resource.
+     *
+     * @param  Account  $account
+     * @return \Illuminate\Http\Response
      */
-    public function getMonth($account_id, $year, $month)
+    public function show($account)
     {
-        return view('accounts.month.index')
-            ->with('budgets', Budget::getUserMonthBudgetsFromAccountId($account_id, $year, $month))
-            ->with('incomes', Income::getUserMonthIncomesFromAccountId($account_id, $year, $month))
-            ->with('account_id', $account_id)
-            ->with('year', $year)
-            ->with('month', $month);
+        return view('accounts.show')
+            ->with('account', $account);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  Account  $account
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($account)
+    {
+        return view('accounts.edit')
+            ->with('account', $account);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Budgeck\Http\Requests\AccountRequest $request
+     * @param  Account  $account
+     * @return \Illuminate\Http\Response
+     */
+    public function update(AccountRequest $request, $account)
+    {
+        $account->update($request->all());
+
+        return response()->json([
+            'success' => 'Les informations du compte ont été mises à jour.'
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Account  $account
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($account)
+    {
+        //TODO: nested delete and make sure to keep one default (compte courant)
+        $account->delete();
+        
+        return redirect()->route('accounts.index');
     }
 }

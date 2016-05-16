@@ -5,25 +5,42 @@ namespace Budgeck\Http\Controllers;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 
 use Auth;
 
 class Controller extends BaseController
 {
     use DispatchesJobs, ValidatesRequests;
-    
+
     protected $user;
-    
-    function __construct()
+    protected $current_account;
+
+    function __construct(Request $request)
     {
         if (Auth::check())
         {
+            // Get and share user information for
+            // the controllers and the views
             $this->user = Auth::user();
             view()->share('user', $this->user);
+
+            // Get and share the default user account
+            // information for the controllers and the views
+            if (!$request->session()->has('account'))
+            {
+                $this->current_account = $this->user->defaultAccount();
+            }
+            else
+            {
+                $this->current_account = $request->session()->get('account');
+            }
+            view()->share('current_account', $this->current_account);
         }
         else
         {
             $this->user = null;
+            $this->current_account = null;
         }
     }
 }

@@ -2,53 +2,131 @@
 
 namespace Budgeck\Http\Controllers;
 
-use Budgeck\Budget;
-use Budgeck\Income;
-use Budgeck\Transaction;
+use Budgeck\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Budgeck\Http\Requests\TransactionRequest;
+use Budgeck\Http\Controllers\Controller;
 
-class TransactionController extends Controller {
-    
+class TransactionController extends Controller
+{
     /**
-     * 
-     */
-    public function getEdit($transaction_id = null) {
-        return view('transactions.getEdit')
-            ->with('transaction', $transaction = Transaction::getById($transaction_id))
-            ->with('budgets', Budget::getListFromYearMonth(date('Y'), date('m')))
-            ->with('incomes', Income::getListFromYearMonth(date('Y'), date('m')))
-            ->with('isCreation', $transaction === null);
-    }
-    
-    /**
+     * Display a listing of the resource.
      *
+     * @return \Illuminate\Http\Response
      */
-    public function postSave(Request $request, $transaction_id = null) {
-        $transaction = Transaction::find($transaction_id);
-        
-        if ($transaction == null) {
-            $transaction = new Transaction();
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        $view = view('accounts.transactions.create');
+        $month = Carbon::now()->month;
+        $year = Carbon::now()->year;
+
+        if ($request->exists('income'))
+        {
+            $view->with('income', true);
         }
-        
-        if (!$transaction->validate($request->all())) {
-            return response()->json(['errors' => $transaction->errors]);
+        else
+        {
+            $view->with('expense', true);
         }
-        
+
+        return $view->with('baseMonth', $month)->with('baseYear', $year);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Budgeck\Http\Requests\TransactionRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(TransactionRequest $request)
+    {
+        $transaction = new Transaction();
+        $transaction->account_id = $this->current_account->id;
         $transaction->fill($request->all());
-        
-        if (empty($transaction->effective_date)) {
-            $transaction->effective_date = null;
+
+        // Assign date if not empty
+        if (!empty($request->input('value_date')))
+        {
+            $transaction->value_date = $request->input('value_date');
         }
-        if ($transaction->budget_id == 0) {
-            $transaction->budget_id = null;
-        } else if ($transaction->income_id == 0) {
-            $transaction->income_id = null;
+
+        $transaction->save();
+
+        return response()->json([
+            'redirect' => route('history')
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \Budgeck\Models\Transaction  $transaction
+     * @return \Illuminate\Http\Response
+     */
+    public function show($transaction)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \Budgeck\Models\Account  $account
+     * @param  \Budgeck\Models\Transaction  $transaction
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($account, $transaction)
+    {
+        return view('accounts.transactions.edit')
+            ->with('transaction', $transaction)
+            ->with('baseMonth', $transaction->created_at->month)
+            ->with('baseYear', $transaction->created_at->year);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Budgeck\Http\Requests\TransactionRequest $request
+     * @param  \Budgeck\Models\Transaction  $transaction
+     * @return \Illuminate\Http\Response
+     */
+    public function update(TransactionRequest $request, $transaction)
+    {
+        $transaction->fill($request->all());
+
+        // Assign date if not empty
+        if (!empty($request->input('value_date')))
+        {
+            $transaction->value_date = $request->input('value_date');
         }
-        
-        if ($transaction->save()) {
-            return response()->json(['redirect' => '']);
-        } else {
-            //todo
-        }
+
+        $transaction->save();
+
+        return response()->json([
+            'redirect' => route('history')
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Budgeck\Models\Transaction  $transaction
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($transaction)
+    {
+        //
     }
 }
