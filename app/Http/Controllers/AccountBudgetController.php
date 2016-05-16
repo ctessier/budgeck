@@ -34,17 +34,18 @@ class AccountBudgetController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Budgeck\Http\Requests\AccountBudgetRequest $request
+     * @param  Account $account
      * @return \Illuminate\Http\Response
      */
-    public function store(AccountBudgetRequest $request)
+    public function store(AccountBudgetRequest $request, $account)
     {
         $account_budget = new AccountBudget();
         $account_budget->fill($request->all());
-        $account_budget->account_id = $this->current_account->id;
+        $account_budget->account_id = $account->id;
         $account_budget->save();
 
         return response()->json([
-            'redirect' => route('accounts.show', ['account_id' => $this->current_account->id])
+            'redirect' => route('accounts.show', $account)
         ]);
     }
 
@@ -86,7 +87,7 @@ class AccountBudgetController extends Controller
         $account_budget->update($request->all());
 
         return response()->json([
-            'redirect' => route('accounts.show', ['account_id' => $account->id])
+            'redirect' => route('accounts.show', $account)
         ]);
     }
 
@@ -109,8 +110,6 @@ class AccountBudgetController extends Controller
 
         $account_budget->delete();
 
-        return response()->json([
-            'redirect' => route('accounts.show', ['account_id' => $account->id])
-        ]);
+        return redirect()->route('accounts.show', $account);
     }
 }
