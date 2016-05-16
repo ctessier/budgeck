@@ -18,40 +18,34 @@ class CreateTransactionsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        
+
+        Schema::create('transaction_types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 45);
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title', 45);
             $table->float('amount')->unsigned();
             $table->date('transaction_date');
-            $table->date('effective_date')->nullable();
+            $table->date('value_date')->nullable();
             $table->text('comment')->nullable();
-            $table->integer('category_id')->nullable()->unsigned();
+            $table->integer('transaction_type_id')->unsigned();
+            $table->integer('category_id')->unsigned()->nullable();
+            $table->integer('account_id')->unsigned();
             $table->integer('budget_id')->unsigned()->nullable();
-            $table->integer('income_id')->unsigned()->nullable();
-            $table->integer('payment_method_id')->nullable()->unsigned();
+            $table->integer('payment_method_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
-            
-            $table->foreign('category_id')
-                ->references('id')
-                ->on('categories')
-                ->onDelete('set null');
-            
-            $table->foreign('budget_id')
-                ->references('id')
-                ->on('budgets')
-                ->onDelete('cascade');
-            
-            $table->foreign('income_id')
-                ->references('id')
-                ->on('incomes')
-                ->onDelete('cascade');
-            
-            $table->foreign('payment_method_id')
-                ->references('id')
-                ->on('payment_methods')
-                ->onDelete('set null');
+
+            $table->foreign('transaction_type_id')->references('id')->on('transaction_types')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
+            $table->foreign('budget_id')->references('id')->on('budgets')->onDelete('set null');
+            $table->foreign('payment_method_id')->references('id')->on('payment_methods')->onDelete('set null');
         });
     }
 
@@ -63,6 +57,7 @@ class CreateTransactionsTable extends Migration
     public function down()
     {
         Schema::drop('transactions');
+        Schema::drop('transaction_types');
         Schema::drop('payment_methods');
     }
 }

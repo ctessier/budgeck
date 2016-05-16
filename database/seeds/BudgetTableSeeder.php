@@ -11,21 +11,6 @@ class BudgetTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('budget_types')->insert([
-            [
-                'id' => 1,
-                'name' => 'Dépense unique',
-                'description' => 'Représente un budget ne content qu\'une seule dépense.',
-                'created_at' => new DateTime(),
-                'updated_at' => new DateTime(),
-            ],
-            [
-                'id' => 2,
-                'name' => 'Dépense multiple',
-                'description' => 'Représente un budget contenant plusieurs dépenses.',
-                'created_at' => new DateTime(),
-                'updated_at' => new DateTime(),
-            ]
-        ]);
+        //
     }
 }

@@ -11,13 +11,12 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'email' => 'demo@budgeck.fr',
-            'password' => bcrypt('demo'),
-            'firstname' => 'Démo',
-            'lastname' => 'Budgeck',
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime(),
-        ]);
+        factory(Budgeck\Models\User::class, 3)->create()->each( function($user) {
+            $user->accounts()->save(factory(Budgeck\Models\Account::class)->make());
+            $user->accounts()->save(factory(Budgeck\Models\Account::class)->make([
+                'name' => 'Epargne',
+                'account_type_id' => 2
+            ]));
+        });
     }
 }

@@ -11,11 +11,21 @@
 |
 */
 
-$factory->define(Budgeck\User::class, function ($faker) {
+$factory->define(Budgeck\Models\User::class, function ($faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->email,
-        'password' => str_random(10),
+        'firstname' => $faker->firstname,
+        'lastname' => $faker->lastname,
+        'email' => strtolower($faker->email),
+        'password' => Hash::make('secret'),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(Budgeck\Models\Account::class, function ($faker) {
+    return [
+        'name' => 'Compte chèque',
+        'description' => 'Description goes here.',
+        'account_type_id' => 1,
+        'is_default' => true
     ];
 });

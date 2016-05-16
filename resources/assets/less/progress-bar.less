@@ -1,76 +1,58 @@
-.progress {
+.progress-bar-container {
     position: relative;
-    float: left;
-    height: 100%;
-    font-size: .9em;
+    width: 100%;
+    height: 30px;
+    border: 1px solid #eee;
+    margin-top: 5px;
 
-    .progress-bar-container {
-        position: relative;
-        height: 7px;
-        border-radius: 10px;
-        background-color: #eee;
-        width: 80%;
-        float: left;
-        margin-right: 25px;
-        margin-top: 20px;
+    .progress-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
 
-        .progress-bar {
+        .current-amount {
             position: absolute;
-            top: 0;
-            left: 0;
             height: 100%;
-            border-radius: 10px;
+            font-size: .7em;
+            font-style: italic;
+            top: 0;
+            right: 5px;
+            line-height: 30px;
+            color: #fff;
+        }
+    }
+    .progress-bar.awaiting {
+        background-color: #DFF1FB;
 
-            .current-amount:before {
-                content: " ";
-                display: block;
-                position: absolute;
-                top: 0;
-                right: 20px;
-                width: 15px;
-                height: 15px;
-                border-radius: 10px;
-            }
+        .current-amount {
+            color: #44bba4;
+        }
+    }
+    .progress-bar.awaiting.full {
+        background-color: #e95757;
+    }
+    .progress-bar.green {
+        background-color: #44bba4;
 
-            .current-amount {
-                float: right;
-                position: relative;
-                width: 60px;
-                top: -4px;
-                left: 32px;
-                text-align: center;
-                padding-top: 15px;
-                font-size: .8em;
-            }
-        }
-        .progress-bar.awaiting {
-            background-color: #ccc;
-            
-            .current-amount {
-                color: #bbb;
-                left: 25px;
-            }
-        }
-        .progress-bar.awaiting.full {
-            background-color: orange;
-        }
-        .progress-bar.green {
+        .current-amount:before {
             background-color: green;
-
-            .current-amount:before {
-                background-color: green;
-            }
         }
-        .progress-bar.red {
-            background-color: crimson;
+    }
+    .progress-bar.red {
+        background-color: crimson;
 
-            .current-amount:before {
-                background-color: crimson;
-            }
+        .current-amount:before {
+            background-color: crimson;
         }
     }
 
     .amount {
-        line-height: 20px;
+        position: absolute;
+        height: 100%;
+        font-size: 0.8em;
+        font-style: italic;
+        right: 10px;
+        line-height: 30px;
     }
 }

@@ -1,35 +1,43 @@
-@extends('layouts.lightbox')
-
-@section('content')
+{!! Form::model($account, ['method' => 'put', 'route' => ['accounts.update', $account->id], 'class' => 'horizontal', 'data-ajax-form' => 'true']) !!}
 <div class="row">
-    <div class="columns large-12">
-        @if ($isCreation)
-        <h3>Ajouter un compte</h3>
-        @else
-        <h3>{{ $account->name }}</h3>
-        @endif
-        @if ($isCreation)
-        {!! Form::open(['method' => 'post', 'route' => ['accounts.postSave', null], 'data-ajax-form' => 'true']) !!}
-        @else
-        {!! Form::model($account, ['method' => 'post', 'route' => ['accounts.postSave', $account->id], 'data-ajax-form' => 'true']) !!}
-        @endif
+    <div class="columns large-3">
         <div class="form-group">
             {!! Form::label('name', 'Nom du compte') !!}
-            {!! Form::text('name', null, ['placeholder' => 'Nom du compte...']) !!}
         </div>
+    </div>
+    <div class="columns large-9">
         <div class="form-group">
-            {!! Form::label('description') !!}
-            {!! Form::text('description', null, ['placeholder' => 'Description...']) !!}
+            {!! Form::text('name') !!}
         </div>
-        <div class="form-group">
-            @if ($isCreation)
-            {!! Form::submit('Créer le compte', ['class' => 'btn-base radius']) !!}
-            @else
-            {!! Form::submit('Sauvegarder', ['class' => 'btn-base radius']) !!}
-            @endif
-            <a class="btn-base btn-grey radius" data-lightbox-dismiss="true">Annuler</a>
-        </div>
-        {!! Form::close() !!}
     </div>
 </div>
-@stop
+<div class="row">
+    <div class="columns large-3">
+        <div class="form-group">
+            {!! Form::label('description', 'Description') !!}
+        </div>
+    </div>
+    <div class="columns large-9">
+        <div class="form-group">
+            {!! Form::text('description') !!}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="columns large-3">
+        <div class="form-group">
+            {!! Form::label('account_type_id', 'Type de compte') !!}
+        </div>
+    </div>
+    <div class="columns large-9">
+        <div class="form-group">
+            {!! Form::select('account_type_id', Budgeck\Models\AccountType::lists('name', 'id')) !!}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="columns large-12">
+        <a data-form-submit="true" class="btn-base radius right">Sauvegarder</a>
+    </div>
+</div>
+{!! Form::close() !!}

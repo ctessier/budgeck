@@ -2,22 +2,19 @@
 
 namespace Budgeck\Http\Controllers;
 
-use Budgeck\Transaction;
+use Budgeck\Models\Transaction;
 
-class HistoryController extends Controller {
+class HistoryController extends Controller
+{
     /**
      * Return the history page
      *
-     * @param int $account_id
      * @return \Illuminate\Http\Response
      */
-    public function getHistory($account_id)
+    public function getHistory()
     {
         return view('history.getHistory')
-            ->with('account_id', $account_id)
-            ->with('awaitings',
-                Transaction::getUserTransactionsFromAccountId($this->user->id, $account_id, true))
-            ->with('transactions',
-                Transaction::getUserTransactionsFromAccountId($this->user->id, $account_id));
+            ->with('awaitings', $this->current_account->getTransactions(Transaction::AWAITING))
+            ->with('transactions', $this->current_account->getTransactions(Transaction::EFFECTIVE));
     }
 }

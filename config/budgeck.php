@@ -1,5 +1,5 @@
 <?php
-    
+
 return [
 
     /*
@@ -11,24 +11,23 @@ return [
     | the currently running version.
     |
     */
-    
+
     'appName' => 'Budgeck',
-    'version' => '0.1-bêta',
-    
+    'version' => '0.2',
+
     /*
     |--------------------------------------------------------------------------
     | Aheadness
     |--------------------------------------------------------------------------
     |
-    | This option defines the amount of months ahead the application must set 
-    | up the predefined budgets and incomes for the user to start managing.
+    | This option defines the amount of months ahead the application must set
+    | up the predefined budgets for the user to start managing.
     |
-    | Example: 0 means budgets and incomes for a specific month are only avai-
-    | lable when the month actually starts. 1 means the user can start managing
-    | his budgets and incomes of the n+1 month.
+    | Example: 0 means budgets for a specific month are only available when
+    | the month actually starts. 1 means the user can start managing
+    | his budgets of the n+1 month.
     |
     */
-    
+
     'aheadness' => 1,
-    
 ];
