@@ -6,6 +6,7 @@
 /public/css/app.*
 /vendor*
 /nbproject*
+/.idea*
 /node_modules*
 npm-debug.log
 
