@@ -23,7 +23,7 @@
                     <span class="{{($accountBalance < 0) ? 'negative' : 'positive'}}">{{ $accountBalance }} &euro;</span>
                     <span class="{{($accountProjection < 0) ? 'negative' : 'positive'}}">Prévision à la fin du mois : {{ $accountProjection }} &euro;</span>
                 </span>
-                <span class="account-name">{{ $account->name }}</span>
+                <span class="account-name">{{ $account->name }} {{ $account->is_default ? '(défaut)' : '' }}</span>
                 <span class="account-description">{{ $account->description }}</span>
             </div>
             @endforeach
