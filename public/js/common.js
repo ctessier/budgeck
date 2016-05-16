@@ -4,22 +4,28 @@
         initAjaxLightbox();
         initTabs();
         initDateFields();
+        initConfirmBox();
         $('form').attr('novalidate', 'novalidate');
     });
 }(window.jQuery, window, document));
 
 function initAjaxForms()
 {
-    $('body').on('submit', 'form[data-ajax-form=true]', function(e)
-    {
+    $('body').on('click', 'a[data-form-submit=true]', function (e) {
+        console.log('ok');
+        var link = $(this);
+        link.closest('form').submit();
+    });
+
+    $('body').on('submit', 'form[data-ajax-form=true]', function (e) {
         e.preventDefault();
 
         var form = $(this);
         var url = form.attr('action');
         var method = form.attr('method');
         var data = form.serializeArray();
-        var submitButton = form.find('input[type=submit]');
-        
+        var submitButton = form.find('a[data-form-submit=true]');
+
         removeValidations();
         submitButton.addClass('loading');
 
@@ -33,23 +39,33 @@ function initAjaxForms()
                 {
                     showSuccessMessage(form, data.success);
                 }
-                else if (typeof data.errors !== 'undefined')
-                {
-                    showValidations(form, data.errors);
-                }
                 else if (typeof data.redirect !== 'undefined')
                 {
                     redirect(data.redirect);
                 }
+                else if (typeof data.errors !== 'undefined')
+                {
+                    //TODO: handle error for whole form
+                }
             },
             error: function(jqXHR, textStatus, errorThrown)
             {
-                showValidations(form, {'form':errorThrown + '<br />'
+                if (jqXHR.status === 422)
+                {
+                    showValidations(form, jqXHR.responseJSON);
+                }
+                else
+                {
+                    showValidations(form, {'form':errorThrown + '<br />'
                     + jqXHR.responseText});
+                }
             },
             complete: function(jqXHR, textStatus)
             {
-                submitButton.removeClass('loading');
+                if (!jqXHR.responseJSON || typeof jqXHR.responseJSON.redirect === 'undefined')
+                {
+                    submitButton.removeClass('loading');
+                }
             }
         });
 
@@ -67,14 +83,14 @@ function initAjaxForms()
             var successElement = form.find('.validation-success-message');
             if (successElement.length === 0) {
                 successElement = $('<div class="validation-success-message ' + csstag + '">' + successMessage + '</div>').hide();
-                
+
                 //add at top of form
                 form.prepend(successElement.fadeIn());
             } else {
                 successElement.fadeOut();
                 successElement.html(successMessage).fadeIn();
             }
-            
+
             setTimeout(function(){
                 successElement.fadeOut();
             }, 5000);
@@ -90,7 +106,11 @@ function initAjaxForms()
             }
 
             for (var property in validations) {
-                var validationElement = $('<div class="validation-error-message ' + csstag + '">' + validations[property] + '</div>').hide();
+                var validationElement = $('<div class="validation-error-message ' + csstag + '"></div>').hide();
+
+                 validations[property].forEach(function(msg) {
+                     validationElement.append(msg + '<br />');
+                 });
 
                 //==== Validation for entire form ====
                 if (property === 'form') {
@@ -196,9 +216,9 @@ function initAjaxLightbox() {
     };
 
     $('body').on('click', 'a[data-use-lightbox=true]', openLightbox);
-        
+
     // close lightbox on escape
-    $(document).keyup(function(e) { 
+    $(document).keyup(function(e) {
         if (e.keyCode === 27) { // esc keycode
             dismiss();
         }
@@ -206,7 +226,7 @@ function initAjaxLightbox() {
 
     function openLightbox(e, url) {
         var linkElement = $(this);
-        
+
         if (typeof e !== 'undefined' && e !== null) {
             e.preventDefault();
         }
@@ -216,14 +236,16 @@ function initAjaxLightbox() {
         }
 
         linkElement.addClass('loading');
-        
+
         container.load(url, function() {
             container.show();
             window.scrollTo(0, 0);
             linkElement.removeClass('loading');
             opened = true;
-            
+
+            // Initialize DOM dynamics
             initDateFields();
+            initMonthSelector();
         });
     }
 
@@ -232,15 +254,46 @@ function initAjaxLightbox() {
             container.empty();
             opened = false;
         });
-    };        
+    };
 
     //Click handlers to dismiss lightbox
     container.on('click', '*[data-lightbox-dismiss=true]', dismiss);
-
 }
 
 function initDateFields() {
     $(".datepicker").datepicker({
         dateFormat: 'yy-mm-dd'
+    });
+}
+
+function initConfirmBox() {
+    $('body').on('submit', 'form[data-use-confirm=true]', function(e)
+    {
+        var form = $(this);
+        var message = form.attr('data-confirm-message');
+        return confirm(message);
+    });
+}
+
+function initMonthSelector() {
+    var selected = $('.month-selector a.selected');
+    var inputMonth = $('input[type="hidden"][data-month="true"]');
+    var inputYear = $('input[type="hidden"][data-year="true"]');
+
+    $('.month-selector a').on('click', function (e) {
+
+        e.preventDefault();
+
+        if ($(this) !== selected)
+        {
+            // Update DOM with new selected
+            selected.removeClass('selected');
+            selected = $(this);
+            selected.addClass('selected');
+
+            // Update hidden fields values
+            inputMonth.val(selected.attr('data-month'));
+            inputYear.val(selected.attr('data-year'));
+        }
     });
 }
