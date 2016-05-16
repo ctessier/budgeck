@@ -14,7 +14,12 @@
             <td>{{ $account_budget->title }}</td>
             <td>{{ $account_budget->description }}</td>
             <td>&euro; {{ $account_budget->amount }}</td>
-            <td class="align-center">{!! HTML::linkRoute('accounts.account_budgets.edit', 'Modifier', ['accounts' => $account->id, 'budgets' => $account_budget->id], ['class' => 'btn-tiny radius', 'data-use-lightbox' => 'true']) !!}</td>
+            <td class="align-center">
+                {!! HTML::linkRoute('accounts.account_budgets.edit', 'Modifier', ['accounts' => $account->id, 'budgets' => $account_budget->id], ['class' => 'btn-tiny radius', 'data-use-lightbox' => 'true']) !!}
+                {!! Form::open(['method' => 'delete', 'route' => ['accounts.account_budgets.destroy', $account->id, $account_budget->id], 'style' => 'display:inline;', 'data-use-confirm' => 'true', 'data-confirm-message' => 'Souhaitez-vous définitivement supprimer ce budget ? Cela affectera seulement les budgets des mois futurs.']) !!}
+                    <a class="btn-tiny btn-red radius" data-form-submit="true">Supprimer</a>
+                {!! Form::close() !!}
+            </td>
         </tr>
         @endforeach
     </tbody>

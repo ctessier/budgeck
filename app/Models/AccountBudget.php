@@ -13,9 +13,24 @@ class AccountBudget extends BaseModel
      */
     protected $fillable = ['title', 'description', 'amount', 'default_category_id'];
 
+    /**
+     * The account model of the account budget
+     *
+     * @return \Budgeck\Models\Account
+     */
     public function account()
     {
         return $this->belongsTo($this->getBaseNamespace() . '\Account');
+    }
+
+    /**
+     * The collection of budgets which inherit to this account budget
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function budgets()
+    {
+        return $this->hasMany($this->getBaseNamespace() . '\Budget');
     }
 
     /**
