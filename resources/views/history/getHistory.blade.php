@@ -26,7 +26,7 @@
                            data-use-lightbox="true">
                             <div class="transaction-date">{{$awaiting->transaction_date->format('d/m/Y')}}</div>
                             <div class="transaction-title">{{$awaiting->title}}</div>
-                            <div class="transaction-amount">&euro; {{$awaiting->amount}}</div>
+                            <div class="transaction-amount">@amount($awaiting->amount)</div>
                         </a>
                     </div>
                 @endforeach
@@ -50,7 +50,7 @@
                            data-use-lightbox="true">
                             <div class="transaction-date">{{$transaction->transaction_date->format('d/m/Y') }}</div>
                             <div class="transaction-title">{{$transaction->title}}</div>
-                            <div class="transaction-amount">&euro; {{$transaction->amount}}</div>
+                            <div class="transaction-amount">@amount($transaction->amount)</div>
                         </a>
                     </div>
                 @endforeach

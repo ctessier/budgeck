@@ -5,13 +5,13 @@
         </li>
         <li class="{!! (Route::currentRouteNamed('accounts.index') || Route::currentRouteNamed('accounts.show')) ? 'active' : '' !!}">
             {!! HTML::linkRoute('accounts.index', 'Mes comptes') !!}
-            <span class="total-balance">{{ $user->getTotalBalance() }} &euro;</span>
+            <span class="total-balance">@amount($user->getTotalBalance())</span>
             @if (Route::currentRouteNamed('accounts') || Route::currentRouteName('accounts.getAccount'))
             <ul>
                 @foreach ($user->accounts as $account)
                 <li class="{!! (Route::currentRouteNamed('accounts.show') && Route::getCurrentRoute()->getParameter('accounts') == $account) ? 'active' : '' !!}">
                     {!! HTML::linkRoute('accounts.show', $account->name, ['accounts' => $account->id]) !!}
-                    <span class="account-balance">{{ $account->getBalance() }} &euro;</span>
+                    <span class="account-balance">@amount($account->getBalance())</span>
                 </li>
                 @endforeach
             </ul>

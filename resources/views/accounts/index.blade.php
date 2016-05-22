@@ -20,8 +20,8 @@
                 {{--*/ $accountBalance = $account->getBalance() /*--}}
                 {{--*/ $accountProjection = $account->getProjection(date('Y'), date('m')) /*--}}
                 <span class="account-balance">
-                    <span class="{{($accountBalance < 0) ? 'negative' : 'positive'}}">{{ $accountBalance }} &euro;</span>
-                    <span class="{{($accountProjection < 0) ? 'negative' : 'positive'}}">Prévision à la fin du mois : {{ $accountProjection }} &euro;</span>
+                    <span class="{{($accountBalance < 0) ? 'negative' : 'positive'}}">@amount($accountBalance)</span>
+                    <span class="{{($accountProjection < 0) ? 'negative' : 'positive'}}">Prévision à la fin du mois : @amount($accountProjection)</span>
                 </span>
                 <span class="account-name">{{ $account->name }} {{ $account->is_default ? '(défaut)' : '' }}</span>
                 <span class="account-description">{{ $account->description }}</span>

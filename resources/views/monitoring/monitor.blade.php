@@ -32,16 +32,16 @@
                             <div class="progress-bar awaiting {{($totalAmountSpent > $budget->amount) ? 'full' : ''}}"
                                  style="width:{{min(100, ($totalAmountSpent / $budget->amount) * 100)}}%">
                                 <div class="current-amount">
-                                    {{ $totalAmountSpent }} &euro;
+                                    @amount($totalAmountSpent)
                                 </div>
                             </div>
                             <div class="progress-bar {{($effectiveAmountSpent <= $budget->amount) ? 'green' : 'red'}}"
                                  style="width:{{min(100, ($effectiveAmountSpent / $budget->amount) * 100)}}%">
                                 <div class="current-amount">
-                                    {{ $effectiveAmountSpent }} &euro;
+                                    @amount($effectiveAmountSpent)
                                 </div>
                             </div>
-                            <span class="amount">{{ $budget->amount }} &euro;</span>
+                            <span class="amount">@amount($budget->amount)</span>
                         </div>
                     </div>
                 @endforeach
