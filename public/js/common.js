@@ -315,7 +315,7 @@ function initMonthSelector() {
             url: 'api/budgets',
             data: 'month=' + month + '&year=' + year,
             success: function (data) {
-                budgetsDropDown.html('<option>Sélectionner un budget</option>');
+                budgetsDropDown.html('<option value="">Sélectionner un budget</option>');
                 data.forEach(function (element) {
                     var option = $('<option value="' + element.id + '">' + element.title + '</option>');
                     if (parseInt(budgetsDropDown.attr('data-budget-id')) === element.id) {

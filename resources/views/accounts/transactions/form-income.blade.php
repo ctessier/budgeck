@@ -28,13 +28,13 @@
     <div class="columns large-6">
         <div class="form-group">
             {!! Form::label('transaction_date', 'Date de transaction') !!}
-            {!! Form::text('transaction_date', null, ['placeholder' => 'Date de transaction...', 'class' => 'datepicker']) !!}
+            {!! Form::text('transaction_date', isset($transaction) ? $transaction->transaction_date->format('Y-m-d') : null, ['placeholder' => 'Date de transaction...', 'class' => 'datepicker']) !!}
         </div>
     </div>
     <div class="columns large-6">
         <div class="form-group">
             {!! Form::label('value_date', 'Date de valeur') !!}
-            {!! Form::text('value_date', null, ['placeholder' => 'Date de valeur...', 'class' => 'datepicker']) !!}
+            {!! Form::text('value_date', isset($transaction) && $transaction->value_date ? $transaction->value_date->format('Y-m-d') : null, ['placeholder' => 'Date de valeur...', 'class' => 'datepicker']) !!}
         </div>
     </div>
 </div>

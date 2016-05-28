@@ -56,10 +56,16 @@ class TransactionController extends Controller
         $transaction->account_id = $this->current_account->id;
         $transaction->fill($request->all());
 
-        // Assign date if not empty
-        if (!empty($request->input('value_date')))
+        // Set budget_id to null if empty
+        if (empty($request->input('budget_id')))
         {
-            $transaction->value_date = $request->input('value_date');
+            $transaction->budget_id = null;
+        }
+
+        // Set value_date if not empty, null otherwise
+        if (empty($request->input('value_date')))
+        {
+            $transaction->value_date = null;
         }
 
         $transaction->save();
@@ -99,17 +105,24 @@ class TransactionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Budgeck\Http\Requests\TransactionRequest $request
+     * @param  \Budgeck\Models\Account  $account
      * @param  \Budgeck\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(TransactionRequest $request, $transaction)
+    public function update(TransactionRequest $request, $account, $transaction)
     {
         $transaction->fill($request->all());
 
-        // Assign date if not empty
-        if (!empty($request->input('value_date')))
+        // Set budget_id to null if empty
+        if (empty($request->input('budget_id')))
         {
-            $transaction->value_date = $request->input('value_date');
+            $transaction->budget_id = null;
+        }
+
+        // Set value_date if not empty, null otherwise
+        if (empty($request->input('value_date')))
+        {
+            $transaction->value_date = null;
         }
 
         $transaction->save();

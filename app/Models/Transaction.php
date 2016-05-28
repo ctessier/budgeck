@@ -23,7 +23,7 @@ class Transaction extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['title', 'amount', 'transaction_date', 'comment', 'category_id', 'budget_id', 'transaction_type_id', 'payment_method_id', 'month', 'year'];
+    protected $fillable = ['title', 'amount', 'transaction_date', 'value_date', 'comment', 'category_id', 'budget_id', 'transaction_type_id', 'payment_method_id', 'month', 'year'];
 
     /**
      * The attributes that should be mutated to dates.
