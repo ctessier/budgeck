@@ -318,7 +318,7 @@ function initMonthSelector() {
                 budgetsDropDown.html('<option value="">Sélectionner un budget</option>');
                 data.forEach(function (element) {
                     var option = $('<option value="' + element.id + '">' + element.title + '</option>');
-                    if (parseInt(budgetsDropDown.attr('data-budget-id')) === element.id) {
+                    if (parseInt(budgetsDropDown.attr('data-budget-id')) === element.id || parseInt(budgetsDropDown.attr('data-account-budget-id')) === element.account_budget_id) {
                         option.attr('selected', 'selected');
                     }
                     budgetsDropDown.append(option);

@@ -20,7 +20,7 @@ class BudgetApiController extends Controller
     {
         if ($request->has('month') || $request->has('year'))
         {
-            return Budget::select('id', 'title', 'amount')
+            return Budget::select('id', 'title', 'amount', 'account_budget_id')
                 ->where([
                     'month' => $request->get('month'),
                     'year' => $request->get('year'),
