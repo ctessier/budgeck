@@ -11,12 +11,11 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Budgeck\Models\User::class, 3)->create()->each( function($user) {
-            $user->accounts()->save(factory(Budgeck\Models\Account::class)->make());
-            $user->accounts()->save(factory(Budgeck\Models\Account::class)->make([
-                'name' => 'Epargne',
-                'account_type_id' => 2
+        factory(Budgeck\Models\User::class, 3)->create()->each(function ($user) {
+            $user->accounts()->save(factory(Budgeck\Models\Account::class, 'checking')->make([
+                'is_default' => true,
             ]));
+            $user->accounts()->save(factory(Budgeck\Models\Account::class, 'saving')->make());
         });
     }
 }
