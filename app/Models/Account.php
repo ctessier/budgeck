@@ -122,6 +122,8 @@ class Account extends BaseModel
             $transactions->whereNotNull('value_date');
         }
 
+        $transactions->orderBy('year', 'DESC');
+        $transactions->orderBy('month', 'DESC');
         $transactions->orderBy('transaction_date', 'DESC');
 
         //TODO: paginator (maybe implemented partial view with get method for infinite scroll)
