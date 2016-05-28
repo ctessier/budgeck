@@ -24,7 +24,7 @@
     <div class="columns large-6">
         <div class="form-group">
             {!! Form::label('budget_id', 'Budget') !!}
-            {!! Form::select('budget_id') !!}
+            {!! Form::select('budget_id', [], null, ['data-budgets-list' => 'true', 'data-budget-id' => isset($transaction) ? $transaction->budget_id : null]) !!}
         </div>
     </div>
 </div>

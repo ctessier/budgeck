@@ -63,6 +63,15 @@ Route::group(['middleware' => 'auth'], function () {
         ]);
     });
 
+    // Group for JSON API
+    Route::group(['prefix' => 'api'], function () {
+        // Get list of budgets
+        Route::get('budgets', [
+            'as' => 'api.budgets',
+            'uses' => 'Api\BudgetApiController@get'
+        ]);
+    });
+
     // Logout
     Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 });

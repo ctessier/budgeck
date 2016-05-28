@@ -3,7 +3,6 @@
         initAjaxForms();
         initAjaxLightbox();
         initTabs();
-        initDateFields();
         initConfirmBox();
         $('form').attr('novalidate', 'novalidate');
     });
@@ -279,21 +278,54 @@ function initMonthSelector() {
     var selected = $('.month-selector a.selected');
     var inputMonth = $('input[type="hidden"][data-month="true"]');
     var inputYear = $('input[type="hidden"][data-year="true"]');
+    var currentMonth = inputMonth.val();
+    var currentYear = inputYear.val();
+
+    updateBudgets(currentMonth, currentYear);
 
     $('.month-selector a').on('click', function (e) {
 
         e.preventDefault();
 
-        if ($(this) !== selected)
+        if (!$(this).is(selected))
         {
             // Update DOM with new selected
             selected.removeClass('selected');
             selected = $(this);
             selected.addClass('selected');
 
+            // Set new values
+            currentMonth = selected.attr('data-month');
+            currentYear = selected.attr('data-year');
+
             // Update hidden fields values
-            inputMonth.val(selected.attr('data-month'));
-            inputYear.val(selected.attr('data-year'));
+            inputMonth.val(currentMonth);
+            inputYear.val(currentYear);
+
+            // Update budgets drop down
+            updateBudgets(currentMonth, currentYear);
         }
     });
+
+    function updateBudgets(month, year) {
+        var budgetsDropDown = $('select[data-budgets-list="true"]');
+        budgetsDropDown.addClass('loading');
+
+        $.ajax({
+            url: 'api/budgets',
+            data: 'month=' + month + '&year=' + year,
+            success: function (data) {
+                budgetsDropDown.html('<option>Sélectionner un budget</option>');
+                data.forEach(function (element) {
+                    var option = $('<option value="' + element.id + '">' + element.title + '</option>');
+                    if (parseInt(budgetsDropDown.attr('data-budget-id')) === element.id) {
+                        option.attr('selected', 'selected');
+                    }
+                    budgetsDropDown.append(option);
+                });
+
+                budgetsDropDown.removeClass('loading');
+            }
+        });
+    }
 }
