@@ -2,30 +2,41 @@
 
 namespace Budgeck\Models;
 
+use Illuminate\Support\Facades\Auth;
+
 class Category extends BaseModel
 {
     /**
-     * Get list of spending categories
-    */
-    public static function getExpenseCategoriesList()
+     *
+     */
+    public static function getList($category_type)
     {
-        $collection = self::select('categories.name', 'categories.id')
-            ->where('category_type_id', CategoryType::EXPENSE)
-            ->lists('name', 'id');
+        $parentCategories = self::where('category_type_id', $category_type)
+            ->whereNull('parent_category_id')
+            ->where(function ($query) {
+                $query->whereNull('user_id');
+                $query->orWhere('user_id', Auth::user()->id);
+            })
+            ->get();
 
-        $collection->prepend('-- Sélectionner --', 0);
-        return $collection;
+        $categories = [];
+        foreach ($parentCategories as $parentCategory)
+        {
+            $categories[$parentCategory->name] = $parentCategory->getChildren();
+        }
+
+        array_unshift($categories, 'Sélectionner une catégorie');
+        return $categories;
     }
 
-    /**
-     * Get list of income categories
-    */
-    public static function getIncomeCategoriesList()
+    public function getChildren()
     {
-        $collection = self::where('category_type_id', CategoryType::INCOME)
-            ->lists('name', 'id');
-
-        $collection->prepend('-- Sélectionner --', 0);
-        return $collection;
+        return self::where('parent_category_id', $this->id)
+            ->where(function ($query) {
+                $query->whereNull('user_id');
+                $query->orWhere('user_id', Auth::user()->id);
+            })
+            ->lists('name', 'id')
+            ->toArray();
     }
 }

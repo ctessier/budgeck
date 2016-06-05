@@ -50,10 +50,7 @@
         </div>
     </div>
     <div class="columns large-6">
-        <div class="form-group">
-            {!! Form::label('category_id', 'Catégorie') !!}
-            {!! Form::select('category_id') !!}
-        </div>
+        @include('elements.category-selector')
     </div>
 </div>
 <div class="row">

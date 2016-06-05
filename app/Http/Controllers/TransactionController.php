@@ -29,8 +29,6 @@ class TransactionController extends Controller
     public function create(Request $request)
     {
         $view = view('accounts.transactions.create');
-        $month = Carbon::now()->month;
-        $year = Carbon::now()->year;
 
         if ($request->exists('income'))
         {
@@ -41,7 +39,7 @@ class TransactionController extends Controller
             $view->with('expense', true);
         }
 
-        return $view->with('baseMonth', $month)->with('baseYear', $year);
+        return $view;
     }
 
     /**
@@ -56,16 +54,22 @@ class TransactionController extends Controller
         $transaction->account_id = $this->current_account->id;
         $transaction->fill($request->all());
 
-        // Set budget_id to null if empty
-        if (empty($request->input('budget_id')))
-        {
-            $transaction->budget_id = null;
-        }
-
         // Set value_date if not empty, null otherwise
         if (empty($request->input('value_date')))
         {
             $transaction->value_date = null;
+        }
+
+        // Set category_id to null if empty
+        if (empty($request->input('category_id')))
+        {
+            $transaction->category_id = null;
+        }
+
+        // Set budget_id to null if empty
+        if (empty($request->input('budget_id')))
+        {
+            $transaction->budget_id = null;
         }
 
         $transaction->save();
@@ -96,9 +100,7 @@ class TransactionController extends Controller
     public function edit($account, $transaction)
     {
         return view('accounts.transactions.edit')
-            ->with('transaction', $transaction)
-            ->with('baseMonth', $transaction->created_at->month)
-            ->with('baseYear', $transaction->created_at->year);
+            ->with('transaction', $transaction);
     }
 
     /**
@@ -113,16 +115,22 @@ class TransactionController extends Controller
     {
         $transaction->fill($request->all());
 
-        // Set budget_id to null if empty
-        if (empty($request->input('budget_id')))
-        {
-            $transaction->budget_id = null;
-        }
-
         // Set value_date if not empty, null otherwise
         if (empty($request->input('value_date')))
         {
             $transaction->value_date = null;
+        }
+
+        // Set category_id to null if empty
+        if (empty($request->input('category_id')))
+        {
+            $transaction->category_id = null;
+        }
+
+        // Set budget_id to null if empty
+        if (empty($request->input('budget_id')))
+        {
+            $transaction->budget_id = null;
         }
 
         $transaction->save();

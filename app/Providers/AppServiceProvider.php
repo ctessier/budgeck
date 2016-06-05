@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
         setlocale(LC_TIME, "fr_FR.UTF-8");
         \Carbon\Carbon::setLocale('fr');
 
-        // Provide Blade directive for figures
+        // Provide Blade directive for amounts
         Blade::directive('amount', function ($expression) {
             return "<?php echo number_format(with{$expression}, 2, ',', ' ') . ' &euro;'; ?>";
         });
