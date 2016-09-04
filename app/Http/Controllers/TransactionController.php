@@ -143,11 +143,14 @@ class TransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Budgeck\Models\Transaction  $transaction
+     * @param  \Budgeck\Models\Account  $account
+     * @param  \Budgeck\Models\Transaction $transaction
      * @return \Illuminate\Http\Response
      */
-    public function destroy($transaction)
+    public function destroy($account, $transaction)
     {
-        //
+        $transaction->delete();
+
+        return redirect('history');
     }
 }

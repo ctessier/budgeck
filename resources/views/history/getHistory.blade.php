@@ -13,21 +13,24 @@
             <div class="content">
                 <h3>Opérations en attente</h3>
                 {{--*/ $currentMonth = null /*--}}
-                @foreach ($awaitings as $awaiting)
-                    {{--*/ $month = \Carbon\Carbon::createFromDate($awaiting->year, $awaiting->month, null) /*--}}
+                @foreach ($awaitings as $transaction)
+                    {{--*/ $month = \Carbon\Carbon::createFromDate($transaction->year, $transaction->month, null) /*--}}
                     @if ($currentMonth !== $month->format('m'))
                         <div class="month-separator">
                             {{ucfirst($month->formatLocalized('%B'))}}
                         </div>
                         {{--*/ $currentMonth = $month->format('m') /*--}}
                     @endif
-                    <div class="transaction awaiting {{$awaiting->isExpense() ? 'expense' : 'income'}}">
-                        <a href="{{route('accounts.transactions.edit', ['accounts' => $current_account->id, 'transactions' => $awaiting->id])}}"
-                           data-use-lightbox="true">
-                            <div class="transaction-date">{{$awaiting->transaction_date->format('d/m/Y')}}</div>
-                            <div class="transaction-title">{{$awaiting->title}}</div>
-                            <div class="transaction-amount">@amount($awaiting->amount)</div>
-                        </a>
+                    <div class="transaction awaiting {{$transaction->isExpense() ? 'expense' : 'income'}}">
+                        <div class="transaction-date">{{$transaction->transaction_date->format('d/m/Y')}}</div>
+                        <div class="transaction-title">{{$transaction->title}}</div>
+                        <div class="transaction-amount">@amount($transaction->amount)</div>
+                        <div class="transaction-actions">
+                            {!! HTML::linkRoute('accounts.transactions.edit', 'Modifier', ['accounts' => $transaction->account_id, 'transactions' => $transaction->id], ['class' => 'btn-tiny radius', 'data-use-lightbox' => 'true']) !!}
+                            {!! Form::open(['method' => 'delete', 'route' => ['accounts.transactions.destroy', $transaction->account_id, $transaction->id], 'style' => 'display:inline;', 'data-use-confirm' => 'true', 'data-confirm-message' => 'Souhaitez-vous définitivement supprimer cette transaction ?']) !!}
+                                <a class="btn-tiny btn-red radius" data-form-submit="true">Supprimer</a>
+                            {!! Form::close() !!}
+                        </div>
                     </div>
                 @endforeach
             </div>
@@ -46,12 +49,15 @@
                         {{--*/ $currentMonth = $month->format('m') /*--}}
                     @endif
                     <div class="transaction {{$transaction->isExpense() ? 'expense' : 'income'}}">
-                        <a href="{{route('accounts.transactions.edit', ['accounts' => $current_account->id, 'transactions' => $transaction->id])}}"
-                           data-use-lightbox="true">
-                            <div class="transaction-date">{{$transaction->transaction_date->format('d/m/Y') }}</div>
-                            <div class="transaction-title">{{$transaction->title}}</div>
-                            <div class="transaction-amount">@amount($transaction->amount)</div>
-                        </a>
+                        <div class="transaction-date">{{$transaction->transaction_date->format('d/m/Y') }}</div>
+                        <div class="transaction-title">{{$transaction->title}}</div>
+                        <div class="transaction-amount">@amount($transaction->amount)</div>
+                        <div class="transaction-actions">
+                            {!! HTML::linkRoute('accounts.transactions.edit', 'Modifier', ['accounts' => $transaction->account_id, 'transactions' => $transaction->id], ['class' => 'btn-tiny radius', 'data-use-lightbox' => 'true']) !!}
+                            {!! Form::open(['method' => 'delete', 'route' => ['accounts.transactions.destroy', $transaction->account_id, $transaction->id], 'style' => 'display:inline;', 'data-use-confirm' => 'true', 'data-confirm-message' => 'Souhaitez-vous définitivement supprimer cette transaction ?']) !!}
+                                <a class="btn-tiny btn-red radius" data-form-submit="true">Supprimer</a>
+                            {!! Form::close() !!}
+                        </div>
                     </div>
                 @endforeach
             </div>

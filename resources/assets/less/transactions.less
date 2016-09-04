@@ -2,33 +2,31 @@
     width: 100%;
     padding: 5px 0;
     border-bottom: 1px solid #ededed;
-    
-    a {
-        display: table;
-        width: 100%;
-        color: inherit;
-        text-decoration: none;
-    }
-    
+
     div {
-        display: table-cell;
+        display: inline-block;
     }
-    
+
     &.awaiting {
         font-weight: 400;
     }
-    
+
     .transaction-date {
-        width: 20%;
+        width: 15%;
     }
     .transaction-title {
-        width: 60%;
+        width: 45%;
     }
     .transaction-amount {
-        width: 20%;
+        width: 15%;
+        text-align: right;
+        margin-right: 5%;
+    }
+    .transaction-actions {
+        width: 17%;
         text-align: right;
     }
-    
+
     &.expense .transaction-amount {
         color: red;
     }
