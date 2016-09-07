@@ -4,19 +4,25 @@
     'year' => date('Y'),
     'month' => date('m')
 ], ['class' => 'item' . (Route::currentRouteNamed('monitoring') ? ' active' : '')])!!}
-<div class="ui simple dropdown item">
+@if ($user->accounts->count() > 1)
+    <div class="ui simple dropdown item">
+        Compte : {{$current_account->name}}
+        <i class="dropdown icon"></i>
+        <div class="menu">
+            @foreach ($user->accounts as $account)
+                @if ($account != $current_account)
+                    <a href="#" class="item">{{$account->name}}</a>
+                @endif
+            @endforeach
+        </div>
+    </div>
+@endif
+
+<div class="ui simple dropdown item right">
     {{$user->firstname}}
     <i class="dropdown icon"></i>
     <div class="menu">
         {!! HTML::linkRoute('profile', 'Profil &amp; Comptes', [], ['class' => 'item' . (Route::currentRouteNamed('profile') ? ' active' : '')]) !!}
         {!! HTML::linkRoute('logout', 'Déconnexion', [], ['class' => 'item']) !!}
     </div>
-</div>
-
-<div class="ui item category search right">
-    <div class="ui icon input">
-        <input class="prompt" placeholder="Rechercher..." type="text">
-        <i class="search icon"></i>
-    </div>
-    <!--<div class="results"></div>-->
 </div>
