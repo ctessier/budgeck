@@ -1,23 +1,22 @@
-<li>
-    <a>Tableau de bord</a>
-</li>
-<li {!! (Route::currentRouteNamed('history')) ? 'class="active"' : '' !!}>
-    {!! HTML::linkRoute('history', 'Historique') !!}
-</li>
-<li {!! (Route::currentRouteNamed('monitoring')) ? 'class="active"' : '' !!}>
-    {!! HTML::linkRoute('monitoring', 'Suivi mensuel', [
-        'year' => date('Y'),
-        'month' => date('m')
-    ])!!}
-</li>
-<li {!! (Route::currentRouteNamed('profile')) ? 'class="active"' : '' !!}>
-    <a>{{$user->firstname}}</a>
-    <ul>
-        <li>
-            {!! HTML::linkRoute('profile', 'Profil &amp; Comptes') !!}
-        </li>
-        <li>
-            {!! HTML::linkRoute('logout', 'Déconnexion') !!}
-        </li>
-    </ul>
-</li>
+<a class="item">Tableau de bord</a>
+{!! HTML::linkRoute('history', 'Historique', [], ['class' => 'item' . (Route::currentRouteNamed('history') ? ' active' : '')]) !!}
+{!! HTML::linkRoute('monitoring', 'Suivi mensuel', [
+    'year' => date('Y'),
+    'month' => date('m')
+], ['class' => 'item' . (Route::currentRouteNamed('monitoring') ? ' active' : '')])!!}
+<div class="ui simple dropdown item">
+    {{$user->firstname}}
+    <i class="dropdown icon"></i>
+    <div class="menu">
+        {!! HTML::linkRoute('profile', 'Profil &amp; Comptes', [], ['class' => 'item' . (Route::currentRouteNamed('profile') ? ' active' : '')]) !!}
+        {!! HTML::linkRoute('logout', 'Déconnexion', [], ['class' => 'item']) !!}
+    </div>
+</div>
+
+<div class="ui item category search right">
+    <div class="ui icon input">
+        <input class="prompt" placeholder="Rechercher..." type="text">
+        <i class="search icon"></i>
+    </div>
+    <!--<div class="results"></div>-->
+</div>

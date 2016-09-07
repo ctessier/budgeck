@@ -1,21 +1,15 @@
-(function($, window, document) {
+/**
+ * Created by clementtessier on 07/09/2016.
+ */
+
+(function($) {
     $(function() {
         initAjaxForms();
-        initAjaxLightbox();
-        initTabs();
-        initConfirmBox();
-        $('form').attr('novalidate', 'novalidate');
     });
-}(window.jQuery, window, document));
+}(window.jQuery));
 
 function initAjaxForms()
 {
-    $('body').on('click', 'a[data-form-submit=true]', function (e) {
-        console.log('ok');
-        var link = $(this);
-        link.closest('form').submit();
-    });
-
     $('body').on('submit', 'form[data-ajax-form=true]', function (e) {
         e.preventDefault();
 
@@ -23,7 +17,7 @@ function initAjaxForms()
         var url = form.attr('action');
         var method = form.attr('method');
         var data = form.serializeArray();
-        var submitButton = form.find('a[data-form-submit=true]');
+        var submitButton = form.find('[type="submit"]');
 
         removeValidations();
         submitButton.addClass('loading');
@@ -107,9 +101,9 @@ function initAjaxForms()
             for (var property in validations) {
                 var validationElement = $('<div class="validation-error-message ' + csstag + '"></div>').hide();
 
-                 validations[property].forEach(function(msg) {
-                     validationElement.append(msg + '<br />');
-                 });
+                validations[property].forEach(function(msg) {
+                    validationElement.append(msg + '<br />');
+                });
 
                 //==== Validation for entire form ====
                 if (property === 'form') {
@@ -175,157 +169,4 @@ function initAjaxForms()
             window.location.href = url;
         }
     });
-}
-
-function formEscapeName(string)
-{
-    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-}
-
-/**
- * Initialize tabs behaviour
- */
-function initTabs()
-{
-    $('ul.tabs li[data-tab-id] a, ul.tabs-horizontal li[data-tab-id] a').on('click', function(e){
-        e.preventDefault();
-
-        // Get data-tab-id to enable
-        var data_tab_id = $(this).parent('li').attr('data-tab-id');
-
-        // Inactive tab and active new tab
-        $('ul.tabs li.active, ul.tabs-horizontal li.active').removeClass('active');
-        $(this).parent('li').addClass('active');
-
-        // Inactive tab content and active new tab content
-        $('.tab-content.active').removeClass('active');
-        $('.tab-content[data-tab-id=' + data_tab_id + ']').addClass('active');
-    });
-}
-
-/**
- * Initialize lightbox behaviour
- */
-function initAjaxLightbox() {
-    var container = $('#container-lightbox');
-    var opened = false;
-
-    this.open = function(url) {
-        openLightbox(null, url);
-    };
-
-    $('body').on('click', 'a[data-use-lightbox=true]', openLightbox);
-
-    // close lightbox on escape
-    $(document).keyup(function(e) {
-        if (e.keyCode === 27) { // esc keycode
-            dismiss();
-        }
-    });
-
-    function openLightbox(e, url) {
-        var linkElement = $(this);
-
-        if (typeof e !== 'undefined' && e !== null) {
-            e.preventDefault();
-        }
-
-        if (typeof url === 'undefined') {
-            var url = $(this).attr('href');
-        }
-
-        linkElement.addClass('loading');
-
-        container.load(url, function() {
-            container.show();
-            window.scrollTo(0, 0);
-            linkElement.removeClass('loading');
-            opened = true;
-
-            // Initialize DOM dynamics
-            initDateFields();
-            initMonthSelector();
-        });
-    }
-
-    var dismiss = function() {
-        container.hide(function(){
-            container.empty();
-            opened = false;
-        });
-    };
-
-    //Click handlers to dismiss lightbox
-    container.on('click', '*[data-lightbox-dismiss=true]', dismiss);
-}
-
-function initDateFields() {
-    $(".datepicker").datepicker({
-        dateFormat: 'yy-mm-dd'
-    });
-}
-
-function initConfirmBox() {
-    $('body').on('submit', 'form[data-use-confirm=true]', function(e)
-    {
-        var form = $(this);
-        var message = form.attr('data-confirm-message');
-        return confirm(message);
-    });
-}
-
-function initMonthSelector() {
-    var selected = $('.month-selector a.selected');
-    var inputMonth = $('input[type="hidden"][data-month="true"]');
-    var inputYear = $('input[type="hidden"][data-year="true"]');
-    var currentMonth = inputMonth.val();
-    var currentYear = inputYear.val();
-
-    updateBudgets(currentMonth, currentYear);
-
-    $('.month-selector a').on('click', function (e) {
-
-        e.preventDefault();
-
-        if (!$(this).is(selected))
-        {
-            // Update DOM with new selected
-            selected.removeClass('selected');
-            selected = $(this);
-            selected.addClass('selected');
-
-            // Set new values
-            currentMonth = selected.attr('data-month');
-            currentYear = selected.attr('data-year');
-
-            // Update hidden fields values
-            inputMonth.val(currentMonth);
-            inputYear.val(currentYear);
-
-            // Update budgets drop down
-            updateBudgets(currentMonth, currentYear);
-        }
-    });
-
-    function updateBudgets(month, year) {
-        var budgetsDropDown = $('select[data-budgets-list="true"]');
-        budgetsDropDown.addClass('loading');
-
-        $.ajax({
-            url: 'api/budgets',
-            data: 'month=' + month + '&year=' + year,
-            success: function (data) {
-                budgetsDropDown.html('<option value="">Sélectionner un budget</option>');
-                data.forEach(function (element) {
-                    var option = $('<option value="' + element.id + '">' + element.title + '</option>');
-                    if (parseInt(budgetsDropDown.attr('data-budget-id')) === element.id || parseInt(budgetsDropDown.attr('data-account-budget-id')) === element.account_budget_id) {
-                        option.attr('selected', 'selected');
-                    }
-                    budgetsDropDown.append(option);
-                });
-
-                budgetsDropDown.removeClass('loading');
-            }
-        });
-    }
 }

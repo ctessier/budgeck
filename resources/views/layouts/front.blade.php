@@ -6,24 +6,21 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>@yield('title') | Budgeck</title>
-        <link rel="stylesheet" href="/css/foundation.min.css" />
-        <link rel="stylesheet" href="/css/app.css" />
-        <link rel="stylesheet" href="/css/jquery-ui.min.css" />
-        <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="/js/common.js"></script>
+        <link rel="stylesheet" href="{{ elixir('assets/css/foundation.min.css') }}" />
+        <link rel="stylesheet" href="{{ elixir('assets/css/semantic.css') }}" />
+        <link rel="stylesheet" href="{{ elixir('assets/css/app.css') }}" />
+        <script type="text/javascript" src="{{ elixir('assets/js/jquery.js') }}"></script>
+        <script type="text/javascript" src="{{ elixir('assets/js/semantic.js') }}"></script>
+        <script type="text/javascript" src="{{ elixir('assets/js/common.js') }}"></script>
+        <script type="text/javascript" src="{{ elixir('assets/js/script.js') }}"></script>
         @yield('head')
     </head>
     <body>
-        <div id="wrapper">
-            @include('elements.header')
-            <div class="row">
-                @yield('content')
-            </div>
-            <div class="push"></div>
-            @yield('tail')
+        @include('elements.header')
+        <div class="ui main container">
+            @yield('content')
         </div>
+        @yield('tail')
         @include('elements.footer')
-        <div id="container-lightbox"></div>
     </body>
 </html>

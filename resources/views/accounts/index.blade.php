@@ -5,7 +5,7 @@
 @section('content')
 @include('menu.sidebar.profile')
 <div class="columns large-8 small-12">
-    <div class="alert">
+    <div class="ui segment">
         <p class="align-center">
             Créer un compte et associez-y des budgets.<br />
             {!! HTML::linkRoute('accounts.create', 'Ajouter un compte', [], ['class' => 'btn-base radius', 'data-use-lightbox' => 'true']) !!}
