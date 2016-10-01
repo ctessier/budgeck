@@ -4,6 +4,7 @@
     'year' => date('Y'),
     'month' => date('m')
 ], ['class' => 'item' . (Route::currentRouteNamed('monitoring') ? ' active' : '')])!!}
+{!! HTML::linkRoute('accounts.show', 'Paramètres', ['account' => $current_account->id], ['class' => 'item' . (Route::currentRouteNamed('accounts.show') ? ' active' : '')]) !!}
 @if ($user->accounts->count() > 1)
     <div class="ui simple dropdown item">
         Compte : {{$current_account->name}}

@@ -20,8 +20,8 @@
             {!! Form::label('account_type_id', 'Type de compte') !!}
         </div>
         <div class="six wide column field">
-            {!! Form::select('account_type_id', Budgeck\Models\AccountType::lists('name', 'id'), ['class' => 'ui search dropdown']) !!}
+            {!! Form::select('account_type_id', Budgeck\Models\AccountType::lists('name', 'id'), $account->account_type_id, ['class' => 'ui selection dropdown']) !!}
         </div>
     </div>
-    {!! Form::button('Sauvegarder', ['type' => 'submit', 'class' => 'ui button', 'data-form-submit' => 'true']) !!}
+    {!! Form::button('Sauvegarder', ['type' => 'submit', 'class' => 'ui blue button', 'data-form-submit' => 'true']) !!}
 {!! Form::close() !!}

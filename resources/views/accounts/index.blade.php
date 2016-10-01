@@ -9,7 +9,7 @@
         @if ($user->accounts->count() > 0)
         <div class="ui segment">
             <h3>Mes comptes</h3>
-            <div class="ui cards">
+            <div class="ui fluid cards">
                 @foreach($user->accounts as $account)
                     <div class="card">
                         <div class="content">
@@ -33,11 +33,16 @@
                     </div>
                 @endforeach
             </div>
+
+            <a href="{{ route('accounts.create') }}" class="ui icon mini button" data-use-modal="true">
+                <i class="add icon"></i>
+                Ajouter un compte
+            </a>
         </div>
         @else
         <div class="ui info icon message">
             <i class="info icon"></i>
-            {!! HTML::linkRoute('accounts.create', 'Ajouter un compte', [], ['data-use-lightbox' => 'true']) !!} &nbsp; et associez-y des budgets.
+            {!! HTML::linkRoute('accounts.create', 'Ajouter un compte', [], ['data-use-modal' => 'true']) !!} &nbsp; et associez-y des budgets.
         </div>
         @endif
     </div>
