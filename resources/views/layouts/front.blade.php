@@ -11,8 +11,8 @@
         <link rel="stylesheet" href="{{ elixir('assets/css/app.css') }}" />
         <script type="text/javascript" src="{{ elixir('assets/js/jquery.js') }}"></script>
         <script type="text/javascript" src="{{ elixir('assets/js/semantic.js') }}"></script>
-        <script type="text/javascript" src="{{ elixir('assets/js/common.js') }}"></script>
         <script type="text/javascript" src="{{ elixir('assets/js/script.js') }}"></script>
+        <script type="text/javascript" src="{{ elixir('assets/js/ajax-modal.js') }}"></script>
         @yield('head')
     </head>
     <body>

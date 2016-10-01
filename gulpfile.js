@@ -11,6 +11,8 @@ var elixir = require('laravel-elixir');
  |
  */
 
+elixir.config.registerWatcher("default", "resources/**");
+
 elixir(function(mix) {
     mix
         .copy('bower_components/semantic/dist/semantic.js', 'public/assets/js/semantic.js')
@@ -19,6 +21,7 @@ elixir(function(mix) {
         .copy('bower_components/semantic/dist/themes/default', 'public/build/assets/css/themes/default')
         .copy('bower_components/jquery/dist/jquery.js', 'public/assets/js/jquery.js')
         .copy('resources/assets/js/script.js', 'public/assets/js/script.js')
+        .copy('resources/assets/js/ajax-modal.js', 'public/assets/js/ajax-modal.js')
         .less([
             'app.less'
         ], 'public/assets/css')
@@ -29,6 +32,7 @@ elixir(function(mix) {
             'public/assets/js/semantic.js',
             'public/assets/js/jquery.js',
             'public/assets/js/common.js',
-            'public/assets/js/script.js'
+            'public/assets/js/script.js',
+            'public/assets/js/ajax-modal.js'
         ]);
 });

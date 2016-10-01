@@ -5,6 +5,7 @@
 (function($) {
     $(function() {
         initAjaxForms();
+        initConfirmModals();
     });
 }(window.jQuery));
 
@@ -17,7 +18,12 @@ function initAjaxForms()
         var url = form.attr('action');
         var method = form.attr('method');
         var data = form.serializeArray();
-        var submitButton = form.find('[type="submit"]');
+
+        if (form.parents('.modal').length === 0) {
+            var submitButton = form.find('[type="submit"]');
+        } else {
+            var submitButton = form.parents('.modal').find('.actions .ok');
+        }
 
         removeValidations();
         submitButton.addClass('loading');
@@ -26,7 +32,7 @@ function initAjaxForms()
             url: url,
             type: method,
             data: data,
-            success: function(data, textStatus, jqXHR)
+            success: function(data)
             {
                 if (typeof data.success !== 'undefined')
                 {
@@ -53,7 +59,7 @@ function initAjaxForms()
                     + jqXHR.responseText});
                 }
             },
-            complete: function(jqXHR, textStatus)
+            complete: function(jqXHR)
             {
                 if (!jqXHR.responseJSON || typeof jqXHR.responseJSON.redirect === 'undefined')
                 {
@@ -156,12 +162,6 @@ function initAjaxForms()
             $('html body').animate({
                 scrollTop: offset
             }, 1000);
-            if (window.location.href.indexOf('clientes/importer') > -1)
-            {
-                var customerIndexToBounce = firstError.closest('.customer-import-form').attr('id');
-                customerIndexToBounce = customerIndexToBounce.substring(9, customerIndexToBounce.length);
-                goToCustomer(Number(customerIndexToBounce));
-            }
         }
 
         function redirect(url)
@@ -169,4 +169,27 @@ function initAjaxForms()
             window.location.href = url;
         }
     });
+}
+
+function initConfirmModals() {
+    $('form[data-use-confirm="true"] *[type="submit"]').click(function(e) {
+
+        e.preventDefault();
+
+        var form = $(this).parent('form');
+        var modal = $('<div class="ui small modal"><div class="header">' + form.attr('data-confirm-modal-title') + '</div><div class="content"><p>' + form.attr('data-confirm-modal-message') + '</p></div><div class="actions"><div class="ui negative button">Non</div><div class="ui positive button">Oui</div></div></div>');
+
+        $('body').prepend(modal);
+        modal.modal({
+            closable: false,
+            onApprove: function () {
+                form.submit();
+            }
+        }).modal('show');
+    });
+}
+
+function formEscapeName(string)
+{
+    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 }
