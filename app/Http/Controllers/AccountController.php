@@ -54,7 +54,7 @@ class AccountController extends Controller
      * @param  Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function show($account)
+    public function show(Account $account)
     {
         return view('accounts.show')
             ->with('account', $account);
