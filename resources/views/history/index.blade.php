@@ -118,8 +118,10 @@
                             <div class="ui icon top left pointing dropdown mini settings-icon" style="display:none">
                                 <i class="settings icon"></i>
                                 <div class="menu">
-                                    <div class="item">Modifier</div>
-                                    <div class="item">Supprimer</div>
+                                    {!! HTML::linkRoute('accounts.transactions.edit', 'Modifier', ['accounts' => $transaction->account_id, 'transactions' => $transaction->id], ['class' => 'item', 'data-use-modal' => 'true']) !!}
+                                    {!! Form::open(['method' => 'delete', 'route' => ['accounts.transactions.destroy', $transaction->account_id, $transaction->id], 'class' => 'item', 'data-use-confirm' => 'true', 'data-confirm-modal-title' => 'Supprimer la transaction', 'data-confirm-modal-message' => 'Souhaitez-vous définitivement supprimer cette transaction ?']) !!}
+                                    <div type="submit">Supprimer</div>
+                                    {!! Form::close() !!}
                                 </div>
                             </div>
                         </td>
@@ -135,12 +137,17 @@
     </div>
 </div>
 <script>
-    $('.dropdown').dropdown();
+    $('.dropdown').dropdown({
+        action: 'hide'
+    });
     $('tr').hover(function() {
         $(this).find('td .settings-icon').show();
     });
     $('tr').mouseleave(function() {
-        $(this).find('td .settings-icon').hide();
+        var settingsIcon = $(this).find('td .settings-icon');
+        if (!settingsIcon.hasClass('visible')) {
+            $(this).find('td .settings-icon').hide();
+        }
     });
 </script>
 @stop
