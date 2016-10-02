@@ -12,6 +12,7 @@ before_script:
   - composer install --prefer-source --no-interaction --dev
   - cp .env.example .env
   - php artisan key:generate
+  - gulp --production
 
 script:
   - vendor/bin/phpunit --coverage-clover=coverage.xml
