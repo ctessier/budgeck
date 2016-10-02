@@ -28,10 +28,8 @@ elixir(function(mix) {
         .version([
             'public/assets/css/app.css',
             'public/assets/css/semantic.css',
-            'public/assets/css/foundation.min.css',
             'public/assets/js/semantic.js',
             'public/assets/js/jquery.js',
-            'public/assets/js/common.js',
             'public/assets/js/script.js',
             'public/assets/js/ajax-modal.js'
         ]);

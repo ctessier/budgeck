@@ -6,7 +6,6 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>@yield('title') | Budgeck</title>
-        <link rel="stylesheet" href="{{ elixir('assets/css/foundation.min.css') }}" />
         <link rel="stylesheet" href="{{ elixir('assets/css/semantic.css') }}" />
         <link rel="stylesheet" href="{{ elixir('assets/css/app.css') }}" />
         <script type="text/javascript" src="{{ elixir('assets/js/jquery.js') }}"></script>
