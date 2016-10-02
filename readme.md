@@ -14,14 +14,14 @@ Budgeck is a budget monitoring web application build with Laravel 5.1. To use th
 - Run *composer install*
 - Run *php artisan key:generate*
 - Run *php artisan migrate --seed*
+- Run *npm install*
+- Run *bower install*
 
 ## Development
 
-- Run *npm install*
 - Run *gulp watch*
 
 ## Make production
-
 
 - Run *gulp --production*
 
