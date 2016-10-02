@@ -14,7 +14,13 @@
         $('body').append(modal);
         linkElement.addClass('loading');
 
-        modal.load(url, function() {
+        modal.load(url, function(response, status, xhr) {
+            if (status === 'error') {
+                var r = $(response);
+                showErrorModal(xhr.statusText, r.find('.exception_message')[0].innerHTML);
+                return;
+            }
+
             if (modal.find('form').length !== 0) {
                 modal.modal({
                     onApprove: function () {
@@ -27,6 +33,18 @@
             modal.modal('show');
             linkElement.removeClass('loading');
         });
+    }
+
+    function showErrorModal(error, message) {
+        modal.append('<div class="header">' + error + '</div>');
+        modal.append('<div class="content"><p>' + message + '</p></div>');
+        modal.append('<div class="actions"><div class="ui negative button">Fermer</div></div>');
+        modal.modal({
+            closable: false,
+            onDeny: function() {
+                $(this).empty();
+            }
+        }).modal('show');
     }
 
     $(function() {
