@@ -13,7 +13,9 @@ before_script:
   - cp .env.example .env
   - php artisan key:generate
   - npm install -g gulp
+  - npm install -g bower
   - npm install
+  - bower install
 
 script:
   - gulp
