@@ -24,7 +24,7 @@
     <div class="columns large-6">
         <div class="form-group">
             {!! Form::label('category_id', 'Catégorie par défaut') !!}
-            {!! Form::select('category_id', Budgeck\Models\Category::getExpenseCategoriesList()) !!}
+            {!! Form::select('category_id', Budgeck\Models\Category::getList(Budgeck\Models\CategoryType::EXPENSE), null, ['class' => 'ui dropdown']) !!}
         </div>
     </div>
 </div>

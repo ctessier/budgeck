@@ -17,18 +17,14 @@
             <td>{{ $account_budget->title }}</td>
             <td>{{ $account_budget->description }}</td>
             <td>@amount($account_budget->amount)</td>
-            <!--<td class="align-center">
-                {!! HTML::linkRoute('accounts.account_budgets.edit', 'Modifier', ['accounts' => $account->id, 'budgets' => $account_budget->id], ['class' => 'ui mini button', 'data-use-lightbox' => 'true']) !!}
-                {!! Form::open(['method' => 'delete', 'route' => ['accounts.account_budgets.destroy', $account->id, $account_budget->id], 'style' => 'display:inline;', 'data-use-confirm' => 'true', 'data-confirm-message' => 'Souhaitez-vous définitivement supprimer ce budget ? Cela affectera seulement les budgets des mois futurs.']) !!}
-                    <a class="ui mini button" data-form-submit="true">Supprimer</a>
-                {!! Form::close() !!}
-            </td>-->
             <td>
                 <div class="ui icon top left pointing dropdown mini settings-icon" style="display:none">
                     <i class="settings icon"></i>
                     <div class="menu">
-                        <div class="item">Modifier</div>
-                        <div class="item">Supprimer</div>
+                        {!! HTML::linkRoute('accounts.account_budgets.edit', 'Modifier', ['accounts' => $account->id, 'budgets' => $account_budget->id], ['class' => 'item', 'data-use-modal' => 'true']) !!}
+                        {!! Form::open(['method' => 'delete', 'route' => ['accounts.account_budgets.destroy', $account_budget->account_id, $account_budget->id], 'class' => 'item', 'data-use-confirm' => 'true', 'data-confirm-modal-title' => 'Supprimer le budget : ' . $account_budget->title, 'data-confirm-modal-message' => 'Souhaitez-vous définitivement supprimer ce budget ? Cela affectera seulement les budgets des mois futurs.']) !!}
+                        <div type="submit">Supprimer</div>
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </td>
@@ -44,15 +40,14 @@
         </tr>
     </tfoot>
 </table>
-
-<a href="{{ route('accounts.account_budgets.create', ['accounts' => $account->id]) }}" class="ui icon mini button" data-use-lightbox="true">
-    <i class="add icon"></i>
-    Ajouter un budget
-</a>
-
 @else
 <p>Ajouter des budgets pour commencer à gérer les finances de ce compte.</p>
 @endif
+
+<a href="{{ route('accounts.account_budgets.create', ['accounts' => $account->id]) }}" class="ui icon mini button" data-use-modal="true">
+    <i class="add icon"></i>
+    Ajouter un budget
+</a>
 
 <script>
     $('.dropdown').dropdown();
