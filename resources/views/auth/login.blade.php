@@ -8,13 +8,13 @@
         <div class="ui segment">
             {!! Form::open(['method' => 'post', 'route' => 'login', 'class' => 'ui form' , 'data-ajax-form' => 'true']) !!}
                 <div class="field">
-                    <div class="ui icon input">
+                    <div class="ui left icon input">
                         <i class="user icon"></i>
                         {!! Form::email('email', old('email'), ['placeholder' => 'Adresse e-mail']) !!}
                     </div>
                 </div>
                 <div class="field">
-                    <div class="ui icon input">
+                    <div class="ui left icon input">
                         <i class="lock icon"></i>
                         {!! Form::password('password', ['placeholder' => 'Mot de passe']) !!}
                     </div>
