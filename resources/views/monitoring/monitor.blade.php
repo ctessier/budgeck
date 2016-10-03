@@ -18,6 +18,17 @@
                         {{--*/ $progressPourcent = min(100, ($budget->getAmountSpent() / $budget->amount) * 100) /*--}}
                         <div class="card">
                             <div class="content">
+                                <div class="right floated meta">
+                                    <div class="ui icon top left pointing dropdown mini settings-icon" style="display:none">
+                                        <i class="settings icon"></i>
+                                        <div class="menu">
+                                            {!! HTML::linkRoute('accounts.budgets.edit', 'Modifier', ['accounts' => $current_account, 'budgets' => $budget], ['class' => 'item', 'data-use-modal' => 'true']) !!}
+                                            {!! Form::open(['method' => 'delete', 'route' => ['accounts.budgets.destroy', $current_account, $budget], 'class' => 'item', 'data-use-confirm' => 'true', 'data-confirm-modal-title' => 'Supprimer la transaction', 'data-confirm-modal-message' => 'Souhaitez-vous définitivement supprimer cet budget ? Les transactions associées deviendront orphelines.']) !!}
+                                            <div type="submit">Supprimer</div>
+                                            {!! Form::close() !!}
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="header">{{$budget->title}}</div>
                                 <div class="meta">{{$budget->description}} - {{$budget->transactions->count()}} transaction(s)</div>
                                 <div class="description">
@@ -35,7 +46,7 @@
                     @endforeach
                 </div>
             @endif
-            <a href="{{ route('accounts.budgets.create', ['accounts' => $current_account]) }}" class="ui icon mini button" data-use-lightbox="true">
+            <a href="{{ route('accounts.budgets.create', ['accounts' => $current_account]) }}" class="ui icon mini button" data-use-modal="true">
                 <i class="add icon"></i>
                 Ajouter un budget
             </a>
@@ -45,6 +56,19 @@
 <script>
     $('.progress').progress({
         autoSuccess: false
+    });
+
+    $('.dropdown').dropdown({
+        action: 'hide'
+    });
+    $('.card .content').hover(function() {
+        $(this).find('.settings-icon').show();
+    });
+    $('.card .content').mouseleave(function() {
+        var settingsIcon = $(this).find('.settings-icon');
+        if (!settingsIcon.hasClass('visible')) {
+            $(this).find('.settings-icon').hide();
+        }
     });
 </script>
 @stop

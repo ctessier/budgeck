@@ -8,7 +8,7 @@
         </div>
         <div class="content {{($date->year == $year) ? ' active' : ''}}">
             <div class="ui link list">
-            @while ($date >= $user->created_at)
+            @while ($date >= $current_account->created_at)
                 @if ($currentYear != $date->year)
                     {{--*/ $currentYear = $date->year /*--}}
                         </div>
