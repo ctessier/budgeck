@@ -26,6 +26,9 @@
                     onApprove: function () {
                         modal.find('form').submit();
                         return false; // prevent from closing the modal
+                    },
+                    onHidden: function () {
+                        modal.empty();
                     }
                 });
             }
@@ -41,8 +44,8 @@
         modal.append('<div class="actions"><div class="ui negative button">Fermer</div></div>');
         modal.modal({
             closable: false,
-            onDeny: function() {
-                $(this).empty();
+            onHidden: function () {
+                modal.empty();
             }
         }).modal('show');
     }
