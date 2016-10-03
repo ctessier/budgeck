@@ -2,7 +2,7 @@
     Modifier le budget : {{ $account_budget->title }}
 </div>
 <div class="content">
-    {!! Form::model($account_budget, ['method' => 'put', 'route' => ['accounts.account_budgets.update', $account->id, $account_budget->id], 'data-ajax-form' => 'true']) !!}
+    {!! Form::model($account_budget, ['method' => 'put', 'route' => ['accounts.account_budgets.update', $account->id, $account_budget->id], 'class' => 'ui form', 'data-ajax-form' => 'true']) !!}
     @include('accounts.account_budgets.form')
     {!! Form::close() !!}
 </div>

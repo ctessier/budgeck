@@ -2,7 +2,7 @@
     Nouveau budget pour {{ $account->name }}
 </div>
 <div class="content">
-    {!! Form::open(['method' => 'post', 'route' => ['accounts.account_budgets.store', $account->id], 'data-ajax-form' => 'true']) !!}
+    {!! Form::open(['method' => 'post', 'route' => ['accounts.account_budgets.store', $account->id], 'class' => 'ui form', 'data-ajax-form' => 'true']) !!}
     @include('accounts.account_budgets.form')
     {!! Form::close() !!}
 </div>
