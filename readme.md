@@ -6,6 +6,7 @@ Budgeck is a budget monitoring web application build with Laravel 5.1. To use th
 
 **This project is still in build phase and yet, all the functionnalities have not been developped.**
 
+
 ## Installation
 
 - Make sure *storage* directory is writable
@@ -17,13 +18,16 @@ Budgeck is a budget monitoring web application build with Laravel 5.1. To use th
 - Run *npm install*
 - Run *bower install*
 
+
 ## Development
 
 - Run *gulp watch*
 
+
 ## Make production
 
 - Run *gulp --production*
+
 
 ## References
 
