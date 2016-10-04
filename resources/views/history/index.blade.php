@@ -49,7 +49,7 @@
                         <td>{{$transaction->title}}</td>
                         <td>
                             @if ($transaction->budget)
-                                <div class="ui small red horizontal label">
+                                <div class="ui small blue horizontal label">
                                     {{$transaction->budget->title}}
                                 </div>
                             @endif
@@ -59,8 +59,10 @@
                             <div class="ui icon top left pointing dropdown mini settings-icon" style="display:none">
                                 <i class="settings icon"></i>
                                 <div class="menu">
-                                    <div class="item">Modifier</div>
-                                    <div class="item">Supprimer</div>
+                                    {!! HTML::linkRoute('accounts.transactions.edit', 'Modifier', ['accounts' => $transaction->account_id, 'transactions' => $transaction->id], ['class' => 'item', 'data-use-modal' => 'true']) !!}
+                                    {!! Form::open(['method' => 'delete', 'route' => ['accounts.transactions.destroy', $transaction->account_id, $transaction->id], 'class' => 'item', 'data-use-confirm' => 'true', 'data-confirm-modal-title' => 'Supprimer la transaction', 'data-confirm-modal-message' => 'Souhaitez-vous définitivement supprimer cette transaction ?']) !!}
+                                    <div type="submit">Supprimer</div>
+                                    {!! Form::close() !!}
                                 </div>
                             </div>
                         </td>
@@ -108,7 +110,7 @@
                         <td>{{$transaction->title}}</td>
                         <td>
                             @if ($transaction->budget)
-                            <div class="ui small red horizontal label">
+                            <div class="ui small blue horizontal label">
                                 {{$transaction->budget->title}}
                             </div>
                             @endif
@@ -130,16 +132,19 @@
                 </tbody>
             </table>
         @endif
-        <div class="ui small buttons">
-            {!! HTML::linkRoute('accounts.transactions.create', 'Ajouter une dépense', ['accounts' => $current_account->id], ['class' => 'ui button', 'data-use-lightbox' => 'true']) !!}
-            {!! HTML::linkRoute('accounts.transactions.create', 'Ajouter un revenu', ['accounts' => $current_account->id, 'income'], ['class' => 'ui button', 'data-use-lightbox' => 'true']) !!}
+        <div class="ui floating labeled icon dropdown mini button">
+            <i class="add icon"></i>
+            <span class="text">Ajouter une transaction</span>
+            <div class="menu">
+                {!! HTML::linkRoute('accounts.transactions.create', 'Dépense', ['accounts' => $current_account->id], ['class' => 'item', 'data-use-modal' => 'true']) !!}
+                {!! HTML::linkRoute('accounts.transactions.create', 'Revenu', ['accounts' => $current_account->id, 'income'], ['class' => 'item', 'data-use-modal' => 'true']) !!}
+            </div>
         </div>
     </div>
 </div>
 <script>
-    $('.dropdown').dropdown({
-        action: 'hide'
-    });
+    $('.dropdown').dropdown();
+
     $('tr').hover(function() {
         $(this).find('td .settings-icon').show();
     });
