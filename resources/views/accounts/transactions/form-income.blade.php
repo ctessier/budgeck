@@ -3,7 +3,7 @@
         {!! Form::label('title', 'Titre') !!}
     </div>
     <div class="six wide column field">
-        {!! Form::text('title', null, ['placeholder' => 'Titre de la dépense']) !!}
+        {!! Form::text('title', null, ['placeholder' => 'Titre du revenu']) !!}
     </div>
 </div>
 <div class="ui grid inline fields">
