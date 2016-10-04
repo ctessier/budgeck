@@ -7,6 +7,7 @@
         <a class="month-selector ui small blue button {{ ($currentTime->month === $month && $currentTime->year === $year) ? 'active' : '' }}" data-month="{{ $currentTime->month }}" data-year="{{ $currentTime->year }}">{{ ucfirst($currentTime->formatLocalized('%B')) }}</a>
     @endfor
 </div>
+
 {!! Form::hidden('month', $month, ['data-month' => 'true']) !!}
 {!! Form::hidden('year', $year, ['data-year' => 'true']) !!}
 
