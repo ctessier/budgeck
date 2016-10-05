@@ -57,7 +57,6 @@
     </div>
     <div class="six wide column field">
         {{--*/ $categoryArray = Budgeck\Models\Category::getList(Budgeck\Models\CategoryType::EXPENSE) /*--}}
-        {{--*/ $categoryFieldName = "category_id" /*--}}
         @include('elements.category-selector')
     </div>
 </div>
