@@ -7,11 +7,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>@yield('title') | Budgeck</title>
         <link rel="stylesheet" href="{{ elixir('assets/css/semantic.css') }}" />
+        <link rel="stylesheet" href="{{ elixir('assets/css/foundation-datepicker.min.css') }}" />
         <link rel="stylesheet" href="{{ elixir('assets/css/app.css') }}" />
         <script type="text/javascript" src="{{ elixir('assets/js/jquery.js') }}"></script>
         <script type="text/javascript" src="{{ elixir('assets/js/semantic.js') }}"></script>
         <script type="text/javascript" src="{{ elixir('assets/js/script.js') }}"></script>
         <script type="text/javascript" src="{{ elixir('assets/js/ajax-modal.js') }}"></script>
+        <script type="text/javascript" src="{{ elixir('assets/js/foundation-datepicker.min.js') }}"></script>
         @yield('head')
     </head>
     <body>
