@@ -18,3 +18,17 @@
     <div class="ui cancel button">Annuler</div>
     <div class="ui ok blue button">Sauvegarder</div>
 </div>
+
+<script>
+    $('.dropdown').dropdown();
+    $('#datepicker-transaction-date').fdatepicker({
+        initialDate: '',
+        format: 'yyyy-mm-dd',
+        disableDblClickSelection: true
+    });
+    $('#datepicker-value-date').fdatepicker({
+        initialDate: '',
+        format: 'yyyy-mm-dd',
+        disableDblClickSelection: true
+    });
+</script>

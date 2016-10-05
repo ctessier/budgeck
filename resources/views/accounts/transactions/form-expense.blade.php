@@ -40,7 +40,7 @@
         {!! Form::label('transaction_date', 'Date de transaction') !!}
     </div>
     <div class="six wide column field">
-        {!! Form::text('transaction_date', isset($transaction) ? $transaction->transaction_date->format('Y-m-d') : null, ['placeholder' => 'Date de transaction...', 'class' => 'datepicker']) !!}
+        {!! Form::text('transaction_date', isset($transaction) ? $transaction->transaction_date->format('Y-m-d') : null, ['id' => 'datepicker-transaction-date', 'placeholder' => 'Date de transaction...']) !!}
     </div>
 </div>
 <div class="ui grid inline fields">
@@ -48,7 +48,7 @@
         {!! Form::label('value_date', 'Date de valeur') !!}
     </div>
     <div class="six wide column field">
-        {!! Form::text('value_date', isset($transaction) && $transaction->value_date ? $transaction->value_date->format('Y-m-d') : null, ['placeholder' => 'Date de valeur...', 'class' => 'datepicker']) !!}
+        {!! Form::text('value_date', isset($transaction) && $transaction->value_date ? $transaction->value_date->format('Y-m-d') : null, ['id' => 'datepicker-value-date', 'placeholder' => 'Date de valeur...']) !!}
     </div>
 </div>
 <div class="ui grid inline fields">
@@ -71,7 +71,3 @@
 </div>
 
 {!! Form::hidden('transaction_type_id', \Budgeck\Models\TransactionType::EXPENSE) !!}
-
-<script>
-    $('.dropdown').dropdown();
-</script>
