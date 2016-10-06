@@ -43,7 +43,7 @@ class BudgeckPrepareMonths extends Command
 
         Account::chunk(50, function ($accounts) {
             foreach ($accounts as $account) {
-                $this->info('Doing account ' . $account->id);
+                $this->info('Doing account '.$account->id);
 
                 AccountBudget::where('account_id', $account->id)
                     ->chunk(10, function ($budgets) {
