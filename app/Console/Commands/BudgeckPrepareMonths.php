@@ -41,15 +41,13 @@ class BudgeckPrepareMonths extends Command
     {
         $this->info('Preparing months...');
 
-        Account::chunk(50, function($accounts) {
-            foreach ($accounts as $account)
-            {
+        Account::chunk(50, function ($accounts) {
+            foreach ($accounts as $account) {
                 $this->info('Doing account ' . $account->id);
 
                 AccountBudget::where('account_id', $account->id)
                     ->chunk(10, function ($budgets) {
-                        foreach ($budgets as $budget)
-                        {
+                        foreach ($budgets as $budget) {
                             $budget->createMonthsBudget();
                         }
                     });
