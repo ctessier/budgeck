@@ -66,7 +66,7 @@ class AccountBudgetController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Account      $account
+     * @param Account       $account
      * @param AccountBudget $account_budget
      *
      * @return \Illuminate\Http\Response
