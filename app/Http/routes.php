@@ -32,6 +32,10 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'MonitorController@getMonitoring'
     ]);
 
+    Route::get('accounts/switch/{accounts}', [
+        'as' => 'accounts.switch',
+        'uses' => 'AccountController@switch'
+    ]);
     Route::resource('accounts', 'AccountController', [
         'except' => ['edit']
     ]);

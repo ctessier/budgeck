@@ -21,7 +21,8 @@ class AccountBudgetController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  Account $account
+     * @param Account $account
+     *
      * @return \Illuminate\Http\Response
      */
     public function create($account)
@@ -33,8 +34,9 @@ class AccountBudgetController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Budgeck\Http\Requests\AccountBudgetRequest $request
-     * @param  Account $account
+     * @param \Budgeck\Http\Requests\AccountBudgetRequest $request
+     * @param Account                                     $account
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(AccountBudgetRequest $request, $account)
@@ -45,14 +47,15 @@ class AccountBudgetController extends Controller
         $account_budget->save();
 
         return response()->json([
-            'redirect' => route('accounts.show', $account)
+            'redirect' => route('accounts.show', $account),
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  AccountBudget $account_budget
+     * @param AccountBudget $account_budget
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($account_budget)
@@ -63,8 +66,9 @@ class AccountBudgetController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Account $account
-     * @param  AccountBudget $account_budget
+     * @param Account       $account
+     * @param AccountBudget $account_budget
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($account, $account_budget)
@@ -77,9 +81,10 @@ class AccountBudgetController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Budgeck\Http\Requests\AccountBudgetRequest $request
-     * @param  Account $account
-     * @param  AccountBudget $account_budget
+     * @param \Budgeck\Http\Requests\AccountBudgetRequest $request
+     * @param Account                                     $account
+     * @param AccountBudget                               $account_budget
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(AccountBudgetRequest $request, $account, $account_budget)
@@ -87,23 +92,24 @@ class AccountBudgetController extends Controller
         $account_budget->update($request->all());
 
         return response()->json([
-            'redirect' => route('accounts.show', $account)
+            'redirect' => route('accounts.show', $account),
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Account $account
-     * @param  AccountBudget $account_budget
-     * @return \Illuminate\Http\Response
+     * @param Account       $account
+     * @param AccountBudget $account_budget
+     *
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\Response
      */
     public function destroy($account, $account_budget)
     {
         // Remove relation from budgets
-        foreach ($account_budget->budgets as $budget)
-        {
+        foreach ($account_budget->budgets as $budget) {
             $budget->account_budget_id = null;
             $budget->save();
         }

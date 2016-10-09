@@ -54,7 +54,7 @@ class AccountController extends Controller
      * @param  Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function show($account)
+    public function show(Account $account)
     {
         return view('accounts.show')
             ->with('account', $account);
@@ -98,7 +98,23 @@ class AccountController extends Controller
     {
         //TODO: nested delete and make sure to keep one default (compte courant)
         $account->delete();
-        
+
         return redirect()->route('accounts.index');
+    }
+
+    /**
+     * Switch to a given account
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @param  Account  $account
+     * @return \Illuminate\Http\Response
+     */
+    public function switch(Request $request, $account)
+    {
+        // Set new current account
+        $request->session()->set('account', $account);
+
+        // Redirect to previous page
+        return redirect()->back();
     }
 }

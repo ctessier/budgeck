@@ -1,0 +1,13 @@
+{
+  "name": "budgeck",
+  "description": "A budget monitoring web application developped with Laravel 5.1",
+  "main": "",
+  "authors": [
+    "Clément Tessier"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ctessier/budgeck",
+  "dependencies": {
+    "semantic": "semantic-ui#^2.2.4"
+  }
+}

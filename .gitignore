@@ -3,10 +3,11 @@
 .env.php
 .env
 /public/.htpasswd
-/public/css/app.*
 /vendor*
 /nbproject*
 /.idea*
 /node_modules*
+/bower_components*
 npm-debug.log
-
+/public/assets/*
+/public/build/*

@@ -1,23 +1,29 @@
-<li>
-    <a>Tableau de bord</a>
-</li>
-<li {!! (Route::currentRouteNamed('history')) ? 'class="active"' : '' !!}>
-    {!! HTML::linkRoute('history', 'Historique') !!}
-</li>
-<li {!! (Route::currentRouteNamed('monitoring')) ? 'class="active"' : '' !!}>
-    {!! HTML::linkRoute('monitoring', 'Suivi mensuel', [
-        'year' => date('Y'),
-        'month' => date('m')
-    ])!!}
-</li>
-<li {!! (Route::currentRouteNamed('profile')) ? 'class="active"' : '' !!}>
-    <a>{{$user->firstname}}</a>
-    <ul>
-        <li>
-            {!! HTML::linkRoute('profile', 'Profil &amp; Comptes') !!}
-        </li>
-        <li>
-            {!! HTML::linkRoute('logout', 'Déconnexion') !!}
-        </li>
-    </ul>
-</li>
+<a class="item">Tableau de bord</a>
+{!! HTML::linkRoute('history', 'Historique', [], ['class' => 'item' . (Route::currentRouteNamed('history') ? ' active' : '')]) !!}
+{!! HTML::linkRoute('monitoring', 'Suivi mensuel', [
+    'year' => date('Y'),
+    'month' => date('m')
+], ['class' => 'item' . (Route::currentRouteNamed('monitoring') ? ' active' : '')])!!}
+{!! HTML::linkRoute('accounts.show', 'Paramètres', ['account' => $current_account->id], ['class' => 'item' . (Route::currentRouteNamed('accounts.show') ? ' active' : '')]) !!}
+@if ($user->accounts->count() > 1)
+    <div class="ui simple dropdown item">
+        Compte : {{$current_account->name}}
+        <i class="dropdown icon"></i>
+        <div class="menu">
+            @foreach ($user->accounts as $account)
+                @if ($account != $current_account)
+                    {!! HTML::linkRoute('accounts.switch', $account->name, ['accounts' => $account->id], ['class' => 'item']) !!}
+                @endif
+            @endforeach
+        </div>
+    </div>
+@endif
+
+<div class="ui simple dropdown item right">
+    {{$user->firstname}}
+    <i class="dropdown icon"></i>
+    <div class="menu">
+        {!! HTML::linkRoute('profile', 'Profil &amp; Comptes', [], ['class' => 'item' . (Route::currentRouteNamed('profile') ? ' active' : '')]) !!}
+        {!! HTML::linkRoute('logout', 'Déconnexion', [], ['class' => 'item']) !!}
+    </div>
+</div>

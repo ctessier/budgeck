@@ -25,11 +25,10 @@ class Category extends BaseModel
             $categories[$parentCategory->name] = $parentCategory->getChildren();
         }
 
-        array_unshift($categories, 'Sélectionner une catégorie');
         return $categories;
     }
 
-    public function getChildren()
+    protected function getChildren()
     {
         return self::where('parent_category_id', $this->id)
             ->where(function ($query) {
