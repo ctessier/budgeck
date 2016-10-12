@@ -26,8 +26,7 @@ class BudgetApiController extends Controller
                     'closed'     => false,
                 ])
                 ->get();
-        }
-        else {
+        } else {
             abort(400);
         }
     }

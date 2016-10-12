@@ -105,10 +105,10 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'email'     => $data['email'],
+            'password'  => bcrypt($data['password']),
             'firstname' => $data['firstname'],
-            'lastname' => $data['lastname']
+            'lastname'  => $data['lastname']
         ]);
     }
 
@@ -161,8 +161,10 @@ class AuthController extends Controller
             $this->incrementLoginAttempts($request);
         }
 
-        return response()->json(['errors' =>
-            ['form' => 'Identifiants incorrects'],
+        return response()->json([
+            'errors' => [
+                'form' => 'Identifiants incorrects'
+            ],
         ]);
     }
 }

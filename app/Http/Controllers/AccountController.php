@@ -106,7 +106,7 @@ class AccountController extends Controller
     }
 
     /**
-     * Switch to a given account
+     * Switch to a given account.
      *
      * @param \Illuminate\Http\Request $request
      * @param Account                  $account
