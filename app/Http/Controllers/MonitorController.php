@@ -17,6 +17,7 @@ class MonitorController extends Controller
     public function getMonitoring($year, $month)
     {
         $monitoringDate = Carbon::createFromDate($year, $month, null);
+        
         return view('monitoring.monitor')
             ->with('budgets', $this->current_account->getBudgets($monitoringDate->year, $monitoringDate->month))
             ->with('year', $monitoringDate->year)

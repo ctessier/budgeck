@@ -2,11 +2,9 @@
 
 namespace Budgeck\Http\Controllers;
 
-use Budgeck\Models\Transaction;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Budgeck\Http\Requests\TransactionRequest;
-use Budgeck\Http\Controllers\Controller;
+use Budgeck\Models\Transaction;
+use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
@@ -33,8 +31,7 @@ class TransactionController extends Controller
 
         if ($request->exists('income')) {
             $view->with('income', true);
-        }
-        else {
+        } else {
             $view->with('expense', true);
         }
 

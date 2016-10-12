@@ -8,8 +8,7 @@ class HomeController extends Controller
     {
         if ($this->user) {
             return redirect(route('history'));
-        }
-        else {
+        } else {
             return redirect(route('login'));
         }
     }

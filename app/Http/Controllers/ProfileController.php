@@ -22,7 +22,7 @@ class ProfileController extends Controller
      * Handles a profile save post request.
      *
      * @param \Budgeck\Http\Requests\EditProfileRequest $request
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(EditProfileRequest $request)
@@ -38,17 +38,17 @@ class ProfileController extends Controller
      * Handles a password save post request.
      *
      * @param \Budgeck\Http\Requests\EditProfilePasswordRequest $request
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function updatePassword(EditProfilePasswordRequest $request)
     {
         //TODO: move validation to EditProfilePasswordRequest
-        
+
         // Check if old password matches current password
         if (!Hash::check($request->get('oldpassword'), $this->user->password)) {
             return response()->json([
-                'errors' => ['form' => 'Le mot de passe actuel est incorrect.']
+                'errors' => ['form' => 'Le mot de passe actuel est incorrect.'],
             ]);
         }
 

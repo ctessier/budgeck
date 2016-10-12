@@ -28,13 +28,11 @@ class Controller extends BaseController
             // information for the controllers and the views
             if (!$request->session()->has('account')) {
                 $this->current_account = $this->user->defaultAccount();
-            }
-            else {
+            } else {
                 $this->current_account = $request->session()->get('account');
             }
             view()->share('current_account', $this->current_account);
-        }
-        else {
+        } else {
             $this->user = null;
             $this->current_account = null;
         }
