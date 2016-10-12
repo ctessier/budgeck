@@ -2,12 +2,11 @@
 
 namespace Budgeck\Http\Controllers;
 
+use Auth;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
-
-use Auth;
+use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
@@ -16,10 +15,9 @@ class Controller extends BaseController
     protected $user;
     protected $current_account;
 
-    function __construct(Request $request)
+    public function __construct(Request $request)
     {
-        if (Auth::check())
-        {
+        if (Auth::check()) {
             // Get and share user information for
             // the controllers and the views
             $this->user = Auth::user();
@@ -27,18 +25,13 @@ class Controller extends BaseController
 
             // Get and share the default user account
             // information for the controllers and the views
-            if (!$request->session()->has('account'))
-            {
+            if (!$request->session()->has('account')) {
                 $this->current_account = $this->user->defaultAccount();
-            }
-            else
-            {
+            } else {
                 $this->current_account = $request->session()->get('account');
             }
             view()->share('current_account', $this->current_account);
-        }
-        else
-        {
+        } else {
             $this->user = null;
             $this->current_account = null;
         }

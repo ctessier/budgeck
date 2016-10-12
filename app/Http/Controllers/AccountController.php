@@ -2,11 +2,9 @@
 
 namespace Budgeck\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use Budgeck\Http\Requests\AccountRequest;
-use Budgeck\Http\Controllers\Controller;
 use Budgeck\Models\Account;
+use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
@@ -33,7 +31,8 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Budgeck\Http\Requests\AccountRequest $request
+     * @param \Budgeck\Http\Requests\AccountRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(AccountRequest $request)
@@ -44,14 +43,15 @@ class AccountController extends Controller
         $account->save();
 
         return response()->json([
-            'redirect' => route('accounts.show', ['account_id' => $account->id])
+            'redirect' => route('accounts.show', ['account_id' => $account->id]),
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Account  $account
+     * @param Account $account
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Account $account)
@@ -63,7 +63,8 @@ class AccountController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Account  $account
+     * @param Account $account
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($account)
@@ -75,8 +76,9 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Budgeck\Http\Requests\AccountRequest $request
-     * @param  Account  $account
+     * @param \Budgeck\Http\Requests\AccountRequest $request
+     * @param Account                               $account
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(AccountRequest $request, $account)
@@ -84,14 +86,15 @@ class AccountController extends Controller
         $account->update($request->all());
 
         return response()->json([
-            'success' => 'Les informations du compte ont été mises à jour.'
+            'success' => 'Les informations du compte ont été mises à jour.',
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Account  $account
+     * @param Account $account
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($account)
@@ -103,10 +106,11 @@ class AccountController extends Controller
     }
 
     /**
-     * Switch to a given account
+     * Switch to a given account.
      *
-     * @param \Illuminate\Http\Request  $request
-     * @param  Account  $account
+     * @param \Illuminate\Http\Request $request
+     * @param Account                  $account
+     *
      * @return \Illuminate\Http\Response
      */
     public function switch(Request $request, $account)
