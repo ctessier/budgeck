@@ -29,6 +29,7 @@ class ProfileController extends Controller
     {
         $this->user->fill($request->all());
         $this->user->save();
+
         return response()->json([
             'success' => 'Vos informations ont été mise à jour.',
         ]);
@@ -55,6 +56,7 @@ class ProfileController extends Controller
         // Change password
         $this->user->password = Hash::make($request->get('newpassword'));
         $this->user->save();
+
         return response()->json([
             'success' => 'Votre mot de passe a été mise à jour.',
         ]);
