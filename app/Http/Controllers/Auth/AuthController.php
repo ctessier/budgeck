@@ -108,7 +108,7 @@ class AuthController extends Controller
             'email'     => $data['email'],
             'password'  => bcrypt($data['password']),
             'firstname' => $data['firstname'],
-            'lastname'  => $data['lastname']
+            'lastname'  => $data['lastname'],
         ]);
     }
 
@@ -163,7 +163,7 @@ class AuthController extends Controller
 
         return response()->json([
             'errors' => [
-                'form' => 'Identifiants incorrects'
+                'form' => 'Identifiants incorrects',
             ],
         ]);
     }
