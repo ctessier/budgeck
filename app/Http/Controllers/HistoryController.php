@@ -7,7 +7,7 @@ use Budgeck\Models\Transaction;
 class HistoryController extends Controller
 {
     /**
-     * Return the history page
+     * Return the history page.
      *
      * @return \Illuminate\Http\Response
      */

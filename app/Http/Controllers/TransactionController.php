@@ -24,18 +24,17 @@ class TransactionController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
     {
         $view = view('accounts.transactions.create');
 
-        if ($request->exists('income'))
-        {
+        if ($request->exists('income')) {
             $view->with('income', true);
         }
-        else
-        {
+        else {
             $view->with('expense', true);
         }
 
@@ -45,7 +44,8 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Budgeck\Http\Requests\TransactionRequest $request
+     * @param \Budgeck\Http\Requests\TransactionRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(TransactionRequest $request)
@@ -55,34 +55,32 @@ class TransactionController extends Controller
         $transaction->fill($request->all());
 
         // Set value_date if not empty, null otherwise
-        if (empty($request->input('value_date')))
-        {
+        if (empty($request->input('value_date'))) {
             $transaction->value_date = null;
         }
 
         // Set category_id to null if empty
-        if (empty($request->input('category_id')))
-        {
+        if (empty($request->input('category_id'))) {
             $transaction->category_id = null;
         }
 
         // Set budget_id to null if empty
-        if (empty($request->input('budget_id')))
-        {
+        if (empty($request->input('budget_id'))) {
             $transaction->budget_id = null;
         }
 
         $transaction->save();
 
         return response()->json([
-            'redirect' => route('history')
+            'redirect' => route('history'),
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \Budgeck\Models\Transaction  $transaction
+     * @param \Budgeck\Models\Transaction $transaction
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($transaction)
@@ -93,8 +91,9 @@ class TransactionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Budgeck\Models\Account  $account
-     * @param  \Budgeck\Models\Transaction  $transaction
+     * @param \Budgeck\Models\Account     $account
+     * @param \Budgeck\Models\Transaction $transaction
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($account, $transaction)
@@ -106,9 +105,10 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Budgeck\Http\Requests\TransactionRequest $request
-     * @param  \Budgeck\Models\Account  $account
-     * @param  \Budgeck\Models\Transaction  $transaction
+     * @param \Budgeck\Http\Requests\TransactionRequest $request
+     * @param \Budgeck\Models\Account                   $account
+     * @param \Budgeck\Models\Transaction               $transaction
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(TransactionRequest $request, $account, $transaction)
@@ -116,35 +116,33 @@ class TransactionController extends Controller
         $transaction->fill($request->all());
 
         // Set value_date if not empty, null otherwise
-        if (empty($request->input('value_date')))
-        {
+        if (empty($request->input('value_date'))) {
             $transaction->value_date = null;
         }
 
         // Set category_id to null if empty
-        if (empty($request->input('category_id')))
-        {
+        if (empty($request->input('category_id'))) {
             $transaction->category_id = null;
         }
 
         // Set budget_id to null if empty
-        if (empty($request->input('budget_id')))
-        {
+        if (empty($request->input('budget_id'))) {
             $transaction->budget_id = null;
         }
 
         $transaction->save();
 
         return response()->json([
-            'redirect' => route('history')
+            'redirect' => route('history'),
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Budgeck\Models\Account  $account
-     * @param  \Budgeck\Models\Transaction $transaction
+     * @param \Budgeck\Models\Account     $account
+     * @param \Budgeck\Models\Transaction $transaction
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($account, $transaction)

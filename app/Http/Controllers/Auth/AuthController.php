@@ -2,13 +2,13 @@
 
 namespace Budgeck\Http\Controllers\Auth;
 
-use Budgeck\User;
-use Validator;
 use Budgeck\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Budgeck\User;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class AuthController extends Controller
 {
@@ -26,21 +26,21 @@ class AuthController extends Controller
     use AuthenticatesAndRegistersUsers ,ThrottlesLogins;
 
     /**
-     * Login page path
+     * Login page path.
      *
      * @var string
      */
     protected $loginPath = '/login';
 
     /**
-     * Redirection route after login
+     * Redirection route after login.
      *
      * @var string
      */
     protected $redirectTo = '/';
 
     /**
-     * Redirection route after logout
+     * Redirection route after logout.
      *
      * @var string
      */
@@ -59,35 +59,37 @@ class AuthController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function registerValidator(array $data)
     {
         return Validator::make($data, [
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
+            'email'     => 'required|email|max:255|unique:users',
+            'password'  => 'required|confirmed|min:6',
             'firstname' => 'max:100',
-            'lastname' => 'max:100'
+            'lastname'  => 'max:100',
         ]);
     }
 
     /**
-     * Get a validator for an incoming login request
+     * Get a validator for an incoming login request.
      *
      * @param array $data
+     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function loginValidator(array $data)
     {
         return Validator::make($data,
             [
-                'email' => 'required|email',
+                'email'    => 'required|email',
                 'password' => 'required',
             ],
             [
-                'email.required' => 'L\'adresse e-mail ne peut pas être vide',
-                'email.email' => 'L\'adresse e-mail semble incorrect',
+                'email.required'    => 'L\'adresse e-mail ne peut pas être vide',
+                'email.email'       => 'L\'adresse e-mail semble incorrect',
                 'password.required' => 'Le mot de passe ne peut pas être vide',
             ]
         );
@@ -96,7 +98,8 @@ class AuthController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return User
      */
     protected function create(array $data)
@@ -110,7 +113,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Show the application login form
+     * Show the application login form.
      *
      * @return \Illuminate\Http\Response
      */
@@ -120,17 +123,17 @@ class AuthController extends Controller
     }
 
     /**
-     * Handle a login request to the application
+     * Handle a login request to the application.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function postLogin(Request $request)
     {
         $v = $this->loginValidator($request->all());
 
-        if ($v->fails())
-        {
+        if ($v->fails()) {
             return response()->json(['errors' => $v->errors()]);
         }
 
@@ -146,7 +149,9 @@ class AuthController extends Controller
         $credentials = $this->getCredentials($request);
 
         if (Auth::attempt($credentials, $request->has('remember'))) {
-            return response()->json(['redirect' => $this->redirectTo]);
+            return response()->json([
+                'redirect' => $this->redirectTo,
+            ]);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -157,7 +162,7 @@ class AuthController extends Controller
         }
 
         return response()->json(['errors' =>
-            ['form' => 'Identifiants incorrects']
+            ['form' => 'Identifiants incorrects'],
         ]);
     }
 }

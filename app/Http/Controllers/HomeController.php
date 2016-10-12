@@ -6,12 +6,10 @@ class HomeController extends Controller
 {
     public function getHome()
     {
-        if ($this->user)
-        {
+        if ($this->user) {
             return redirect(route('history'));
         }
-        else
-        {
+        else {
             return redirect(route('login'));
         }
     }
