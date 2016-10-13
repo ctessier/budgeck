@@ -29,14 +29,6 @@
 </div>
 <div class="ui grid inline fields">
     <div class="three wide column field">
-        {!! Form::label('budget_id', 'Budget') !!}
-    </div>
-    <div class="six wide column field">
-        {!! Form::select('budget_id', [], null, ['data-budgets-list' => 'true', 'data-account-budget-id' => isset($transaction) ? $transaction->budget_id : null, 'data-budget-id' => isset($transaction) ? $transaction->budget_id : null]) !!}
-    </div>
-</div>
-<div class="ui grid inline fields">
-    <div class="three wide column field">
         {!! Form::label('transaction_date', 'Date de transaction') !!}
     </div>
     <div class="six wide column field">
