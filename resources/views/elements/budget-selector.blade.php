@@ -12,7 +12,7 @@
             budgetsDropDown.parent().addClass('loading');
 
             $.ajax({
-                url: 'api/budgets',
+                url: '{{ route('api.budgets') }}',
                 data: 'month=' + month + '&year=' + year,
                 success: function (data) {
                     budgetsDropDown.html('<option value="">Sélectionner un budget</option>');
