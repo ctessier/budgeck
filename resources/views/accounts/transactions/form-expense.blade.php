@@ -32,7 +32,7 @@
         {!! Form::label('budget_id', 'Budget') !!}
     </div>
     <div class="six wide column field">
-        {!! Form::select('budget_id', [], null, ['data-budgets-list' => 'true', 'data-account-budget-id' => isset($transaction) ? $transaction->budget_id : null, 'data-budget-id' => isset($transaction) ? $transaction->budget_id : null]) !!}
+        @include('elements.budget-selector')
     </div>
 </div>
 <div class="ui grid inline fields">
