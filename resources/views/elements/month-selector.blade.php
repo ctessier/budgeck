@@ -22,5 +22,6 @@
         yearField.val(currentYear);
         $('.month-selector').removeClass('active');
         $(this).addClass('active');
+        $(document).trigger('month-selector-has-changed', [currentMonth, currentYear]);
     });
 </script>
