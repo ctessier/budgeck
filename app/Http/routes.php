@@ -12,36 +12,39 @@
 */
 
 Route::get('/', [
-    'as' => 'home',
-    'uses' => 'HomeController@getHome'
+    'as'   => 'home',
+    'uses' => 'HomeController@getHome',
 ]);
 
 // Login routes
-Route::get('login', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
+Route::get('login', [
+    'as'   => 'login',
+    'uses' => 'Auth\AuthController@getLogin',
+]);
 Route::post('login', 'Auth\AuthController@postLogin');
 
 // Routes only accessible if authenticated
 Route::group(['middleware' => 'auth'], function () {
     Route::get('history', [
-        'as' => 'history',
-        'uses' => 'HistoryController@getHistory'
+        'as'   => 'history',
+        'uses' => 'HistoryController@getHistory',
     ]);
 
     Route::get('monitoring/{year}/{month}', [
-        'as' => 'monitoring',
-        'uses' => 'MonitorController@getMonitoring'
+        'as'   => 'monitoring',
+        'uses' => 'MonitorController@getMonitoring',
     ]);
 
     Route::get('accounts/switch/{accounts}', [
-        'as' => 'accounts.switch',
-        'uses' => 'AccountController@switch'
+        'as'   => 'accounts.switch',
+        'uses' => 'AccountController@switch',
     ]);
     Route::resource('accounts', 'AccountController', [
-        'except' => ['edit']
+        'except' => ['edit'],
     ]);
 
     Route::resource('accounts.account_budgets', 'AccountBudgetController', [
-        'except' => ['index', 'show']
+        'except' => ['index', 'show'],
     ]);
 
     Route::resource('accounts.budgets', 'BudgetController');
@@ -52,18 +55,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'profile'], function () {
         // Get edit profile and password form
         Route::get('/', [
-            'as' => 'profile',
-            'uses' => 'ProfileController@index'
+            'as'   => 'profile',
+            'uses' => 'ProfileController@index',
         ]);
         // Send edit profile form
         Route::put('/', [
-            'as' => 'profile.update',
-            'uses' => 'ProfileController@update'
+            'as'   => 'profile.update',
+            'uses' => 'ProfileController@update',
         ]);
         // Send edit password form
         Route::put('password', [
-            'as' => 'profile.password.update',
-            'uses' => 'ProfileController@updatePassword'
+            'as'   => 'profile.password.update',
+            'uses' => 'ProfileController@updatePassword',
         ]);
     });
 
@@ -71,11 +74,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'api'], function () {
         // Get list of budgets
         Route::get('budgets', [
-            'as' => 'api.budgets',
-            'uses' => 'Api\BudgetApiController@get'
+            'as'   => 'api.budgets',
+            'uses' => 'Api\BudgetApiController@get',
         ]);
     });
 
     // Logout
-    Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
+    Route::get('logout', [
+        'as'   => 'logout',
+        'uses' => 'Auth\AuthController@getLogout'],
+    );
 });
