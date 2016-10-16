@@ -146,6 +146,8 @@
     $('.settings-icon').dropdown({
         action: "hide"
     });
-    $('#add-transaction-dropdown').dropdown();
+    $('#add-transaction-dropdown').dropdown({
+        action: "hide"
+    });
 </script>
 @stop
