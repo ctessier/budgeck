@@ -3,32 +3,48 @@
 @section('title', 'Mes comptes')
 
 @section('content')
-@include('menu.sidebar.profile')
-<div class="columns large-8 small-12">
-    <div class="alert">
-        <p class="align-center">
-            Créer un compte et associez-y des budgets.<br />
-            {!! HTML::linkRoute('accounts.create', 'Ajouter un compte', [], ['class' => 'btn-base radius', 'data-use-lightbox' => 'true']) !!}
-        </p>
-    </div>
-    @if ($user->accounts->count() > 0)
-    <div class="content">
-        <h3>Mes comptes</h3>
-        <div class="list-accounts">
-            @foreach($user->accounts as $account)
-            <div class="account">
-                {{--*/ $accountBalance = $account->getBalance() /*--}}
-                {{--*/ $accountProjection = $account->getProjection(date('Y'), date('m')) /*--}}
-                <span class="account-balance">
-                    <span class="{{($accountBalance < 0) ? 'negative' : 'positive'}}">@amount($accountBalance)</span>
-                    <span class="{{($accountProjection < 0) ? 'negative' : 'positive'}}">Prévision à la fin du mois : @amount($accountProjection)</span>
-                </span>
-                <span class="account-name">{{ $account->name }} {{ $account->is_default ? '(défaut)' : '' }}</span>
-                <span class="account-description">{{ $account->description }}</span>
+<div class="ui grid">
+    @include('menu.sidebar.profile')
+    <div class="twelve wide column">
+        @if ($user->accounts->count() > 0)
+        <div class="ui segment">
+            <h3>Mes comptes</h3>
+            <div class="ui fluid cards">
+                @foreach($user->accounts as $account)
+                    <div class="card">
+                        <div class="content">
+                            <div class="header">
+                                @if ($account->is_default)
+                                <i class="star right active icon"></i>
+                                @endif
+                                {{$account->name}}
+                            </div>
+                            <div class="meta">
+                                @amount($account->getBalance())
+                            </div>
+                            <div class="description">
+                                {{$account->description}}
+                            </div>
+                        </div>
+                        <a href="{{route('accounts.show', ['account' => $account->id])}}" class="ui bottom attached button">
+                            <i class="settings icon"></i>
+                            Gérer
+                        </a>
+                    </div>
+                @endforeach
             </div>
-            @endforeach
+
+            <a href="{{ route('accounts.create') }}" class="ui icon mini button" data-use-modal="true">
+                <i class="add icon"></i>
+                Ajouter un compte
+            </a>
         </div>
+        @else
+        <div class="ui info icon message">
+            <i class="info icon"></i>
+            {!! HTML::linkRoute('accounts.create', 'Ajouter un compte', [], ['data-use-modal' => 'true']) !!} &nbsp; et associez-y des budgets.
+        </div>
+        @endif
     </div>
-    @endif
 </div>
 @stop
