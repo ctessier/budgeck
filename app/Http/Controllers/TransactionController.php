@@ -3,6 +3,7 @@
 namespace Budgeck\Http\Controllers;
 
 use Budgeck\Http\Requests\TransactionRequest;
+use Budgeck\Models\Budget;
 use Budgeck\Models\Transaction;
 use Illuminate\Http\Request;
 
@@ -28,6 +29,13 @@ class TransactionController extends Controller
     public function create(Request $request)
     {
         $view = view('accounts.transactions.create');
+
+        if ($request->exists('budget')) {
+            $budget = Budget::find($request->get('budget'));
+            if ($budget !== null) {
+                $view->with('budget', $budget);
+            }
+        }
 
         if ($request->exists('income')) {
             $view->with('income', true);
