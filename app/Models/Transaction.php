@@ -39,7 +39,7 @@ class Transaction extends BaseModel
      */
     public function budget()
     {
-        return $this->belongsTo($this->getBaseNamespace() . '\Budget');
+        return $this->belongsTo($this->getBaseNamespace().'\Budget');
     }
 
     /**
