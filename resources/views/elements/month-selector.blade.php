@@ -1,5 +1,5 @@
-{{--*/ $month = isset($transaction) ? $transaction->month : Carbon\Carbon::now()->month /*--}}
-{{--*/ $year = isset($transaction) ? $transaction->year : Carbon\Carbon::now()->year /*--}}
+{{--*/ $month = isset($transaction) ? $transaction->month : isset($budget) ? $budget->month : Carbon\Carbon::now()->month /*--}}
+{{--*/ $year = isset($transaction) ? $transaction->year : isset($budget) ? $budget->year : Carbon\Carbon::now()->year /*--}}
 {{--*/ $baseTime = isset($transaction) ? $transaction->created_at : Carbon\Carbon::now() /*--}}
 <div class="ui buttons">
     @for ($i = $baseTime->month - config('budgeck.aheadness') ; $i <= $baseTime->month + config('budgeck.aheadness') ; ++$i)
