@@ -19,8 +19,8 @@
                         <div class="card">
                             <div class="content">
                                 <div class="right floated meta">
-                                    <div class="ui icon top left pointing dropdown mini settings-icon" style="display:none">
-                                        <i class="settings icon"></i>
+                                    <div class="ui icon top left pointing dropdown mini settings-icon">
+                                        <i class="angle down icon"></i>
                                         <div class="menu">
                                             {!! HTML::linkRoute('accounts.budgets.edit', 'Modifier', ['accounts' => $current_account, 'budgets' => $budget], ['class' => 'item', 'data-use-modal' => 'true']) !!}
                                             {!! Form::open(['method' => 'delete', 'route' => ['accounts.budgets.destroy', $current_account, $budget], 'class' => 'item', 'data-use-confirm' => 'true', 'data-confirm-modal-title' => 'Supprimer la transaction', 'data-confirm-modal-message' => 'Souhaitez-vous définitivement supprimer cet budget ? Les transactions associées deviendront orphelines.']) !!}
@@ -38,10 +38,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="ui bottom attached button">
+                            <a href="{{ route('accounts.transactions.create', ['accounts' => $current_account->id]) }}" class="ui bottom attached button" data-use-modal="true">
                                 <i class="add icon"></i>
                                 Transaction
-                            </div>
+                            </a>
                         </div>
                     @endforeach
                 </div>
@@ -58,17 +58,8 @@
         autoSuccess: false
     });
 
-    $('.dropdown').dropdown({
-        action: 'hide'
-    });
-    $('.card .content').hover(function() {
-        $(this).find('.settings-icon').show();
-    });
-    $('.card .content').mouseleave(function() {
-        var settingsIcon = $(this).find('.settings-icon');
-        if (!settingsIcon.hasClass('visible')) {
-            $(this).find('.settings-icon').hide();
-        }
+    $('.settings-icon').dropdown({
+        action: "hide"
     });
 </script>
 @stop

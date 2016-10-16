@@ -56,8 +56,8 @@
                         </td>
                         <td>@amount($transaction->amount)</td>
                         <td>
-                            <div class="ui icon top left pointing dropdown mini settings-icon" style="display:none">
-                                <i class="settings icon"></i>
+                            <div class="ui icon top left pointing dropdown mini settings-icon">
+                                <i class="angle down icon"></i>
                                 <div class="menu">
                                     {!! HTML::linkRoute('accounts.transactions.edit', 'Modifier', ['accounts' => $transaction->account_id, 'transactions' => $transaction->id], ['class' => 'item', 'data-use-modal' => 'true']) !!}
                                     {!! Form::open(['method' => 'delete', 'route' => ['accounts.transactions.destroy', $transaction->account_id, $transaction->id], 'class' => 'item', 'data-use-confirm' => 'true', 'data-confirm-modal-title' => 'Supprimer la transaction', 'data-confirm-modal-message' => 'Souhaitez-vous définitivement supprimer cette transaction ?']) !!}
@@ -117,8 +117,8 @@
                         </td>
                         <td>@amount($transaction->amount)</td>
                         <td>
-                            <div class="ui icon top left pointing dropdown mini settings-icon" style="display:none">
-                                <i class="settings icon"></i>
+                            <div class="ui icon top left pointing dropdown mini settings-icon">
+                                <i class="angle down icon"></i>
                                 <div class="menu">
                                     {!! HTML::linkRoute('accounts.transactions.edit', 'Modifier', ['accounts' => $transaction->account_id, 'transactions' => $transaction->id], ['class' => 'item', 'data-use-modal' => 'true']) !!}
                                     {!! Form::open(['method' => 'delete', 'route' => ['accounts.transactions.destroy', $transaction->account_id, $transaction->id], 'class' => 'item', 'data-use-confirm' => 'true', 'data-confirm-modal-title' => 'Supprimer la transaction', 'data-confirm-modal-message' => 'Souhaitez-vous définitivement supprimer cette transaction ?']) !!}
@@ -132,9 +132,9 @@
                 </tbody>
             </table>
         @endif
-        <div class="ui floating labeled icon dropdown mini button">
+        <div id="add-transaction-dropdown" class="ui dropdown mini button">
             <i class="add icon"></i>
-            <span class="text">Ajouter une transaction</span>
+            Ajouter une transaction
             <div class="menu">
                 {!! HTML::linkRoute('accounts.transactions.create', 'Dépense', ['accounts' => $current_account->id], ['class' => 'item', 'data-use-modal' => 'true']) !!}
                 {!! HTML::linkRoute('accounts.transactions.create', 'Revenu', ['accounts' => $current_account->id, 'income'], ['class' => 'item', 'data-use-modal' => 'true']) !!}
@@ -143,16 +143,9 @@
     </div>
 </div>
 <script>
-    $('.dropdown').dropdown();
-
-    $('tr').hover(function() {
-        $(this).find('td .settings-icon').show();
+    $('.settings-icon').dropdown({
+        action: "hide"
     });
-    $('tr').mouseleave(function() {
-        var settingsIcon = $(this).find('td .settings-icon');
-        if (!settingsIcon.hasClass('visible')) {
-            $(this).find('td .settings-icon').hide();
-        }
-    });
+    $('#add-transaction-dropdown').dropdown();
 </script>
 @stop
