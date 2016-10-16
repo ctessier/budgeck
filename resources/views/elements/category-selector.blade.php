@@ -1,4 +1,4 @@
-<div class="ui selection dropdown">
+<div id="category-selector" class="ui selection dropdown">
     {!! Form::hidden($categoryFieldName) !!}
     <i class="dropdown icon"></i>
     <div class="default text">Sélectionner une catégorie</div>
@@ -16,3 +16,7 @@
         @endforeach
     </div>
 </div>
+
+<script>
+    $('#category-selector').dropdown();
+</script>

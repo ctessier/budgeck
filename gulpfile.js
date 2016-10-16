@@ -22,8 +22,7 @@ elixir(function(mix) {
         .copy('bower_components/semantic/dist/themes/default', 'public/assets/css/themes/default')
         .copy('bower_components/semantic/dist/themes/default', 'public/build/assets/css/themes/default')
         .copy('bower_components/jquery/dist/jquery.js', 'public/assets/js/jquery.js')
-        .copy('resources/assets/js/script.js', 'public/assets/js/script.js')
-        .copy('resources/assets/js/ajax-modal.js', 'public/assets/js/ajax-modal.js')
+        .copy('resources/assets/js', 'public/assets/js')
         .less([
             'app.less'
         ], 'public/assets/css')
@@ -32,8 +31,7 @@ elixir(function(mix) {
             'public/assets/css/semantic.css',
             'public/assets/js/semantic.js',
             'public/assets/js/jquery.js',
-            'public/assets/js/script.js',
-            'public/assets/js/ajax-modal.js',
+            'public/assets/js/*',
             'public/assets/css/foundation-datepicker.min.css',
             'public/assets/js/foundation-datepicker.min.js'
         ]);

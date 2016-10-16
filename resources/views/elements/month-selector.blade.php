@@ -10,18 +10,3 @@
 
 {!! Form::hidden('month', $month, ['data-month' => 'true']) !!}
 {!! Form::hidden('year', $year, ['data-year' => 'true']) !!}
-
-<script>
-    var currentYear, currentMonth;
-    var monthField = $('input[data-month="true"]');
-    var yearField = $('input[data-year="true"]');
-    $('.month-selector').click(function (e) {
-        currentYear = $(this).attr('data-year');
-        currentMonth = $(this).attr('data-month');
-        monthField.val(currentMonth);
-        yearField.val(currentYear);
-        $('.month-selector').removeClass('active');
-        $(this).addClass('active');
-        $(document).trigger('month-selector-has-changed', [currentMonth, currentYear]);
-    });
-</script>
