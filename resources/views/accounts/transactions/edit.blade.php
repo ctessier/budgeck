@@ -21,7 +21,6 @@
 </div>
 
 <script>
-    $('.dropdown').dropdown();
     $('#datepicker-transaction-date').fdatepicker({
         initialDate: '',
         format: 'yyyy-mm-dd',
