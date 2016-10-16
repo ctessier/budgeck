@@ -82,6 +82,6 @@ Route::group(['middleware' => 'auth'], function () {
     // Logout
     Route::get('logout', [
         'as'   => 'logout',
-        'uses' => 'Auth\AuthController@getLogout'],
-    );
+        'uses' => 'Auth\AuthController@getLogout',
+    ]);
 });
