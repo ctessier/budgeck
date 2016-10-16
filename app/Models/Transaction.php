@@ -5,14 +5,14 @@ namespace Budgeck\Models;
 class Transaction extends BaseModel
 {
     /**
-     * Constant for awaiting state
+     * Constant for awaiting state.
      *
      * @var int
      */
     const AWAITING = 0;
 
     /**
-     * Constant for effective state
+     * Constant for effective state.
      *
      * @var int
      */
@@ -33,7 +33,7 @@ class Transaction extends BaseModel
     protected $dates = ['transaction_date', 'value_date', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
-     * Return the budget which the transaction belongs to
+     * Return the budget which the transaction belongs to.
      *
      * @return Budget
      */
@@ -43,7 +43,7 @@ class Transaction extends BaseModel
     }
 
     /**
-     * Tell if the transaction is of type expense
+     * Tell if the transaction is of type expense.
      *
      * @return bool
      */
