@@ -20,8 +20,8 @@ class MonitorController extends Controller
 
         return view('monitoring.monitor')
             ->with('budgets', $this->current_account->getBudgets($monitoringDate->year, $monitoringDate->month))
-            ->with('year', $monitoringDate->year)
             ->with('month', $monitoringDate->month)
+            ->with('year', $monitoringDate->year)
             ->with('month_title', ucfirst($monitoringDate->formatLocalized('%B %Y')));
     }
 }

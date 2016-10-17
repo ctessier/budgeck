@@ -40,7 +40,10 @@ class BudgetController extends Controller
 
         return view('accounts.budgets.create')
             ->with('month', $month)
-            ->with('year', $year);
+            ->with('year', $year)
+            ->with('month_title', ucfirst(Carbon::createFromDate($year, $month, null)
+                ->formatLocalized('%B %Y')
+            ));
     }
 
     /**
