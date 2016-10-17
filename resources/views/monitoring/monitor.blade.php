@@ -46,7 +46,7 @@
                     @endforeach
                 </div>
             @endif
-            <a href="{{ route('accounts.budgets.create', ['accounts' => $current_account]) }}" class="ui icon mini button" data-use-modal="true">
+            <a href="{{ route('accounts.budgets.create', ['accounts' => $current_account, 'month' => $month, 'year' => $year]) }}" class="ui icon mini button" data-use-modal="true">
                 <i class="add icon"></i>
                 Ajouter un budget
             </a>
