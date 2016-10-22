@@ -39,11 +39,13 @@ class RouteServiceProvider extends ServiceProvider
 
         // Define route model binding for account
         $router->bind('accounts', function ($account_id) {
-            return Account::where([
+            if (Auth::check()) {
+                return Account::where([
                     'id' => $account_id,
                     'user_id' => Auth::user()->id
                 ])
                 ->firstOrFail();
+            }
         });
 
         // Define route model binding for a account budget
