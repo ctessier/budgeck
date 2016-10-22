@@ -1,4 +1,3 @@
-<a class="item">Tableau de bord</a>
 {!! HTML::linkRoute('history', 'Historique', [], ['class' => 'item' . (Route::currentRouteNamed('history') ? ' active' : '')]) !!}
 {!! HTML::linkRoute('monitoring', 'Suivi mensuel', [
     'year' => date('Y'),
