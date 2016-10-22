@@ -2,14 +2,13 @@
 
 namespace Budgeck\Providers;
 
-use Illuminate\Routing\Router;
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Auth;
-
 use Budgeck\Models\Account;
 use Budgeck\Models\AccountBudget;
 use Budgeck\Models\Budget;
 use Budgeck\Models\Transaction;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Auth;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -25,7 +24,8 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define your route model bindings, pattern filters, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param \Illuminate\Routing\Router $router
+     *
      * @return void
      */
     public function boot(Router $router)
@@ -41,7 +41,7 @@ class RouteServiceProvider extends ServiceProvider
         $router->bind('accounts', function ($account_id) {
             if (Auth::check()) {
                 return Account::where([
-                    'id' => $account_id,
+                    'id'      => $account_id,
                     'user_id' => Auth::user()->id
                 ])
                 ->firstOrFail();
@@ -51,7 +51,7 @@ class RouteServiceProvider extends ServiceProvider
         // Define route model binding for a account budget
         $router->bind('account_budgets', function ($account_budget_id, $route) {
             return AccountBudget::where([
-                    'id' => $account_budget_id,
+                    'id'         => $account_budget_id,
                     'account_id' => $route->getParameter('accounts')->id
                 ])
                 ->firstOrFail();
@@ -60,7 +60,7 @@ class RouteServiceProvider extends ServiceProvider
         // Define route model binding for a budget
         $router->bind('budgets', function ($budget_id, $route) {
             return Budget::where([
-                    'id' => $budget_id,
+                    'id'         => $budget_id,
                     'account_id' => $route->getParameter('accounts')->id
                 ])
                 ->firstOrFail();
@@ -69,7 +69,7 @@ class RouteServiceProvider extends ServiceProvider
         // Define route model binding for a transaction
         $router->bind('transactions', function ($transaction_id, $route) {
             return Transaction::where([
-                    'id' => $transaction_id,
+                    'id'         => $transaction_id,
                     'account_id' => $route->getParameter('accounts')->id
                 ])
                 ->firstOrFail();
@@ -81,7 +81,7 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define the routes for the application.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param \Illuminate\Routing\Router $router
      * @return void
      */
     public function map(Router $router)
