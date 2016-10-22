@@ -42,7 +42,7 @@ class RouteServiceProvider extends ServiceProvider
             if (Auth::check()) {
                 return Account::where([
                     'id'      => $account_id,
-                    'user_id' => Auth::user()->id
+                    'user_id' => Auth::user()->id,
                 ])
                 ->firstOrFail();
             }
@@ -52,7 +52,7 @@ class RouteServiceProvider extends ServiceProvider
         $router->bind('account_budgets', function ($account_budget_id, $route) {
             return AccountBudget::where([
                     'id'         => $account_budget_id,
-                    'account_id' => $route->getParameter('accounts')->id
+                    'account_id' => $route->getParameter('accounts')->id,
                 ])
                 ->firstOrFail();
         });
@@ -61,7 +61,7 @@ class RouteServiceProvider extends ServiceProvider
         $router->bind('budgets', function ($budget_id, $route) {
             return Budget::where([
                     'id'         => $budget_id,
-                    'account_id' => $route->getParameter('accounts')->id
+                    'account_id' => $route->getParameter('accounts')->id,
                 ])
                 ->firstOrFail();
         });
@@ -70,7 +70,7 @@ class RouteServiceProvider extends ServiceProvider
         $router->bind('transactions', function ($transaction_id, $route) {
             return Transaction::where([
                     'id'         => $transaction_id,
-                    'account_id' => $route->getParameter('accounts')->id
+                    'account_id' => $route->getParameter('accounts')->id,
                 ])
                 ->firstOrFail();
         });
@@ -82,6 +82,7 @@ class RouteServiceProvider extends ServiceProvider
      * Define the routes for the application.
      *
      * @param \Illuminate\Routing\Router $router
+     *
      * @return void
      */
     public function map(Router $router)
