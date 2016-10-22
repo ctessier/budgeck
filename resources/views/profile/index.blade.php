@@ -50,7 +50,10 @@
                         {!! Form::label('oldpassword', 'Ancien mot de passe') !!}
                     </div>
                     <div class="six wide column field">
-                        {!! Form::password('oldpassword', ['autocomplete' => 'off']) !!}
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            {!! Form::password('oldpassword', ['autocomplete' => 'off']) !!}
+                        </div>
                     </div>
                 </div>
                 <div class="ui grid inline fields">
@@ -58,7 +61,10 @@
                         {!! Form::label('newpassword', 'Nouveau mot de passe') !!}
                     </div>
                     <div class="six wide column field">
-                        {!! Form::password('newpassword') !!}
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            {!! Form::password('newpassword') !!}
+                        </div>
                     </div>
                 </div>
                 <div class="ui grid inline fields">
@@ -66,7 +72,10 @@
                         {!! Form::label('newpassword_confirmation', 'Confirmation') !!}
                     </div>
                     <div class="six wide column field">
-                        {!! Form::password('newpassword_confirmation') !!}
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            {!! Form::password('newpassword_confirmation') !!}
+                        </div>
                     </div>
                 </div>
                 {!! Form::button('Sauvegarder', ['type' => 'submit', 'class' => 'ui blue button', 'data-form-submit' => 'true']) !!}
