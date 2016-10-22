@@ -16,11 +16,11 @@
 
         modal.load(url, function(response, status, xhr) {
             if (status === 'error') {
-                var r = $(response);
-                showErrorModal(xhr.statusText, r.find('.exception_message')[0].innerHTML);
+                showErrorModal(response);
                 return;
             }
 
+            // Bind approve action with form submit is a form is found in the modal
             if (modal.find('form').length !== 0) {
                 modal.modal({
                     onApprove: function () {
@@ -38,10 +38,8 @@
         });
     }
 
-    function showErrorModal(error, message) {
-        modal.append('<div class="header">' + error + '</div>');
-        modal.append('<div class="content"><p>' + message + '</p></div>');
-        modal.append('<div class="actions"><div class="ui negative button">Fermer</div></div>');
+    function showErrorModal(content) {
+        modal.append(content);
         modal.modal({
             closable: false,
             onHidden: function () {
