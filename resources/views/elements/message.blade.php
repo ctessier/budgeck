@@ -23,8 +23,8 @@
     <script>
         $('.message .close').on('click', function() {
             $(this)
-                    .closest('.message')
-                    .transition('fade');
+                .closest('.message')
+                .transition('fade');
         });
     </script>
 @endif
