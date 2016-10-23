@@ -15,7 +15,11 @@
                         <div class="content">
                             <div class="header">
                                 @if ($account->is_default)
-                                <i class="star right active icon"></i>
+                                <i class="star right active icon" style="cursor: default;"></i>
+                                @else
+                                    {!! Form::open(['method' => 'post', 'route' => ['accounts.default', $account->id], 'style' => 'display: inline;']) !!}
+                                    <i class="star right icon" onclick="$(this).parent('form').submit();"></i>
+                                    {!! Form::close() !!}
                                 @endif
                                 {{$account->name}}
                             </div>
