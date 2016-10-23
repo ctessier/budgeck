@@ -8,7 +8,10 @@
     <div class="twelve wide column">
         @if ($user->accounts->count() > 0)
         <div class="ui segment">
-            <h3>Mes comptes</h3>
+            <h3 class="ui header">
+                <i class="payment icon"></i>
+                Mes comptes
+            </h3>
             <div class="ui fluid cards">
                 @foreach($user->accounts as $account)
                     <div class="card">
@@ -37,12 +40,11 @@
                     </div>
                 @endforeach
             </div>
-
-            <a href="{{ route('accounts.create') }}" class="ui icon mini button" data-use-modal="true">
-                <i class="add icon"></i>
-                Ajouter un compte
-            </a>
         </div>
+        <a href="{{ route('accounts.create') }}" class="ui icon mini button" data-use-modal="true">
+            <i class="add icon"></i>
+            Ajouter un compte
+        </a>
         @else
         <div class="ui info icon message">
             <i class="info icon"></i>

@@ -18,12 +18,12 @@
             <td>{{ $account_budget->description }}</td>
             <td>@amount($account_budget->amount)</td>
             <td>
-                <div class="ui icon top left pointing dropdown mini settings-icon" style="display:none">
-                    <i class="settings icon"></i>
+                <div class="ui icon top left pointing dropdown mini settings-icon">
+                    <i class="angle down icon"></i>
                     <div class="menu">
                         {!! HTML::linkRoute('accounts.account_budgets.edit', 'Modifier', ['accounts' => $account->id, 'budgets' => $account_budget->id], ['class' => 'item', 'data-use-modal' => 'true']) !!}
                         {!! Form::open(['method' => 'delete', 'route' => ['accounts.account_budgets.destroy', $account_budget->account_id, $account_budget->id], 'class' => 'item', 'data-use-confirm' => 'true', 'data-confirm-modal-title' => 'Supprimer le budget : ' . $account_budget->title, 'data-confirm-modal-message' => 'Souhaitez-vous définitivement supprimer ce budget ? Cela affectera seulement les budgets des mois futurs.']) !!}
-                        <div type="submit">Supprimer</div>
+                            <div type="submit">Supprimer</div>
                         {!! Form::close() !!}
                     </div>
                 </div>
@@ -50,11 +50,7 @@
 </a>
 
 <script>
-    $('.dropdown').dropdown();
-    $('tr').hover(function() {
-        $(this).find('td .settings-icon').show();
-    });
-    $('tr').mouseleave(function() {
-        $(this).find('td .settings-icon').hide();
+    $('.dropdown').dropdown({
+        action: "hide"
     });
 </script>
