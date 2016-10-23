@@ -113,7 +113,7 @@ class Account extends BaseModel
         $transactions->orderBy('transaction_date', 'DESC');
 
         //TODO: paginator (maybe implemented partial view with get method for infinite scroll)
-        
+
         return $transactions->get();
     }
 
