@@ -40,7 +40,7 @@ class Budget extends BaseModel
      *
      * @param int $status
      *
-     * @return double
+     * @return float
      */
     public function getAmountSpent($status = null)
     {
