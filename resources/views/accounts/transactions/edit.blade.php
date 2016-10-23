@@ -1,8 +1,8 @@
 <div class="header">
-    @if (isset($income))
-        Nouveau revenu
+    @if ($transaction->isExpense())
+    Modifier la dépense {{ $transaction->title }}
     @else
-        Nouvelle dépense
+    Modifier le revenu {{ $transaction->title }}
     @endif
 </div>
 <div class="content">
