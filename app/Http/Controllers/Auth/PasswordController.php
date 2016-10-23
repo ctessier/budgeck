@@ -25,7 +25,7 @@ class PasswordController extends Controller
      *
      * @var string
      */
-    protected $subject = "Réinitialisation de votre mot de passe";
+    protected $subject = 'Réinitialisation de votre mot de passe';
 
     /**
      * URL to redirect the user after password reset.
