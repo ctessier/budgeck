@@ -18,13 +18,13 @@ class Account extends BaseModel
      */
     public function account_budgets()
     {
-        return $this->hasMany($this->getBaseNamespace() . '\AccountBudget');
+        return $this->hasMany($this->getBaseNamespace().'\AccountBudget');
     }
 
     /**
      * Return the balance of the current account.
      *
-     * @return double
+     * @return float
      */
     public function getBalance()
     {
@@ -41,7 +41,7 @@ class Account extends BaseModel
             ->sum('amount');
 
         // Return the difference
-        return ($totalIncomes - $totalExpenses);
+        return $totalIncomes - $totalExpenses;
     }
 
     /**
@@ -53,10 +53,8 @@ class Account extends BaseModel
      */
     public function getAccountBudgetById($id)
     {
-        foreach ($this->budgets as $budget)
-        {
-            if ($budget->id == $id)
-            {
+        foreach ($this->budgets as $budget) {
+            if ($budget->id == $id) {
                 return $budget;
             }
         }
@@ -104,12 +102,9 @@ class Account extends BaseModel
         $transactions = Transaction::select('transactions.*')
             ->where('account_id', $this->id);
 
-        if ($status === Transaction::AWAITING)
-        {
+        if ($status === Transaction::AWAITING) {
             $transactions->whereNull('value_date');
-        }
-        else
-        {
+        } else {
             $transactions->whereNotNull('value_date');
         }
 
@@ -118,6 +113,7 @@ class Account extends BaseModel
         $transactions->orderBy('transaction_date', 'DESC');
 
         //TODO: paginator (maybe implemented partial view with get method for infinite scroll)
+        
         return $transactions->get();
     }
 
