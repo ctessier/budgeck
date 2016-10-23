@@ -21,6 +21,20 @@ class PasswordController extends Controller
     use ResetsPasswords;
 
     /**
+     * Reset password subject.
+     *
+     * @var string
+     */
+    protected $subject = 'Réinitialisation de votre mot de passe';
+
+    /**
+     * URL to redirect the user after password reset.
+     *
+     * @var string
+     */
+    protected $redirectPath = '/history';
+
+    /**
      * Create a new password controller instance.
      *
      * @return void

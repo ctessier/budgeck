@@ -23,6 +23,11 @@ Route::get('login', [
 ]);
 Route::post('login', 'Auth\AuthController@postLogin');
 
+// Reset password
+Route::controllers([
+    'password' => 'Auth\PasswordController',
+]);
+
 // Routes only accessible if authenticated
 Route::group(['middleware' => 'auth'], function () {
     Route::get('history', [

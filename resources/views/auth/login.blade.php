@@ -28,6 +28,7 @@
                 {!! Form::button('Connexion', ['type' => 'submit', 'class' => 'ui fluid button', 'data-form-submit' => 'true']) !!}
             {!! Form::close() !!}
         </div>
+        <a href="{{ url('/password/email') }}">Mot de passe oublié ?</a>
     </div>
 </div>
 @stop
