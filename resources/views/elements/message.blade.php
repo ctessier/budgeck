@@ -10,6 +10,16 @@
             {{ session('message')['content'] }}
         @endif
     </div>
+@endif
+
+@if (session('status'))
+    <div class="ui success message">
+        <i class="icon close"></i>
+        {{ session('status') }}
+    </div>
+@endif
+
+@if (session('status') || session('message'))
     <script>
         $('.message .close').on('click', function() {
             $(this)
