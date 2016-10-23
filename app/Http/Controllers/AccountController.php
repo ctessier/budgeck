@@ -93,14 +93,23 @@ class AccountController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Account $account
+     * @param \Illuminate\Http\Request $request
+     * @param Account                  $account
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($account)
+    public function destroy(Request $request, $account)
     {
-        //TODO: nested delete and make sure to keep one default (compte courant)
-        $account->delete();
+        // Delete account only if not default
+        if (!$account->is_default) {
+            $account->delete();
+        } else {
+            $request->session()->flash('message', [
+                'type'    => 'error',
+                'header'  => 'Vous n\'êtes pas autorisé(e) à supprimer ce compte.',
+                'content' => 'Pour le supprimer, modifiez votre compte par défaut.',
+            ]);
+        }
 
         return redirect()->route('accounts.index');
     }

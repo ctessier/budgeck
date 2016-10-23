@@ -35,7 +35,11 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'MonitorController@getMonitoring',
     ]);
 
-    Route::get('accounts/switch/{accounts}', [
+    Route::post('accounts/{accounts}/default', [
+        'as'   => 'accounts.default',
+        'uses' => 'DefaultAccountController@update',
+    ]);
+    Route::get('accounts/{accounts}/switch', [
         'as'   => 'accounts.switch',
         'uses' => 'AccountController@switch',
     ]);
