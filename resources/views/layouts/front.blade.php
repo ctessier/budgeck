@@ -20,6 +20,7 @@
     <body>
         @include('elements.header')
         <div class="ui main container">
+            @include('elements.message')
             @yield('content')
         </div>
         @yield('tail')
