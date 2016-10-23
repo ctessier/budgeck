@@ -54,6 +54,7 @@
         </a>
     </div>
 </div>
+
 <script>
     $('.progress').progress({
         autoSuccess: false
