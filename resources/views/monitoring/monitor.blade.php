@@ -22,6 +22,7 @@
                                     <div class="ui icon top left pointing dropdown mini settings-icon">
                                         <i class="angle down icon"></i>
                                         <div class="menu">
+                                            {!! HTML::linkRoute('accounts.budgets.show', 'Détails', ['accounts' => $current_account, 'budgets' => $budget], ['class' => 'item', 'data-use-modal' => 'true']) !!}
                                             {!! HTML::linkRoute('accounts.budgets.edit', 'Modifier', ['accounts' => $current_account, 'budgets' => $budget], ['class' => 'item', 'data-use-modal' => 'true']) !!}
                                             {!! Form::open(['method' => 'delete', 'route' => ['accounts.budgets.destroy', $current_account, $budget], 'class' => 'item', 'data-use-confirm' => 'true', 'data-confirm-modal-title' => 'Supprimer la transaction', 'data-confirm-modal-message' => 'Souhaitez-vous définitivement supprimer cet budget ? Les transactions associées deviendront orphelines.']) !!}
                                             <div type="submit">Supprimer</div>

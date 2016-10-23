@@ -31,7 +31,8 @@ class Budget extends BaseModel
     public function transactions()
     {
         return $this->hasMany($this->getBaseNamespace() . '\Transaction')
-            ->where('transaction_type_id', TransactionType::EXPENSE);
+            ->where('transaction_type_id', TransactionType::EXPENSE)
+            ->orderBy('transaction_date', 'DESC');
     }
 
     /**
