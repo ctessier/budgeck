@@ -112,7 +112,7 @@ class Account extends BaseModel
         } else {
             return $transactions
                 ->whereNotNull('value_date')
-                ->paginate(2);
+                ->paginate(20);
         }
     }
 
