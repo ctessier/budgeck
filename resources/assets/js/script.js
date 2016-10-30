@@ -112,13 +112,11 @@ function initAjaxForms()
                 property = formEscapeName(property);
                 var input = form.find('input[name=' + property + '], textarea[name=' + property + '], select[name=' + property + ']');
                 if (input.length === 0) { // No input found
-                    console.log('skipping ' + property);
                     continue;
                 }
                 var validationElement = $('<div class="ui red label left pointing basic error">' + validations[property] + '</div>').hide();
                 input.closest('.column').after(validationElement);
                 input.closest('.field').addClass('error');
-                console.log('placing ' + property, input.closest('.column'), validationElement);
                 validationElement.fadeIn();
             }
         }

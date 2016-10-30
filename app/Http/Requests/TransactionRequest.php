@@ -2,8 +2,6 @@
 
 namespace Budgeck\Http\Requests;
 
-use Budgeck\Http\Requests\Request;
-
 class TransactionRequest extends Request
 {
     /**
