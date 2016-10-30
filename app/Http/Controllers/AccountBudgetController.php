@@ -44,6 +44,12 @@ class AccountBudgetController extends Controller
         $account_budget = new AccountBudget();
         $account_budget->fill($request->all());
         $account_budget->account_id = $account->id;
+
+        // Set default_category_id to null if empty
+        if (empty($request->input('default_category_id'))) {
+            $account_budget->default_category_id = null;
+        }
+
         $account_budget->save();
 
         return response()->json([
@@ -89,7 +95,14 @@ class AccountBudgetController extends Controller
      */
     public function update(AccountBudgetRequest $request, $account, $account_budget)
     {
-        $account_budget->update($request->all());
+        $account_budget->fill($request->all());
+
+        // Set default_category_id to null if empty
+        if (empty($request->input('default_category_id'))) {
+            $account_budget->default_category_id = null;
+        }
+
+        $account_budget->save();
 
         return response()->json([
             'redirect' => route('accounts.show', $account),

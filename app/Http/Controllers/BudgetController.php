@@ -58,10 +58,19 @@ class BudgetController extends Controller
         $budget = new Budget();
         $budget->account_id = $this->current_account->id;
         $budget->fill($request->all());
+
+        // Set default_category_id to null if empty
+        if (empty($request->input('default_category_id'))) {
+            $budget->default_category_id = null;
+        }
+
         $budget->save();
 
         return response()->json([
-            'redirect' => route('monitoring', ['month' => $budget->month, 'year' => $budget->year]),
+            'redirect' => route('monitoring', [
+                'month' => $budget->month,
+                'year' => $budget->year,
+            ]),
         ]);
     }
 
@@ -106,10 +115,20 @@ class BudgetController extends Controller
      */
     public function update(BudgetRequest $request, $accounts, $budget)
     {
-        $budget->update($request->all());
+        $budget->fill($request->all());
+
+        // Set default_category_id to null if empty
+        if (empty($request->input('default_category_id'))) {
+            $budget->default_category_id = null;
+        }
+
+        $budget->save();
 
         return response()->json([
-            'redirect' => route('monitoring', ['month' => $budget->month, 'year' => $budget->year]),
+            'redirect' => route('monitoring', [
+                'month' => $budget->month,
+                'year' => $budget->year,
+            ]),
         ]);
     }
 
