@@ -134,7 +134,9 @@ class AuthController extends Controller
         $v = $this->loginValidator($request->all());
 
         if ($v->fails()) {
-            return response()->json(['errors' => $v->errors()]);
+            return response()->json([
+                'form' => implode('<br />', $v->errors()->all()),
+          ], 422);
         }
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -162,9 +164,7 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'errors' => [
-                'form' => 'Identifiants incorrects',
-            ],
-        ]);
+            'form' => 'Les identifiants saisis sont incorrects. Veuillez réessayer.',
+        ], 422);
     }
 }

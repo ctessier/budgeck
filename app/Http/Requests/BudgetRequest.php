@@ -24,12 +24,12 @@ class BudgetRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'required|max:45',
-            'description' => 'max:255',
-            'amount' => ['required', 'regex:"(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)"'],
-            'year' => 'required|integer:4|min:2014',
-            'month' => 'required|integer|min:1|max:12',
-            'default_category_id' => 'exists:categories,id'
+            'title'               => 'required|max:45',
+            'description'         => 'max:255',
+            'amount'              => ['required', 'regex:"(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)"'],
+            'month'               => 'required|integer|min:1|max:12',
+            'year'                => 'required|integer:4|min:2014',
+            'default_category_id' => 'exists:categories,id',
         ];
     }
 
@@ -41,13 +41,13 @@ class BudgetRequest extends Request
     public function messages()
     {
         return [
-            'title.required' => 'Le titre ne peut pas être vide',
-            'title.max' => 'Le titre ne peut pas être aussi long',
+            'title.required'  => 'Le titre ne peut pas être vide',
+            'title.max'       => 'Le titre ne peut pas être aussi long',
             'description.max' => 'La description ne peut pas être aussi longue',
             'amount.required' => 'Le montant ne peut pas être vide',
-            'amount.regex' => 'Le format du montant est incorrect',
-            'year.required' => 'Une année doit être sélectionnée',
-            'month.required' => 'Un mois doit être sélectionné',
+            'amount.regex'    => 'Le format du montant est incorrect',
+            'month.required'  => 'Un mois doit être sélectionné',
+            'year.required'   => 'Une année doit être sélectionnée',
         ];
     }
 }
