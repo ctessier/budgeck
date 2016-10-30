@@ -44,13 +44,11 @@ class ProfileController extends Controller
      */
     public function updatePassword(EditProfilePasswordRequest $request)
     {
-        //TODO: move validation to EditProfilePasswordRequest
-
         // Check if old password matches current password
         if (!Hash::check($request->get('oldpassword'), $this->user->password)) {
             return response()->json([
-                'errors' => ['form' => 'Le mot de passe actuel est incorrect.'],
-            ]);
+                'form' => 'L\'ancien mot de passe est incorrect.',
+            ], 422);
         }
 
         // Change password
