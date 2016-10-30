@@ -24,7 +24,11 @@ class BudgetRequest extends Request
         return [
             'title'               => 'required|max:45',
             'description'         => 'max:255',
-            'amount'              => ['required', 'regex:"(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)"'],
+            'amount'              => [
+                'required',
+                'regex:"^\d+\.?\d{0,2}$"',
+                'not_in:0',
+            ],
             'month'               => 'required|integer|min:1|max:12',
             'year'                => 'required|integer:4|min:2014',
             'default_category_id' => 'exists:categories,id',
@@ -44,6 +48,7 @@ class BudgetRequest extends Request
             'description.max' => 'La description ne peut pas être aussi longue',
             'amount.required' => 'Le montant ne peut pas être vide',
             'amount.regex'    => 'Le format du montant est incorrect',
+            'amount.not_in'   => 'Le montant ne peut pas être de 0,00 &euro;',
             'month.required'  => 'Un mois doit être sélectionné',
             'year.required'   => 'Une année doit être sélectionnée',
         ];
