@@ -93,6 +93,7 @@
                 @endforeach
                 </tbody>
             </table>
+            @include('pagination.default', ['paginator' => $transactions])
         @endif
         <div id="add-transaction-dropdown" class="ui dropdown mini button">
             <i class="add icon"></i>
