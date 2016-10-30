@@ -69,7 +69,7 @@ class BudgetController extends Controller
         return response()->json([
             'redirect' => route('monitoring', [
                 'month' => $budget->month,
-                'year' => $budget->year,
+                'year'  => $budget->year,
             ]),
         ]);
     }
@@ -127,7 +127,7 @@ class BudgetController extends Controller
         return response()->json([
             'redirect' => route('monitoring', [
                 'month' => $budget->month,
-                'year' => $budget->year,
+                'year'  => $budget->year,
             ]),
         ]);
     }
