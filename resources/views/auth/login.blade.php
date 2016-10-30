@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="ui centered grid">
-    <div class="six wide column">
+    <div class="sixteen wide smartphone ten wide tablet six wide computer column">
         <div class="ui segment">
             {!! Form::open(['method' => 'post', 'route' => 'login', 'class' => 'ui form' , 'data-ajax-form' => 'true']) !!}
                 <div class="field">
