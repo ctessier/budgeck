@@ -4,14 +4,8 @@
 
 @section('content')
     <div class="ui centered grid">
-        <div class="six wide column">
+        <div class="sixteen wide smartphone ten wide tablet six wide computer column">
             <div class="ui segment">
-
-                @if (session('status'))
-                <div class="ui success message">
-                    {{ session('status') }}
-                </div>
-                @endif
 
                 @if (count($errors) > 0)
                 <div class="ui error message">
