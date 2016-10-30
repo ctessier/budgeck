@@ -20,7 +20,7 @@
     </div>
     <div class="six wide column field">
         <div class="ui right labeled input">
-            {!! Form::text('amount', null, ['placeholder' => '0.00']) !!}
+            {!! Form::text('amount', null, ['placeholder' => '12.34']) !!}
             <div class="ui basic label">
                 &euro;
             </div>

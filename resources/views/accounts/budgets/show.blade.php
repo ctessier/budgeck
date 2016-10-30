@@ -5,6 +5,7 @@
     </div>
 </div>
 <div class="content">
+    @if (count($budget->transactions) > 0)
     <table class="ui very basic table">
         <thead>
             <th>Titre</th>
@@ -28,6 +29,11 @@
             @endforeach
         </tbody>
     </table>
+    @else
+    <div class="ui warning message">
+        Ce budget ne contient aucune transaction.
+    </div>
+    @endif
 </div>
 <div class="actions">
     <div class="ui cancel button">Fermer</div>
