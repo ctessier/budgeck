@@ -100,21 +100,20 @@ class Account extends BaseModel
     public function getTransactions($status)
     {
         $transactions = Transaction::select('transactions.*')
-            ->where('account_id', $this->id);
+            ->where('account_id', $this->id)
+            ->orderBy('year', 'DESC')
+            ->orderBy('month', 'DESC')
+            ->orderBy('transaction_date', 'DESC');
 
         if ($status === Transaction::AWAITING) {
-            $transactions->whereNull('value_date');
+            return $transactions
+                ->whereNull('value_date')
+                ->get();
         } else {
-            $transactions->whereNotNull('value_date');
+            return $transactions
+                ->whereNotNull('value_date')
+                ->paginate(20);
         }
-
-        $transactions->orderBy('year', 'DESC');
-        $transactions->orderBy('month', 'DESC');
-        $transactions->orderBy('transaction_date', 'DESC');
-
-        //TODO: paginator (maybe implemented partial view with get method for infinite scroll)
-
-        return $transactions->get();
     }
 
     /**

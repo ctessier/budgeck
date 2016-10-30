@@ -11,9 +11,9 @@ class HistoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getHistory()
+    public function show()
     {
-        return view('history.index')
+        return view('history.show')
             ->with('awaitings', $this->current_account->getTransactions(Transaction::AWAITING))
             ->with('transactions', $this->current_account->getTransactions(Transaction::EFFECTIVE));
     }

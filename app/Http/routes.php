@@ -32,7 +32,7 @@ Route::controllers([
 Route::group(['middleware' => 'auth'], function () {
     Route::get('history', [
         'as'   => 'history',
-        'uses' => 'HistoryController@getHistory',
+        'uses' => 'HistoryController@show',
     ]);
 
     Route::get('monitoring/{year}/{month}', [
