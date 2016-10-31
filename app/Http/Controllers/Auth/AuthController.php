@@ -151,6 +151,9 @@ class AuthController extends Controller
         $credentials = $this->getCredentials($request);
 
         if (Auth::attempt($credentials, $request->has('remember'))) {
+            // Initialize default account session variable
+            $request->session()->set('account', Auth::user()->defaultAccount());
+
             return response()->json([
                 'redirect' => $this->redirectTo,
             ]);
