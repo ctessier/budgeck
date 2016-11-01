@@ -1,6 +1,7 @@
 <div class="four wide column">
     <div class="ui styled fluid accordion">
-        {{--*/ $date = Carbon\Carbon::now()->addMonth(config('budgeck.aheadness')) /*--}}
+        {{--*/ $date = Carbon\Carbon::now()->day(1)->setTime(0,0,0)->addMonth(config('budgeck.aheadness')) /*--}}
+        {{--*/ $minDate = $current_account->created_at->day(1)->setTime(0,0,0) /*--}}
         {{--*/ $currentYear = $date->year /*--}}
         <div class="title {{ ($date->year == $year) ? ' active' : '' }}">
             <i class="dropdown icon"></i>
@@ -8,7 +9,7 @@
         </div>
         <div class="content {{ ($date->year == $year) ? ' active' : '' }}">
             <div class="ui link list">
-            @while ($date >= $current_account->created_at)
+            @while ($date >= $minDate)
                 @if ($currentYear != $date->year)
                     {{--*/ $currentYear = $date->year /*--}}
                         </div>
