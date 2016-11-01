@@ -14,9 +14,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Set locale for Carbon
-        setlocale(LC_TIME, "fr_FR.UTF-8");
-        \Carbon\Carbon::setLocale('fr');
+        // Set locale
+        if (config('app.locale') === 'fr') {
+            setlocale(LC_TIME, 'fr_FR.UTF-8');
+        }
 
         // Provide Blade directive for amounts
         Blade::directive('amount', function ($expression) {
