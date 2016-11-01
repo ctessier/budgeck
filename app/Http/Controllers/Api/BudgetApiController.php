@@ -18,7 +18,7 @@ class BudgetApiController extends Controller
     public function get(Request $request)
     {
         if ($request->has('month') || $request->has('year')) {
-            return Budget::select('id', 'title', 'amount', 'account_budget_id')
+            return Budget::select('id', 'title', 'amount', 'account_budget_id', 'default_category_id')
                 ->where([
                     'month'      => $request->get('month'),
                     'year'       => $request->get('year'),
