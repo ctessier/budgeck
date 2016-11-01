@@ -2,10 +2,10 @@
 
 namespace Budgeck\Console\Commands;
 
-use Mail;
-use Illuminate\Console\Command;
-use Budgeck\Models\User;
 use Budgeck\Models\Account;
+use Budgeck\Models\User;
+use Illuminate\Console\Command;
+use Mail;
 
 class BudgeckCreateUser extends Command
 {
@@ -69,9 +69,9 @@ class BudgeckCreateUser extends Command
             'firstname' => $firstname,
         ], function ($message) use ($user) {
             $message
-                ->to($user->email, $user->firstname . ' ' . $user->lastname)
+                ->to($user->email, $user->firstname.' '.$user->lastname)
                 ->subject('Bienvenue sur Budgeck !');
-            $this->info('Un message a été envoyé à ' . $user->email);
+            $this->info('Un message a été envoyé à '.$user->email);
         });
 
         User::reguard('password');
