@@ -3,6 +3,9 @@
     Nouveau revenu
     @else
     Nouvelle dépense
+        @if (isset($budget))
+            pour {{ $budget->title }}
+        @endif
     @endif
 </div>
 <div class="content">

@@ -3,6 +3,7 @@
         var dropdown = $(this);
         var currentYear, currentMonth;
         var monthSelector =  $('.month-selector');
+        var categorySelector = $('#category-selector');
         var monthField = $('input[data-month="true"]');
         var yearField = $('input[data-year="true"]');
 
@@ -46,7 +47,7 @@
 
                     data.forEach(function (element) {
                         // create dropdown item
-                        var item = $('<div class="item" data-value="' + element.id + '">' + element.title + '</div>');
+                        var item = $('<div class="item" data-value="' + element.id + '" data-default-category="' + element.default_category_id + '">' + element.title + '</div>');
 
                         // check if we can preselect the dropdown as it was previously or with one from the same account budget
                         if (parseInt(dropdown.attr('data-budget-id')) === element.id || parseInt(dropdown.attr('data-account-budget-id')) === element.account_budget_id) {
@@ -58,7 +59,22 @@
                     });
 
                     // redraw dropdown and remove loading classes
-                    dropdown.dropdown('refresh').dropdown('set selected', selected);
+                    dropdown.dropdown('refresh');
+                    dropdown.dropdown({
+                        onChange: function (value, text, el) {
+                            // preselect default category id if exists
+                            if (typeof el !== 'undefined' && el.attr('data-default-category')) {
+                                categorySelector.dropdown('set selected', el.attr('data-default-category'));
+                            }
+                        }
+                    });
+
+                    // preselect budget if needed
+                    if (selected) {
+                        dropdown.dropdown('set selected', selected);
+                    }
+
+                    // remove loading classes
                     dropdown.removeClass('loading').removeClass('disabled');
                 }
             });
