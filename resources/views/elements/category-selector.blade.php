@@ -3,20 +3,24 @@
     <i class="dropdown icon"></i>
     <div class="default text">Sélectionner une catégorie</div>
     <div class="menu">
-        @foreach ($categoryArray as $key => $value)
-            <div class="item">
+        @foreach ($categoryArray as $category)
+            <div class="item" data-value="{{ $category->id }}">
+                {{ $category->name }}
+                @if (count($category->children) > 0)
                 <i class="dropdown icon"></i>
-                {{ $key }}
                 <div class="menu">
-                    @foreach ($value as $key => $category_name)
-                        <div class="item" data-value="{{ $key }}">{{ $category_name }}</div>
+                    @foreach ($category->children as $childCategory)
+                        <div class="item" data-value="{{ $childCategory->id }}">{{ $childCategory->name }}</div>
                     @endforeach
                 </div>
+                @endif
             </div>
         @endforeach
     </div>
 </div>
 
 <script>
-    $('#category-selector').dropdown();
+    $('#category-selector').dropdown({
+        allowCategorySelection: true
+    });
 </script>

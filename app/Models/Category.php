@@ -11,11 +11,11 @@ class Category extends BaseModel
      *
      * @param CategoryType $category_type
      *
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function getList($category_type)
     {
-        $parentCategories = self::where('category_type_id', $category_type)
+        $categories = self::where('category_type_id', $category_type)
             ->whereNull('parent_category_id')
             ->where(function ($query) {
                 $query->whereNull('user_id');
@@ -23,27 +23,16 @@ class Category extends BaseModel
             })
             ->get();
 
-        $categories = [];
-        foreach ($parentCategories as $parentCategory) {
-            $categories[$parentCategory->name] = $parentCategory->getChildren();
-        }
-
         return $categories;
     }
 
     /**
-     * Return the children categories of self.
+     * Return the children categories.
      *
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    protected function getChildren()
+    public function children()
     {
-        return self::where('parent_category_id', $this->id)
-            ->where(function ($query) {
-                $query->whereNull('user_id');
-                $query->orWhere('user_id', Auth::user()->id);
-            })
-            ->lists('name', 'id')
-            ->toArray();
+        return $this->hasMany($this->getBaseNamespace().'\Category', 'parent_category_id');
     }
 }
