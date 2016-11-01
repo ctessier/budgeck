@@ -122,7 +122,7 @@ class AccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function switch(Request $request, $account)
+    public function change(Request $request, $account)
     {
         // Set new current account
         $request->session()->set('account', $account);
