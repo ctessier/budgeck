@@ -1,4 +1,4 @@
-# Budgeck 
+# Budgeck
 
 [![Build Status](https://travis-ci.org/ctessier/budgeck.svg?branch=master)](https://travis-ci.org/ctessier/budgeck)
 
@@ -28,6 +28,13 @@ Budgeck is a budget monitoring web application build with Laravel 5.1. To use th
 
 - Run *gulp --production*
 
+## Language
+
+So far, Budgeck interfaces have been developed in French. English will be implemented later.
+
+To enable the months names to display in French, you must have the following locales installed on your server:
+- fr_FR
+- fr_FR.UTF-8
 
 ## References
 
