@@ -4,7 +4,7 @@
 <div class="ui buttons">
     @for ($i = $baseTime->month - config('budgeck.aheadness') ; $i <= $baseTime->month + config('budgeck.aheadness') ; ++$i)
         {{--*/ $currentTime = \Carbon\Carbon::createFromDate($baseTime->year, $i, 1) /*--}}
-        <a class="month-selector ui small blue button {{ ($currentTime->month === $month && $currentTime->year === $year) ? 'active' : '' }}" data-month="{{ $currentTime->month }}" data-year="{{ $currentTime->year }}">{{ ucfirst($currentTime->formatLocalized('%B')) }}</a>
+        <a class="month-selector ui small blue button {{ ($currentTime->month == $month && $currentTime->year == $year) ? 'active' : '' }}" data-month="{{ $currentTime->month }}" data-year="{{ $currentTime->year }}">{{ ucfirst($currentTime->formatLocalized('%B')) }}</a>
     @endfor
 </div>
 
