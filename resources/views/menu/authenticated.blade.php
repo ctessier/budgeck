@@ -12,7 +12,7 @@
     <div class="menu">
         @foreach ($user->accounts as $account)
             @if ($account != $current_account)
-                {!! HTML::linkRoute('accounts.switch', $account->name, ['accounts' => $account->id], ['class' => 'item']) !!}
+                {!! HTML::linkRoute('accounts.change', $account->name, ['accounts' => $account->id], ['class' => 'item']) !!}
             @endif
         @endforeach
     </div>

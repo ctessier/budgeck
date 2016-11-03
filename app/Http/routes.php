@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
         'as'   => 'accounts.default',
         'uses' => 'DefaultAccountController@update',
     ]);
-    Route::get('accounts/{accounts}/switch', [
+    Route::get('accounts/{accounts}/change', [
         'as'   => 'accounts.change',
         'uses' => 'AccountController@change',
     ]);
