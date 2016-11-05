@@ -17,10 +17,9 @@
             </div>
         @endforeach
     </div>
+
 </div>
 
 <script>
-    $('#category-selector').dropdown({
-        allowCategorySelection: true
-    });
+    $('#category-selector').categorySelector();
 </script>
