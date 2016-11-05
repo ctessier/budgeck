@@ -3,10 +3,10 @@
 namespace Budgeck\Models;
 
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends BaseModel implements AuthenticatableContract, CanResetPasswordContract
 {
@@ -34,19 +34,19 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     protected $hidden = ['password', 'remember_token'];
 
     /**
-     * Returns collection of user's accounts
+     * Returns collection of user's accounts.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function accounts()
     {
-        return $this->hasMany($this->getBaseNamespace() . '\Account');
+        return $this->hasMany($this->getBaseNamespace().'\Account');
     }
 
     /**
-     * Return user's accounts as a list
+     * Return user's accounts as a list.
      *
-     * @return Array
+     * @return array
      */
     public function getAccountsList()
     {
@@ -55,7 +55,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     }
 
     /**
-     * Returns the default account of the user
+     * Returns the default account of the user.
      *
      * @return Account
      */
@@ -67,16 +67,15 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     }
 
     /**
-     * Returns the total balance of the user (all accounts included)
+     * Returns the total balance of the user (all accounts included).
      *
-     * @return double
+     * @return float
      */
     public function getTotalBalance()
     {
         $totalBalance = 0;
 
-        foreach ($this->accounts as $account)
-        {
+        foreach ($this->accounts as $account) {
             $totalBalance += $account->getBalance();
         }
 

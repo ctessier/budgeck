@@ -14,27 +14,27 @@ class AccountBudget extends BaseModel
     protected $fillable = ['title', 'description', 'amount', 'default_category_id'];
 
     /**
-     * The account model of the account budget
+     * The account model of the account budget.
      *
      * @return \Budgeck\Models\Account
      */
     public function account()
     {
-        return $this->belongsTo($this->getBaseNamespace() . '\Account');
+        return $this->belongsTo($this->getBaseNamespace().'\Account');
     }
 
     /**
-     * The collection of budgets which inherit to this account budget
+     * The collection of budgets which inherit to this account budget.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function budgets()
     {
-        return $this->hasMany($this->getBaseNamespace() . '\Budget');
+        return $this->hasMany($this->getBaseNamespace().'\Budget');
     }
 
     /**
-     * Create budgets from account budget according to defined aheadness
+     * Create budgets from account budget according to defined aheadness.
      *
      * @return void
      */
@@ -43,16 +43,14 @@ class AccountBudget extends BaseModel
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
 
-        for ($i=0 ; $i <= config('budgeck.aheadness') ; ++$i)
-        {
+        for ($i = 0; $i <= config('budgeck.aheadness'); ++$i) {
             $budget = Budget::where('account_budget_id', $this->id)
                 ->where('year', $currentYear)
                 ->where('month', $currentMonth)
                 ->withTrashed()
                 ->get();
 
-            if ($budget->isEmpty())
-            {
+            if ($budget->isEmpty()) {
                 $budget = new Budget();
                 $budget->title = $this->title;
                 $budget->description = $this->description;
@@ -67,8 +65,7 @@ class AccountBudget extends BaseModel
             }
 
             $currentMonth++;
-            if ($currentMonth > 12)
-            {
+            if ($currentMonth > 12) {
                 $currentYear++;
                 $currentMonth = 1;
             }
@@ -76,7 +73,7 @@ class AccountBudget extends BaseModel
     }
 
     /**
-     * Update budgets from updated account income according to defined aheadness
+     * Update budgets from updated account budget according to defined aheadness.
      *
      * @return void
      */
@@ -85,12 +82,10 @@ class AccountBudget extends BaseModel
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
 
-        for ($i=0 ; $i < config('budgeck.aheadness') ; ++$i)
-        {
+        for ($i = 0; $i < config('budgeck.aheadness'); ++$i) {
             // The current month should not be updated
             $currentMonth++;
-            if ($currentMonth > 12)
-            {
+            if ($currentMonth > 12) {
                 $currentYear++;
                 $currentMonth = 1;
             }
@@ -101,16 +96,12 @@ class AccountBudget extends BaseModel
                 ->withTrashed()
                 ->first();
 
-            if ($budget === null)
-            {
+            if ($budget === null) {
                 $budget = new Budget();
                 $budget->closed = false;
-            }
-            else
-            {
+            } else {
                 // Trashed budgets are not updated
-                if ($budget->trashed())
-                {
+                if ($budget->trashed()) {
                     continue;
                 }
             }

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateTransactionsTable extends Migration
 {
@@ -12,13 +12,6 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payment_methods', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 45);
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
         Schema::create('transaction_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 45);
@@ -37,7 +30,6 @@ class CreateTransactionsTable extends Migration
             $table->integer('category_id')->unsigned()->nullable();
             $table->integer('account_id')->unsigned();
             $table->integer('budget_id')->unsigned()->nullable();
-            $table->integer('payment_method_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
 
@@ -45,7 +37,6 @@ class CreateTransactionsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->foreign('budget_id')->references('id')->on('budgets')->onDelete('set null');
-            $table->foreign('payment_method_id')->references('id')->on('payment_methods')->onDelete('set null');
         });
     }
 
@@ -58,6 +49,5 @@ class CreateTransactionsTable extends Migration
     {
         Schema::drop('transactions');
         Schema::drop('transaction_types');
-        Schema::drop('payment_methods');
     }
 }
