@@ -36,7 +36,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     /**
      * Returns collection of user's accounts.
      *
-     * @return Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function accounts()
     {

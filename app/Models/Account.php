@@ -45,22 +45,6 @@ class Account extends BaseModel
     }
 
     /**
-     * Return an account's budget from given id.
-     *
-     * @param int $id
-     *
-     * @return \Budgeck\Models\AccountBudget
-     */
-    public function getAccountBudgetById($id)
-    {
-        foreach ($this->budgets as $budget) {
-            if ($budget->id == $id) {
-                return $budget;
-            }
-        }
-    }
-
-    /**
      * Return the month budgets of the account for the given year and month.
      *
      * @param int $year
@@ -77,23 +61,9 @@ class Account extends BaseModel
     }
 
     /**
-     * Return an account object from given id and logged in user.
-     *
-     * @param int $id
-     *
-     * @return Account
-     */
-    public static function getUserAccountById($id)
-    {
-        return self::where('id', $id)
-            ->where('user_id', \Auth::user()->id)
-            ->first();
-    }
-
-    /**
      * Return a transactions collection.
      *
-     * @param $status
+     * @param int $status
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
@@ -118,6 +88,8 @@ class Account extends BaseModel
 
     /**
      * Make account the default one.
+     *
+     * @return void
      */
     public function makeDefault()
     {
