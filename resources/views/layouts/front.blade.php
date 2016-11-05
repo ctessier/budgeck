@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!--[if IE 9]><html class="lt-ie10" lang="fr" > <![endif]-->
-<!--[if IE 10]><html class="ie10" lang="fr" > <![endif]-->
-<html class="no-js" lang="fr">
+<!--[if IE 9]><html class="lt-ie10" lang="fr" ><![endif]-->
+<!--[if IE 10]><html class="ie10" lang="fr" ><![endif]-->
+<html lang="{{ config('app.locale') }}">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@yield('title') | Budgeck</title>
+        <title>@yield('title') | {{ config('budgeck.appName') }}</title>
         <link rel="stylesheet" href="{{ elixir('assets/css/semantic.css') }}" />
         <link rel="stylesheet" href="{{ elixir('assets/css/foundation-datepicker.min.css') }}" />
         <link rel="stylesheet" href="{{ elixir('assets/css/app.css') }}" />
