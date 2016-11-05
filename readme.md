@@ -4,7 +4,19 @@
 
 Budgeck is a budget monitoring web application build with Laravel 5.1. To use this project, please make a fork.
 
-**This project is still in build phase and yet, all the functionnalities have not been developped.**
+**This project is still in build phase, therefore, all the functionalities have not yet been developed.**
+
+## System requirements
+
+Budgeck's system requirements are similar to Laravel :
+
+- PHP >= 5.5.9
+- OpenSSL PHP Extension
+- PDO PHP Extension
+- Mbstring PHP Extension
+- Tokenizer PHP Extension
+- Composer
+- MySQL
 
 
 ## Installation
@@ -39,4 +51,3 @@ To enable the months names to display in French, you must have the following loc
 ## References
 
 - [Laravel Website](http://laravel.com/)
-
