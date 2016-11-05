@@ -2,8 +2,6 @@
 
 namespace Budgeck\Models;
 
-use Auth;
-
 class Budget extends BaseModel
 {
     /**
