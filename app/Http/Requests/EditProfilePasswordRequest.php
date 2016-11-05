@@ -2,8 +2,6 @@
 
 namespace Budgeck\Http\Requests;
 
-use Budgeck\Http\Requests\Request;
-
 class EditProfilePasswordRequest extends Request
 {
     /**
@@ -37,8 +35,8 @@ class EditProfilePasswordRequest extends Request
     public function messages()
     {
         return [
-                'oldpassword.required' => 'Votre mot de passe actuel est requis',
-                'newpassword.required' => 'Le nouveau mot de passe ne peut pas être vide',
+                'oldpassword.required'  => 'Votre mot de passe actuel est requis',
+                'newpassword.required'  => 'Le nouveau mot de passe ne peut pas être vide',
                 'newpassword.confirmed' => 'Les mots de passe ne correspondent pas',
         ];
     }

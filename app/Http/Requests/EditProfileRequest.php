@@ -3,7 +3,6 @@
 namespace Budgeck\Http\Requests;
 
 use Auth;
-use Budgeck\Http\Requests\Request;
 
 class EditProfileRequest extends Request
 {
@@ -25,9 +24,9 @@ class EditProfileRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:users,email,' . Auth::user()->id,
+            'email'     => 'required|email|unique:users,email,'.Auth::user()->id,
             'firstname' => 'required|max:100',
-            'lastname' => 'required|max:100'
+            'lastname'  => 'required|max:100',
         ];
     }
 
@@ -39,13 +38,13 @@ class EditProfileRequest extends Request
     public function messages()
     {
         return [
-            'email.required' => 'L\'adresse e-mail ne peut pas être vide',
-            'email.email' => 'L\'adresse e-mail semble incorrect',
-            'email.unique' => 'Cette adresse e-mail est déjà utilisée',
+            'email.required'     => 'L\'adresse e-mail ne peut pas être vide',
+            'email.email'        => 'L\'adresse e-mail semble incorrect',
+            'email.unique'       => 'Cette adresse e-mail est déjà utilisée',
             'firstname.required' => 'Votre prénom ne peut pas être vide',
-            'firstname.max' => 'Votre prénom ne peut pas être aussi long',
-            'lastname.required' => 'Votre nom ne peut pas être vide',
-            'lastname.max' => 'Votre nom ne peut pas être aussi long'
+            'firstname.max'      => 'Votre prénom ne peut pas être aussi long',
+            'lastname.required'  => 'Votre nom ne peut pas être vide',
+            'lastname.max'       => 'Votre nom ne peut pas être aussi long',
         ];
     }
 }

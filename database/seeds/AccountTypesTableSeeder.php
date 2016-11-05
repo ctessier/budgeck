@@ -12,12 +12,12 @@ class AccountTypesTableSeeder extends Seeder
     public function run()
     {
         DB::table('account_types')->insert([
-            'id' => 1,
+            'id'   => 1,
             'name' => 'Checking',
         ]);
 
         DB::table('account_types')->insert([
-            'id' => 2,
+            'id'   => 2,
             'name' => 'Savings',
         ]);
     }

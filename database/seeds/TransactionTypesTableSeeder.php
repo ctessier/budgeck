@@ -12,12 +12,12 @@ class TransactionTypesTableSeeder extends Seeder
     public function run()
     {
         DB::table('transaction_types')->insert([
-            'id' => Budgeck\Models\TransactionType::EXPENSE,
+            'id'   => Budgeck\Models\TransactionType::EXPENSE,
             'name' => 'Expense',
         ]);
 
         DB::table('transaction_types')->insert([
-            'id' => Budgeck\Models\TransactionType::INCOME,
+            'id'   => Budgeck\Models\TransactionType::INCOME,
             'name' => 'Income',
         ]);
     }
