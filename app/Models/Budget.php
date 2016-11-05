@@ -69,26 +69,4 @@ class Budget extends BaseModel
     {
         return $this->amount - $this->getAmountSpent();
     }
-
-    /**
-     * Return the list of budgets according to year and month.
-     *
-     * @param int $year
-     * @param int $month
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public static function getListFromYearMonth($year, $month)
-    {
-        $collection = self::select('budgets.id', 'budgets.title')
-            ->leftJoin('accounts', 'budgets.account_id', '=', 'accounts.id')
-            ->where('accounts.user_id', Auth::user()->id)
-            ->where('budgets.year', $year)
-            ->where('budgets.month', $month)
-            ->lists('budgets.title', 'budgets.id');
-
-        $collection->prepend('-- Sélectionner --', 0);
-
-        return $collection;
-    }
 }
