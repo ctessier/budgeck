@@ -12,12 +12,12 @@ class CategoryTypesTableSeeder extends Seeder
     public function run()
     {
         DB::table('category_types')->insert([
-            'id' => Budgeck\Models\CategoryType::EXPENSE,
+            'id'   => Budgeck\Models\CategoryType::EXPENSE,
             'name' => 'Expense',
         ]);
 
         DB::table('category_types')->insert([
-            'id' => Budgeck\Models\CategoryType::INCOME,
+            'id'   => Budgeck\Models\CategoryType::INCOME,
             'name' => 'Income',
         ]);
     }
