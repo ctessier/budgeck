@@ -50,7 +50,7 @@
                         var item = $('<div class="item" data-value="' + element.id + '" data-default-category="' + element.default_category_id + '">' + element.title + '</div>');
 
                         // check if we can preselect the dropdown as it was previously or with one from the same account budget
-                        if (parseInt(dropdown.attr('data-budget-id')) === element.id || parseInt(dropdown.attr('data-account-budget-id')) === element.account_budget_id) {
+                        if (parseInt(dropdown.attr('data-budget-id')) == element.id || parseInt(dropdown.attr('data-account-budget-id')) == element.account_budget_id) {
                             selected = element.title;
                         }
 
