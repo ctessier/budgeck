@@ -76,7 +76,7 @@ class AccountBudget extends BaseModel
     }
 
     /**
-     * Update budgets from updated account income according to defined aheadness
+     * Update budgets from updated account budget according to defined aheadness
      *
      * @return void
      */

@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('inspire')
-                 ->hourly();
+        // Launch budgeck preparemonths command the 1st of each month, at 1 AM
+        $schedule->command('budgeck:preparemonths')->cron('* 1 1 * * *');
     }
 }
