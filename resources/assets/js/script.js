@@ -32,6 +32,7 @@ function initAjaxForms()
 
         removeValidations();
         submitButton.addClass('loading');
+        submitButton.addClass('disabled');
 
         $.ajax({
             url: url,
@@ -55,6 +56,7 @@ function initAjaxForms()
             complete: function(jqXHR) {
                 if (!jqXHR.responseJSON || typeof jqXHR.responseJSON.redirect === 'undefined') {
                     submitButton.removeClass('loading');
+                    submitButton.removeClass('disabled');
                 }
             }
         });
