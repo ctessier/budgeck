@@ -18,9 +18,12 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoryTableSeeder::class);
         $this->call(AccountTypesTableSeeder::class);
         $this->call(TransactionTypesTableSeeder::class);
-        $this->call(UserTableSeeder::class);
-        $this->call(AccountBudgetTableSeeder::class);
-        $this->call(TransactionTableSeeder::class);
+
+        if (App::environment() !== 'production') {
+            $this->call(UserTableSeeder::class);
+            $this->call(AccountBudgetTableSeeder::class);
+            $this->call(TransactionTableSeeder::class);
+        }
 
         Model::reguard();
     }
