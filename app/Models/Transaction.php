@@ -49,6 +49,6 @@ class Transaction extends BaseModel
      */
     public function isExpense()
     {
-        return $this->transaction_type_id == TransactionType::EXPENSE;
+        return $this->transaction_type_id === TransactionType::EXPENSE;
     }
 }
