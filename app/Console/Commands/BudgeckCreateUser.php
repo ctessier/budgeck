@@ -3,9 +3,10 @@
 namespace Budgeck\Console\Commands;
 
 use Budgeck\Models\Account;
+use Budgeck\Models\AccountType;
 use Budgeck\Models\User;
 use Illuminate\Console\Command;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
 class BudgeckCreateUser extends Command
 {
@@ -14,14 +15,19 @@ class BudgeckCreateUser extends Command
      *
      * @var string
      */
-    protected $signature = 'budgeck:createuser';
+    protected $signature = 'budgeck:createuser 
+        {email : User\'s e-mail address}
+        {firstname : User\'s first name}
+        {lastname : User\'s last name}
+        {password? : User\'s password}
+    ';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new user';
+    protected $description = 'Create a new user with a default account';
 
     /**
      * Create a new command instance.
@@ -40,41 +46,43 @@ class BudgeckCreateUser extends Command
      */
     public function handle()
     {
-        $email = $this->ask('What is the e-mail address?');
-        $firstname = $this->ask('What is the firstname?');
-        $lastname = $this->ask('What is the lastname?');
-        $password = str_random(8);
+        User::unguard();
+        Account::unguard();
 
-        User::unguard('password');
-        Account::unguard('is_default');
+        if (!$password = $this->argument('password')) {
+            $password = str_random(6);
+        }
 
+        // Create the new user and a default account
         $user = User::create([
-            'email'     => $email,
-            'firstname' => $firstname,
-            'lastname'  => $lastname,
+            'email'     => $this->argument('email'),
+            'firstname' => $this->argument('firstname'),
+            'lastname'  => $this->argument('lastname'),
             'password'  => bcrypt($password),
         ]);
 
         $user->accounts()->create([
             'name'            => 'Compte courant',
             'is_default'      => true,
-            'account_type_id' => 1,
+            'account_type_id' => AccountType::CHECKING,
         ]);
 
-        $this->info('User created.');
+        $this->info('The user has been created successfully.');
 
+        // Send e-mail to the new user
         Mail::send('emails.register', [
-            'email'     => $email,
+            'email'     => $user->email,
             'password'  => $password,
-            'firstname' => $firstname,
+            'firstname' => $user->firstname,
         ], function ($message) use ($user) {
             $message
                 ->to($user->email, $user->firstname.' '.$user->lastname)
                 ->subject('Bienvenue sur Budgeck !');
-            $this->info('Un message a été envoyé à '.$user->email);
+
+            $this->info('A message has been sent to '.$user->email);
         });
 
-        User::reguard('password');
-        Account::reguard('is_default');
+        User::reguard();
+        Account::reguard();
     }
 }
