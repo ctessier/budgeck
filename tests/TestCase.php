@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Artisan;
+
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
@@ -21,5 +24,29 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
+    }
+
+    /**
+     * Setup testing environment (run migrations and unguard models)
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+        Artisan::call('migrate');
+        Model::unguard();
+    }
+
+    /**
+     * Tear down testing environment (reguard models and reset migrations)
+     *
+     * @return void
+     */
+    public function tearDown()
+    {
+        Model::reguard();
+        Artisan::call('migrate:reset');
+        parent::tearDown();
     }
 }
