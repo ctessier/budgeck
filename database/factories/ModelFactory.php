@@ -11,6 +11,9 @@
 |
 */
 
+/*
+ * Factory for User
+ */
 $factory->define(Budgeck\Models\User::class, function ($faker) {
     return [
         'firstname'      => $faker->firstname,
@@ -21,48 +24,40 @@ $factory->define(Budgeck\Models\User::class, function ($faker) {
     ];
 });
 
+/*
+ * Factory for Account
+ */
 $factory->define(Budgeck\Models\Account::class, function ($faker) {
     return [
-        'description' => $faker->sentence(3),
+        'name'            => $faker->word(),
+        'description'     => $faker->sentence(3),
+        'account_type_id' => Budgeck\Models\AccountType::CHECKING,
     ];
 });
 
-$factory->defineAs(Budgeck\Models\Account::class, 'checking', function ($faker) use ($factory) {
-    $account = $factory->raw(Budgeck\Models\Account::class);
-
-    return array_merge($account, [
-        'name'            => 'Checking',
-        'account_type_id' => Budgeck\Models\AccountType::CHECKING,
-    ]);
-});
-
-$factory->defineAs(Budgeck\Models\Account::class, 'saving', function ($faker) use ($factory) {
-    $account = $factory->raw(Budgeck\Models\Account::class);
-
-    return array_merge($account, [
-        'name'            => 'Savings',
-        'account_type_id' => Budgeck\Models\AccountType::SAVINGS,
-    ]);
-});
-
+/*
+ * Factory for AccountBudget
+ */
 $factory->define(Budgeck\Models\AccountBudget::class, function ($faker) {
     return [
-        'title'  => $faker->randomElement(['Shelter', 'Utilities', 'Food', 'Health', 'Clothing']),
-        'amount' => $faker->randomFloat(2, 100, 500),
+        'title'  => $faker->randomElement(['Logement', 'Alimentation', 'Loisirs', 'Transports', 'Shopping']),
+        'amount' => $faker->randomFloat(2, 50, 500),
     ];
 });
 
+/*
+ * Factories for Transaction
+ */
 $factory->define(Budgeck\Models\Transaction::class, function ($faker) {
     return [
-        'title'            => $faker->sentence($faker->numberBetween(2, 5)),
+        'title'            => $faker->sentence($faker->numberBetween(1, 4)),
         'amount'           => $faker->randomFloat(2, 5, 100),
         'transaction_date' => $faker->dateTimeInInterval('-15 days', $interval = '+ 15 days'),
         'value_date'       => $faker->randomElement([null, $faker->dateTimeInInterval('-13 days', $interval = '+ 13 days')]),
-        'month'            => date('m'),
         'year'             => date('Y'),
+        'month'            => date('n'),
     ];
 });
-
 $factory->defineAs(Budgeck\Models\Transaction::class, 'expense', function ($faker) use ($factory) {
     $transaction = $factory->raw(Budgeck\Models\Transaction::class);
 
@@ -70,7 +65,6 @@ $factory->defineAs(Budgeck\Models\Transaction::class, 'expense', function ($fake
         'transaction_type_id' => Budgeck\Models\TransactionType::EXPENSE,
     ]);
 });
-
 $factory->defineAs(Budgeck\Models\Transaction::class, 'income', function ($faker) use ($factory) {
     $transaction = $factory->raw(Budgeck\Models\Transaction::class);
 
