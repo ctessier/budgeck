@@ -27,7 +27,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     }
 
     /**
-     * Setup testing environment (run migrations and unguard models)
+     * Setup testing environment (run migrations and unguard models).
      *
      * @return void
      */
@@ -39,7 +39,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     }
 
     /**
-     * Tear down testing environment (reguard models and reset migrations)
+     * Tear down testing environment (reguard models and reset migrations).
      *
      * @return void
      */
