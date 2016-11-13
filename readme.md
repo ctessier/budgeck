@@ -11,7 +11,7 @@ Budgeck is a budget monitoring web application build with Laravel 5.1. To use th
 
 Budgeck's system requirements are similar to Laravel :
 
-- PHP >= 5.5.9
+- PHP >= 5.6
 - OpenSSL PHP Extension
 - PDO PHP Extension
 - Mbstring PHP Extension

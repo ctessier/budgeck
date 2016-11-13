@@ -13,8 +13,8 @@ class UpdateTransactionsAddMonthYear extends Migration
     public function up()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->integer('year')->length(4)->unsigned();
-            $table->integer('month')->length(2)->unsigned();
+            $table->integer('year')->length(4)->unsigned()->default(date('Y'));
+            $table->integer('month')->length(2)->unsigned()->default(date('n'));
         });
     }
 
