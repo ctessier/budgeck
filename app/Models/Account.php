@@ -12,6 +12,16 @@ class Account extends BaseModel
     protected $fillable = ['name', 'description', 'account_type_id'];
 
     /**
+     * Return the owner of the account.
+     *
+     * @return \Budgeck\Models\User
+     */
+    public function user()
+    {
+        return $this->belongsTo($this->getBaseNamespace().'\User');
+    }
+
+    /**
      * Return the collection of the account budgets.
      *
      * @return \Illuminate\Database\Eloquent\Collection
@@ -93,7 +103,7 @@ class Account extends BaseModel
      */
     public function makeDefault()
     {
-        $current_default = \Auth::user()->defaultAccount();
+        $current_default = $this->user->defaultAccount();
         $current_default->is_default = false;
         $current_default->save();
 
