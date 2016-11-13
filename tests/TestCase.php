@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
+    use DatabaseMigrations;
+
     /**
      * The base URL to use while testing the application.
      *
@@ -34,19 +36,18 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     public function setUp()
     {
         parent::setUp();
-        Artisan::call('migrate');
         Model::unguard();
+        $this->runDatabaseMigrations();
     }
 
     /**
-     * Tear down testing environment (reguard models and reset migrations).
+     * Tear down testing environment (reguard models).
      *
      * @return void
      */
     public function tearDown()
     {
         Model::reguard();
-        Artisan::call('migrate:reset');
         parent::tearDown();
     }
 }
