@@ -20,6 +20,7 @@ class LoginTest extends TestCase
             'user_id'    => $this->user->id,
         ]);
     }
+
     /**
      * Test login.
      *
