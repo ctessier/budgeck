@@ -46,6 +46,18 @@ $factory->define(Budgeck\Models\AccountBudget::class, function ($faker) {
 });
 
 /*
+ * Factory for Budget
+ */
+$factory->define(Budgeck\Models\Budget::class, function ($faker) {
+    return [
+        'title'  => $faker->randomElement(['Logement', 'Alimentation', 'Loisirs', 'Transports', 'Shopping']),
+        'amount' => $faker->randomFloat(2, 50, 500),
+        'year'   => date('Y'),
+        'month'  => date('m'),
+    ];
+});
+
+/*
  * Factories for Transaction
  */
 $factory->define(Budgeck\Models\Transaction::class, function ($faker) {
