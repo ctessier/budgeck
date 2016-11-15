@@ -53,7 +53,7 @@ $factory->define(Budgeck\Models\Budget::class, function ($faker) {
         'title'  => $faker->randomElement(['Logement', 'Alimentation', 'Loisirs', 'Transports', 'Shopping']),
         'amount' => $faker->randomFloat(2, 50, 500),
         'year'   => date('Y'),
-        'month'  => date('m'),
+        'month'  => date('n'),
     ];
 });
 
