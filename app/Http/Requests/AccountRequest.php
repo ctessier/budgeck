@@ -2,8 +2,6 @@
 
 namespace Budgeck\Http\Requests;
 
-
-
 class AccountRequest extends Request
 {
     /**
