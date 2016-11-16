@@ -37,10 +37,12 @@ class BudgetTest extends TestCase
 
         // Add transactions
         factory(Budgeck\Models\Transaction::class, 'expense')->create([
-            'amount'     => 20.00,
-            'value_date' => date('Y-m-d H:i:s'),
-            'account_id' => 1,
-            'budget_id'  => 1,
+            'title'            => 'first_transaction',
+            'amount'           => 20.00,
+            'transaction_date' => '2016-01-01 00:00:00',
+            'value_date'       => date('Y-m-d H:i:s'),
+            'account_id'       => 1,
+            'budget_id'        => 1,
         ]);
         factory(Budgeck\Models\Transaction::class, 'expense')->create([
             'amount'     => 25.00,
@@ -49,16 +51,20 @@ class BudgetTest extends TestCase
             'budget_id'  => 2,
         ]);
         factory(Budgeck\Models\Transaction::class, 'expense')->create([
-            'amount'     => 25.00,
-            'value_date' => date('Y-m-d H:i:s'),
-            'account_id' => 1,
-            'budget_id'  => 1,
+            'title'            => 'second_transaction',
+            'amount'           => 25.00,
+            'transaction_date' => '2016-01-02 00:00:00',
+            'value_date'       => date('Y-m-d H:i:s'),
+            'account_id'       => 1,
+            'budget_id'        => 1,
         ]);
         factory(Budgeck\Models\Transaction::class, 'expense')->create([
-            'amount'     => 25.00,
-            'value_date' => null,
-            'account_id' => 1,
-            'budget_id'  => 1,
+            'title'            => 'third_transaction',
+            'amount'           => 25.00,
+            'transaction_date' => '2016-01-03 00:00:00',
+            'value_date'       => null,
+            'account_id'       => 1,
+            'budget_id'        => 1,
         ]);
         factory(Budgeck\Models\Transaction::class, 'income')->create([
             'amount'     => 25.00,
@@ -124,5 +130,20 @@ class BudgetTest extends TestCase
 
         $budget = Budgeck\Models\Budget::findOrFail(2);
         $this->assertEquals(175, $budget->getAmountRemaining());
+    }
+
+    /**
+     * Test order of transactions.
+     *
+     * @return void
+     */
+    public function testTransactionsOrder()
+    {
+        $budget = Budgeck\Models\Budget::findOrFail(1);
+
+        $this->assertEquals(3, $budget->transactions->count());
+        $this->assertEquals('third_transaction', $budget->transactions[0]->title);
+        $this->assertEquals('second_transaction', $budget->transactions[1]->title);
+        $this->assertEquals('first_transaction', $budget->transactions[2]->title);
     }
 }
