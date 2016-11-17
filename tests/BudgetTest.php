@@ -111,13 +111,13 @@ class BudgetTest extends TestCase
         $this->assertEquals(70, $budget->getAmountSpent());
         $this->assertEquals(25, $budget->getAmountSpent(Budgeck\Models\Transaction::AWAITING));
         $this->assertEquals(45, $budget->getAmountSpent(Budgeck\Models\Transaction::EFFECTIVE));
-        $this->assertEquals(70, $budget->getAmountSpent(6));
+        $this->assertEquals(70, $budget->getAmountSpent('random_value'));
 
         $budget = Budgeck\Models\Budget::findOrFail(2);
         $this->assertEquals(25, $budget->getAmountSpent());
         $this->assertEquals(0, $budget->getAmountSpent(Budgeck\Models\Transaction::AWAITING));
         $this->assertEquals(25, $budget->getAmountSpent(Budgeck\Models\Transaction::EFFECTIVE));
-        $this->assertEquals(25, $budget->getAmountSpent(6));
+        $this->assertEquals(25, $budget->getAmountSpent('random_value'));
     }
 
     /**
