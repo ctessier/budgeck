@@ -9,14 +9,14 @@ class Transaction extends BaseModel
      *
      * @var int
      */
-    const AWAITING = 0;
+    const AWAITING = 1;
 
     /**
      * Constant for effective state.
      *
      * @var int
      */
-    const EFFECTIVE = 1;
+    const EFFECTIVE = 2;
 
     /**
      * The attributes that are mass assignable.

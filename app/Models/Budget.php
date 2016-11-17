@@ -42,20 +42,20 @@ class Budget extends BaseModel
      */
     public function getAmountSpent($status = null)
     {
-        if ($status === null) {
-            return $this->transactions()->sum('amount');
-        }
+        $transactions = $this->transactions();
 
         switch ($status) {
             case Transaction::AWAITING:
-                return $this->transactions()->whereNull('value_date')->sum('amount');
+                $transactions->whereNull('value_date');
                 break;
             case Transaction::EFFECTIVE:
-                return $this->transactions()->whereNotNull('value_date')->sum('amount');
+                $transactions->whereNotNull('value_date');
                 break;
             default:
-                abort(500, 'Unknown transaction state.');
+                break;
         }
+
+        return $transactions->sum('amount');
     }
 
     /**
