@@ -28,23 +28,8 @@ class AccountBudgetTest extends TestCase
         // Add account budget
         $this->account_budget = factory(Budgeck\Models\AccountBudget::class)->create([
             'id'         => 4,
+            'amount'     => 300,
             'account_id' => 1,
-        ]);
-
-        // Add account budget
-        factory(Budgeck\Models\Budget::class)->create([
-            'account_id'        => $this->account_budget->account_id,
-            'account_budget_id' => $this->account_budget->id,
-        ]);
-        // Add account budget
-        factory(Budgeck\Models\Budget::class)->create([
-            'account_id'        => $this->account_budget->account_id,
-            'account_budget_id' => $this->account_budget->id,
-        ]);
-        // Add account budget
-        factory(Budgeck\Models\Budget::class)->create([
-            'account_id'        => $this->account_budget->account_id,
-            'account_budget_id' => $this->account_budget->id,
         ]);
     }
 
@@ -69,6 +54,26 @@ class AccountBudgetTest extends TestCase
         $budgets = $this->account_budget->budgets;
 
         $this->assertContainsOnlyInstancesOf(Budgeck\Models\Budget::class, $budgets);
-        $this->assertEquals(3, $budgets->count());
+        $this->assertCount(config('budgeck.aheadness') + 1, $budgets); // current month + aheadness
+    }
+
+    /**
+     * Test budgets on account budget's update.
+     *
+     * @return void
+     */
+    public function testBudgetsAfterUpdate()
+    {
+        $this->account_budget->update([
+            'amount' => 100
+        ]);
+
+        foreach ($this->account_budget->budgets() as $budget) {
+            if ($budget->year !== date('Y') || $budget->month !== date('n')) {
+                $this->assertEquals(100, $budget->amount);
+            } else {
+                $this->assertEquals(300, $budget->amount);
+            }
+        }
     }
 }
