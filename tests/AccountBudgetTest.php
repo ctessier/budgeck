@@ -65,7 +65,7 @@ class AccountBudgetTest extends TestCase
     public function testBudgetsAfterUpdate()
     {
         $this->account_budget->update([
-            'amount' => 100
+            'amount' => 100,
         ]);
 
         foreach ($this->account_budget->budgets() as $budget) {
