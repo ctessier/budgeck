@@ -31,6 +31,10 @@ class AccountBudgetTest extends TestCase
             'amount'     => 300,
             'account_id' => 1,
         ]);
+
+        $this->account_budget->update([
+            'amount' => 400,
+        ]);
     }
 
     /**
