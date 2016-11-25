@@ -16,6 +16,8 @@ class AccountBudgetTest extends TestCase
     {
         parent::setUp();
 
+        $this->app['config']->set('budgeck.aheadness', 12);
+
         // Create an user
         $user = factory(Budgeck\Models\User::class)->create();
 
@@ -30,10 +32,6 @@ class AccountBudgetTest extends TestCase
             'id'         => 4,
             'amount'     => 300,
             'account_id' => 1,
-        ]);
-
-        $this->account_budget->update([
-            'amount' => 400,
         ]);
     }
 
@@ -73,13 +71,16 @@ class AccountBudgetTest extends TestCase
         $this->account_budget->update([
             'amount' => 100,
         ]);
+        $this->account_budget->updateMonthsBudget();
 
         $this->assertCount(config('budgeck.aheadness') + 1, $this->account_budget->budgets); // current month + aheadness
 
-        foreach ($this->account_budget->budgets() as $budget) {
+        foreach ($this->account_budget->budgets as $budget) {
             if ($budget->year !== date('Y') || $budget->month !== date('n')) {
                 $this->assertEquals(100, $budget->amount);
             } else {
+                $this->assertEquals(date('n'), $budget->month);
+                $this->assertEquals(date('Y'), $budget->year);
                 $this->assertEquals(300, $budget->amount);
             }
         }
