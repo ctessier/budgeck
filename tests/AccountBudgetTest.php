@@ -51,10 +51,10 @@ class AccountBudgetTest extends TestCase
      */
     public function testBudgetsRelationship()
     {
-        $budgets = $this->account_budget->budgets;
+        $this->account_budget->createMonthsBudget();
 
-        $this->assertContainsOnlyInstancesOf(Budgeck\Models\Budget::class, $budgets);
-        $this->assertCount(config('budgeck.aheadness') + 1, $budgets); // current month + aheadness
+        $this->assertContainsOnlyInstancesOf(Budgeck\Models\Budget::class, $this->account_budget->budgets);
+        $this->assertCount(config('budgeck.aheadness') + 1, $this->account_budget->budgets); // current month + aheadness
     }
 
     /**
@@ -64,9 +64,13 @@ class AccountBudgetTest extends TestCase
      */
     public function testBudgetsAfterUpdate()
     {
+        $this->account_budget->createMonthsBudget();
+
         $this->account_budget->update([
             'amount' => 100,
         ]);
+
+        $this->assertCount(config('budgeck.aheadness') + 1, $this->account_budget->budgets); // current month + aheadness
 
         foreach ($this->account_budget->budgets() as $budget) {
             if ($budget->year !== date('Y') || $budget->month !== date('n')) {
