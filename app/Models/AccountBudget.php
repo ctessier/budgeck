@@ -98,6 +98,8 @@ class AccountBudget extends BaseModel
 
             if ($budget === null) {
                 $budget = new Budget();
+                $budget->account_id = $this->account_id;
+                $budget->account_budget_id = $this->id;
                 $budget->closed = false;
             } else {
                 // Trashed budgets are not updated
@@ -111,8 +113,6 @@ class AccountBudget extends BaseModel
             $budget->amount = $this->amount;
             $budget->year = $currentYear;
             $budget->month = $currentMonth;
-            $budget->account_budget_id = $this->id;
-            $budget->account_id = $this->account_id;
             $budget->default_category_id = $this->default_category_id;
             $budget->save();
         }
