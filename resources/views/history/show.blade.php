@@ -95,14 +95,6 @@
             </table>
             @include('pagination.default', ['paginator' => $transactions])
         @endif
-        <div id="add-transaction-dropdown" class="ui dropdown mini button">
-            <i class="add icon"></i>
-            Ajouter une transaction
-            <div class="menu">
-                {!! HTML::linkRoute('accounts.transactions.create', 'Dépense', ['accounts' => $current_account->id], ['class' => 'item', 'data-use-modal' => 'true']) !!}
-                {!! HTML::linkRoute('accounts.transactions.create', 'Revenu', ['accounts' => $current_account->id, 'income'], ['class' => 'item', 'data-use-modal' => 'true']) !!}
-            </div>
-        </div>
     </div>
 </div>
 <script>
