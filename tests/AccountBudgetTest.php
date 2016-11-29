@@ -16,6 +16,8 @@ class AccountBudgetTest extends TestCase
     {
         parent::setUp();
 
+        $this->app['config']->set('budgeck.aheadness', 12);
+
         // Create an user
         $user = factory(Budgeck\Models\User::class)->create();
 
@@ -28,23 +30,8 @@ class AccountBudgetTest extends TestCase
         // Add account budget
         $this->account_budget = factory(Budgeck\Models\AccountBudget::class)->create([
             'id'         => 4,
+            'amount'     => 300,
             'account_id' => 1,
-        ]);
-
-        // Add account budget
-        factory(Budgeck\Models\Budget::class)->create([
-            'account_id'        => $this->account_budget->account_id,
-            'account_budget_id' => $this->account_budget->id,
-        ]);
-        // Add account budget
-        factory(Budgeck\Models\Budget::class)->create([
-            'account_id'        => $this->account_budget->account_id,
-            'account_budget_id' => $this->account_budget->id,
-        ]);
-        // Add account budget
-        factory(Budgeck\Models\Budget::class)->create([
-            'account_id'        => $this->account_budget->account_id,
-            'account_budget_id' => $this->account_budget->id,
         ]);
     }
 
@@ -66,9 +53,36 @@ class AccountBudgetTest extends TestCase
      */
     public function testBudgetsRelationship()
     {
-        $budgets = $this->account_budget->budgets;
+        $this->account_budget->createMonthsBudget();
 
-        $this->assertContainsOnlyInstancesOf(Budgeck\Models\Budget::class, $budgets);
-        $this->assertEquals(3, $budgets->count());
+        $this->assertContainsOnlyInstancesOf(Budgeck\Models\Budget::class, $this->account_budget->budgets);
+        $this->assertCount(config('budgeck.aheadness') + 1, $this->account_budget->budgets); // current month + aheadness
+    }
+
+    /**
+     * Test budgets on account budget's update.
+     *
+     * @return void
+     */
+    public function testBudgetsAfterUpdate()
+    {
+        $this->account_budget->createMonthsBudget();
+
+        $this->account_budget->update([
+            'amount' => 100,
+        ]);
+        $this->account_budget->updateMonthsBudget();
+
+        $this->assertCount(config('budgeck.aheadness') + 1, $this->account_budget->budgets); // current month + aheadness
+
+        foreach ($this->account_budget->budgets as $budget) {
+            if ($budget->year !== date('Y') || $budget->month !== date('n')) {
+                $this->assertEquals(100, $budget->amount);
+            } else {
+                $this->assertEquals(date('n'), $budget->month);
+                $this->assertEquals(date('Y'), $budget->year);
+                $this->assertEquals(300, $budget->amount);
+            }
+        }
     }
 }
