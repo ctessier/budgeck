@@ -30,7 +30,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="header">{{$budget->title}}</div>
+                                <div class="header">
+                                    @if ($budget->closed)
+                                    <i class="lock icon"></i>
+                                    @endif
+                                    {{ $budget->title }}
+                                </div>
                                 <div class="meta">{{$budget->description}} - {{$budget->transactions->count()}} transaction(s)</div>
                                 <div class="description">
                                     <div class="ui blue progress" data-percent="{{$progressPourcent}}">

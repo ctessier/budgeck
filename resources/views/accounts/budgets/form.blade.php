@@ -37,6 +37,17 @@
         @include('elements.category-selector')
     </div>
 </div>
+<div class="ui grid inline fields">
+    <div class="three wide column field">
+        <label>Clôturer</label>
+    </div>
+    <div class="six wide column field">
+        <div class="ui toggle checkbox">
+            {!! Form::checkbox('closed', true, false, ['id' => 'closed']) !!}
+            {!! Form::label('closed', 'Clôturer le budget') !!}
+        </div>
+    </div>
+</div>
 
 {!! Form::hidden('year', $year) !!}
 {!! Form::hidden('month', $month) !!}
