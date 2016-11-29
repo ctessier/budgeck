@@ -24,13 +24,13 @@
                                     <i class="star right icon" onclick="$(this).parent('form').submit();"></i>
                                     {!! Form::close() !!}
                                 @endif
-                                {{$account->name}}
+                                {{ $account->name }}
                             </div>
                             <div class="meta">
                                 @amount($account->getBalance())
                             </div>
                             <div class="description">
-                                {{$account->description}}
+                                {{ $account->description }}
                             </div>
                         </div>
                         <a href="{{route('accounts.show', ['account' => $account->id])}}" class="ui bottom attached button">
