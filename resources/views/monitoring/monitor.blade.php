@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ route('accounts.transactions.create', ['accounts' => $current_account->id, 'budget' => $budget->id]) }}" class="ui bottom attached button" data-use-modal="true">
+                            <a href="{{ route('accounts.transactions.create', ['accounts' => $current_account->id, 'budget' => $budget->id]) }}" class="ui bottom attached button {{ $budget->closed ? 'disabled' : '' }}" data-use-modal="true">
                                 <i class="add icon"></i>
                                 Transaction
                             </a>
