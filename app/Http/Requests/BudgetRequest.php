@@ -32,6 +32,7 @@ class BudgetRequest extends Request
             'month'               => 'required|integer|min:1|max:12',
             'year'                => 'required|integer:4|min:2014',
             'default_category_id' => 'exists:categories,id',
+            'closed'              => 'boolean',
         ];
     }
 
@@ -51,6 +52,7 @@ class BudgetRequest extends Request
             'amount.not_in'   => 'Le montant ne peut pas être de 0,00 &euro;',
             'month.required'  => 'Un mois doit être sélectionné',
             'year.required'   => 'Une année doit être sélectionnée',
+            'closed.boolean'  => 'Le statut du budget est incorrect',
         ];
     }
 }

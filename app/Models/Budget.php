@@ -9,7 +9,7 @@ class Budget extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['title', 'description', 'amount', 'year', 'month', 'default_category_id'];
+    protected $fillable = ['title', 'description', 'amount', 'year', 'month', 'default_category_id', 'closed'];
 
     /**
      * Return the account which the budget belongs to.

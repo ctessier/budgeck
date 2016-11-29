@@ -21,7 +21,7 @@
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        {!! Form::checkbox('remember', true, false, ['id' => 'remember', 'class' => 'hidden', 'tabindex' => '0']) !!}
+                        {!! Form::checkbox('remember', true, false, ['id' => 'remember']) !!}
                         {!! Form::label('remember', 'Se souvenir de moi') !!}
                     </div>
                 </div>
