@@ -27,18 +27,22 @@ Budgeck's system requirements are similar to Laravel :
 - If you don't use Homestead, edit the environment variables values to connect to your own database
 - Run *composer install*
 - Run *php artisan key:generate*
-- Run *php artisan migrate --seed*
-- Run *npm install*
-- Run *bower install*
 
 
 ## Development
 
+- Run *php artisan migrate --seed*
+- Run *npm install*
+- Run *bower install*
 - Run *gulp watch*
 
 
-## Make production
+## Production
 
+- Set *APP_ENV=production* in *.env* file
+- Run *php artisan migrate --seed*
+- Run *npm install --production*
+- Run *bower install --production*
 - Run *gulp --production*
 
 ## Language
