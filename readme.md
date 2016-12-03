@@ -24,7 +24,7 @@ Budgeck's system requirements are similar to Laravel :
 
 - Make sure *storage* directory is writable
 - Run *cp .env.example .env*
-- If you don't use Homestead, edit the environment variables values to connect to your own database
+- Edit the *.env* file to suit your environment (database connection and mail service)
 - Run *composer install*
 - Run *php artisan key:generate*
 
