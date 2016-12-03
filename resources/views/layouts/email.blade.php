@@ -14,7 +14,7 @@
                 <tr>
                     <td align="center">
                         <a href="{{ url() }}">
-                            <img src="{{ $message->embed(public_path('images/email_header.png')) }}" border="0" width="170px"/>
+                            <img src="{{ asset('images/email_header.png') }}" border="0" width="170px"/>
                         </a>
                     </td>
                 </tr>
