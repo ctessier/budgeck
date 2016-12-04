@@ -13,12 +13,12 @@ class AccountTypesTableSeeder extends Seeder
     {
         DB::table('account_types')->insert([
             'id'   => 1,
-            'name' => 'Checking',
+            'name' => 'Chèque',
         ]);
 
         DB::table('account_types')->insert([
             'id'   => 2,
-            'name' => 'Savings',
+            'name' => 'Épargne',
         ]);
     }
 }
