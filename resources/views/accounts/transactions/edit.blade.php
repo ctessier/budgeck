@@ -8,7 +8,7 @@
 <div class="content">
     {!! Form::model($transaction, ['method' => 'put', 'route' => ['accounts.transactions.update', $current_account->id, $transaction->id], 'class' => 'ui form', 'data-ajax-form' => 'true']) !!}
     {{--*/ $categoryFieldName = "category_id" /*--}}
-    @if (isset($income))
+    @if (!$transaction->isExpense())
         @include('accounts.transactions.form-income')
     @else
         @include('accounts.transactions.form-expense')

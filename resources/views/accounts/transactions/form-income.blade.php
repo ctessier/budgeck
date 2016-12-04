@@ -57,7 +57,7 @@
         {!! Form::label('comment', 'Commentaire') !!}
     </div>
     <div class="six wide column field">
-        {!! Form::textarea('comment') !!}
+        {!! Form::textarea('comment', null, ['size' => '10x2']) !!}
     </div>
 </div>
 
