@@ -51,7 +51,7 @@
 
                         // check if we can preselect the dropdown as it was previously or with one from the same account budget
                         if (parseInt(dropdown.attr('data-budget-id')) == element.id || parseInt(dropdown.attr('data-account-budget-id')) == element.account_budget_id) {
-                            selected = element.title;
+                            selected = element.id;
                         }
 
                         // append option to dropdown items
