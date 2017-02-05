@@ -16,8 +16,16 @@ body *:not(.icon) {
 }
 
 /* Make multi-level selection dropdown visible */
-.ui.selection.dropdown .menu {
-    overflow: visible !important;
+.ui.selection.dropdown {
+    .menu {
+        overflow: visible !important;
+        max-height: none !important;
+
+        /* Show border bottom for sub-menus */
+        .item > .menu {
+            border-bottom-width: 1px !important;
+        }
+    }
 }
 
 /* Add spacing under pagination links */
