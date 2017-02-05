@@ -6,6 +6,7 @@ use Budgeck\Http\Requests\TransactionRequest;
 use Budgeck\Models\Budget;
 use Budgeck\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class TransactionController extends Controller
 {
@@ -77,7 +78,7 @@ class TransactionController extends Controller
         $transaction->save();
 
         return response()->json([
-            'redirect' => route('history'),
+            'redirect' => URL::previous(),
         ]);
     }
 
