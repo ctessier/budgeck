@@ -13,8 +13,7 @@
         <script type="text/javascript" src="{{ elixir('assets/js/semantic.js') }}"></script>
         <script type="text/javascript" src="{{ elixir('assets/js/script.js') }}"></script>
         <script type="text/javascript" src="{{ elixir('assets/js/ajax-modal.js') }}"></script>
-        <script type="text/javascript" src="{{ elixir('assets/js/budget-selector.js') }}"></script>
-        <script type="text/javascript" src="{{ elixir('assets/js/category-selector.js') }}"></script>
+        <script type="text/javascript" src="{{ elixir('assets/js/selectors.js') }}"></script>
         <script type="text/javascript" src="{{ elixir('assets/js/foundation-datepicker.min.js') }}"></script>
         @yield('head')
     </head>
