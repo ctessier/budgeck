@@ -56,9 +56,13 @@ Route::group(['middleware' => 'auth'], function () {
         'except' => ['index', 'show'],
     ]);
 
-    Route::resource('accounts.budgets', 'BudgetController');
+    Route::resource('accounts.budgets', 'BudgetController', [
+        'except' => ['index'],
+    ]);
 
-    Route::resource('accounts.transactions', 'TransactionController');
+    Route::resource('accounts.transactions', 'TransactionController', [
+        'except' => ['index', 'show'],
+    ]);
 
     Route::resource('accounts.recurrent_transactions', 'RecurrentTransactionController', [
         'except' => ['index', 'show'],

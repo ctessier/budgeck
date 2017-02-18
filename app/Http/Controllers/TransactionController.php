@@ -10,16 +10,6 @@ use Illuminate\Http\Request;
 class TransactionController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @param Request $request
@@ -79,18 +69,6 @@ class TransactionController extends Controller
         return response()->json([
             'redirect' => route('history'),
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param \Budgeck\Models\Transaction $transaction
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($transaction)
-    {
-        //
     }
 
     /**

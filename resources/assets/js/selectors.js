@@ -1,4 +1,18 @@
 (function() {
+    $.fn.allowClear = function () {
+        var dropdown = $(this);
+
+        var resetButton = $('<i class="trash icon"></i>')
+            .css({
+                cursor: 'pointer'
+            })
+            .on('click', function () {
+                dropdown.dropdown('clear');
+            });
+
+        $(this).after(resetButton);
+    };
+
     $.fn.budgetSelector = function (endpoint) {
         var dropdown = $(this);
         var currentYear, currentMonth;
@@ -79,5 +93,18 @@
                 }
             });
         }
+    };
+
+    $.fn.categorySelector = function () {
+        var dropdown = $(this).dropdown({
+            allowCategorySelection: true
+        });
+
+        dropdown.allowClear();
+    };
+
+    $.fn.accountBudgetSelector = function () {
+        var dropdown = $(this).dropdown();
+        dropdown.allowClear();
     };
 })();

@@ -1,6 +1,6 @@
 <div id="category-selector" class="ui dropdown selection">
     {!! Form::hidden($categoryFieldName) !!}
-    <span class="text">Sélectionner une catégorie</span>
+    <span class="default text">Sélectionner une catégorie</span>
     <i class="dropdown icon"></i>
     <div class="menu">
         @foreach ($categoryArray as $category)
