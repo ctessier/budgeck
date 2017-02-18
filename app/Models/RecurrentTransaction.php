@@ -9,7 +9,7 @@ class RecurrentTransaction extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['title', 'description', 'amount', 'day', 'category_id'];
+    protected $fillable = ['title', 'amount', 'day', 'transaction_type_id', 'category_id', 'account_budget_id'];
 
     /**
      * Return the account which the recurrent transaction belongs to.
@@ -29,5 +29,15 @@ class RecurrentTransaction extends BaseModel
     public function account_budget()
     {
         return $this->belongsTo($this->getBaseNamespace().'\AccountBudget');
+    }
+
+    /**
+     * Return the collection of transactions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transactions()
+    {
+        return $this->hasMany($this->getBaseNamespace().'\Transaction');
     }
 }
