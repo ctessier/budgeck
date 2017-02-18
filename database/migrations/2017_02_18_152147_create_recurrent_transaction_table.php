@@ -20,12 +20,14 @@ class CreateRecurrentTransactionTable extends Migration
             $table->integer('day')->length(2)->unsigned();
             $table->integer('transaction_type_id')->unsigned();
             $table->integer('category_id')->unsigned()->nullable();
+            $table->integer('account_id')->unsigned();
             $table->integer('account_budget_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('transaction_type_id')->references('id')->on('transaction_types')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->foreign('account_budget_id')->references('id')->on('budgets')->onDelete('set null');
         });
 
