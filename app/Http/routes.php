@@ -64,6 +64,10 @@ Route::group(['middleware' => 'auth'], function () {
         'except' => ['index', 'show'],
     ]);
 
+    Route::resource('accounts.recurrent_transactions', 'RecurrentTransactionController', [
+        'except' => ['index', 'show'],
+    ]);
+
     // Group for profile routes
     Route::group(['prefix' => 'profile'], function () {
         // Get edit profile and password form

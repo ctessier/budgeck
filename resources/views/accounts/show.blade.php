@@ -20,6 +20,13 @@
                 </h3>
                 @include('accounts.account_budgets.index')
             </div>
+            <div class="ui segment">
+                <h3 class="ui header">
+                    <i class="history icon"></i>
+                    Opérations récurrentes
+                </h3>
+                @include('accounts.recurrent_transactions.index')
+            </div>
             @if (!$account->is_default)
             <div class="ui negative message">
                 <p>Cliquez sur le bouton ci-dessous pour supprimer définitivement ce compte ainsi que l'ensemble des budgets et transactions qui lui sont associés.</p>
