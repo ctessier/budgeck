@@ -47,11 +47,11 @@ class BudgeckUpdateRecurrentTransactions extends Command
             ->whereNull('value_date')
             ->chunk(50, function ($transactions) {
                 foreach ($transactions as $transaction) {
-                $this->info('Doing transaction '.$transaction->id);
-                $transaction->value_date = $transaction->transaction_date;
-                $transaction->save();
-            }
-        });
+                    $this->info('Doing transaction '.$transaction->id);
+                    $transaction->value_date = $transaction->transaction_date;
+                    $transaction->save();
+                }
+            });
 
         $this->info('Done.');
     }

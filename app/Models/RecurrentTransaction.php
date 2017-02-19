@@ -4,11 +4,6 @@ namespace Budgeck\Models;
 
 use Carbon\Carbon;
 
-/**
- * Class RecurrentTransaction
- *
- * @package Budgeck\Models
- */
 class RecurrentTransaction extends BaseModel
 {
     /**
@@ -79,7 +74,7 @@ class RecurrentTransaction extends BaseModel
     {
         // Return null if the recurrent transaction has no budget
         if (!$this->account_budget) {
-            return null;
+            return;
         }
 
         // Determine the transaction date according to if next_month is enable or not
@@ -93,7 +88,7 @@ class RecurrentTransaction extends BaseModel
         if ($budget = $budget->first()) {
             return $budget;
         } else {
-            return null;
+            return;
         }
     }
 }
