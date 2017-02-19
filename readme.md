@@ -22,28 +22,38 @@ Budgeck's system requirements are similar to Laravel :
 
 ## Installation
 
-- Make sure *storage* directory is writable
-- Run *cp .env.example .env*
-- Edit the *.env* file to suit your environment (database connection and mail service)
-- Run *composer install*
-- Run *php artisan key:generate*
+```shell
+$ cd budgeck
+$ chown -R www-data:www-data ./storage
+$ cp .env.example .env
+```
 
+Edit the *.env* file to suit your environment (database connection and mail service)
+
+```shell
+$ composer install
+$ php artisan key:generate
+```
 
 ## Development
 
-- Run *php artisan migrate --seed*
-- Run *npm install*
-- Run *bower install*
-- Run *gulp watch*
-
+```shell
+$ php artisan migrate --seed
+$ npm install
+$ bower install
+$ gulp watch
+```
 
 ## Production
 
-- Set *APP_ENV=production* in *.env* file
-- Run *php artisan migrate --seed*
-- Run *npm install --production*
-- Run *bower install --production*
-- Run *gulp --production*
+Set *APP_ENV=production* in *.env* file
+
+```shell
+$ php artisan migrate --seed
+$ npm install --production
+$ bower install --production
+$ gulp --production
+```
 
 ## Language
 
@@ -52,6 +62,13 @@ So far, Budgeck interfaces have been developed in French. English will be implem
 To enable the months names to display in French, you must have the following locales installed on your server:
 - fr_FR
 - fr_FR.UTF-8
+
+To do so, you can run the following commands in your shell:
+
+```shell
+$ locale-gen fr_FR
+$ locale-gen fr_FR.UTF-8
+```
 
 ## References
 
