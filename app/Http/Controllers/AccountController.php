@@ -103,6 +103,7 @@ class AccountController extends Controller
         // Delete account only if not default
         if (!$account->is_default) {
             $account->delete();
+            $request->session()->set('account', $this->user->defaultAccount());
         } else {
             $request->session()->flash('message', [
                 'type'    => 'error',
