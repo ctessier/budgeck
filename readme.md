@@ -3,13 +3,11 @@
 [![Build Status](https://travis-ci.org/ctessier/budgeck.svg?branch=master)](https://travis-ci.org/ctessier/budgeck)
 [![codecov](https://codecov.io/gh/ctessier/budgeck/branch/master/graph/badge.svg)](https://codecov.io/gh/ctessier/budgeck)
 
-Budgeck is a budget monitoring web application build with Laravel 5.1. To use this project, please make a fork.
-
-**This project is still in build phase, therefore, all the functionalities have not yet been developed.**
+Budgeck is a budget monitoring web application build with Laravel 5.1.
 
 ## System requirements
 
-Budgeck's system requirements are similar to Laravel :
+Budgeck's system requirements are similar to Laravel 5.1:
 
 - PHP >= 5.6
 - OpenSSL PHP Extension
