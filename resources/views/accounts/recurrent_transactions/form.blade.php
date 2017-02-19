@@ -32,7 +32,7 @@
         {!! Form::label('account_budget_id', 'Budget') !!}
     </div>
     <div class="six wide column field">
-        {{--*/ $accountBudgetArray = $current_account->account_budgets; /*--}}
+        {{--*/ $accountBudgetArray = $account->account_budgets; /*--}}
         @include('elements.account-budget-selector')
     </div>
 </div>
@@ -44,6 +44,17 @@
         {{--*/ $categoryFieldName = "category_id" /*--}}
         {{--*/ $categoryArray = Budgeck\Models\Category::getList(Budgeck\Models\CategoryType::EXPENSE) /*--}}
         @include('elements.category-selector')
+    </div>
+</div>
+<div class="ui grid inline fields">
+    <div class="three wide column field">
+        {!! Form::label('next_month', 'Compter pour le mois suivant') !!}
+    </div>
+    <div class="six wide column field">
+        <div class="ui toggle checkbox">
+            {!! Form::checkbox('next_month', true, false, ['id' => 'next_month']) !!}
+            {!! Form::label('', '&nbsp;') !!}
+        </div>
     </div>
 </div>
 

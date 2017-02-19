@@ -4,9 +4,11 @@
         <thead>
         <tr>
             <th>Titre</th>
-            <th>Jour du mois</th>
-            <th>Budget</th>
             <th>Montant</th>
+            <th>Jour du mois</th>
+            <th>Mois suivant</th>
+            <th>Budget</th>
+            <th>Catégorie</th>
             <th style="width:5%"></th>
         </tr>
         </thead>
@@ -16,9 +18,15 @@
             {{--*/ $recurrentTransactionsTotalAmount += $recurrent_transaction->amount /*--}}
             <tr>
                 <td>{{ $recurrent_transaction->title }}</td>
-                <td>{{ $recurrent_transaction->day }}</td>
-                <td>{{ $recurrent_transaction->account_budget ? $recurrent_transaction->account_budget->title : '' }}</td>
                 <td>@amount($recurrent_transaction->amount)</td>
+                <td>{{ $recurrent_transaction->day }}</td>
+                <td>
+                    @if ($recurrent_transaction->next_month)
+                        <i class="large green checkmark icon"></i>
+                    @endif
+                </td>
+                <td>{{ $recurrent_transaction->account_budget ? $recurrent_transaction->account_budget->title : '' }}</td>
+                <td>{{ $recurrent_transaction->category_id ? $recurrent_transaction->category->name : '' }}</td>
                 <td>
                     <div class="ui icon top left pointing dropdown mini settings-icon">
                         <i class="angle down icon"></i>
@@ -35,10 +43,12 @@
         </tbody>
         <tfoot>
         <tr>
-            <th>{{$recurrent_transaction->count()}} opération(s) récurrente(s)</th>
-            <th></th>
-            <th></th>
+            <th>{{ $recurrent_transaction->count() }} opération(s) récurrente(s)</th>
             <th>@amount($recurrentTransactionsTotalAmount)</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
             <th></th>
         </tr>
         </tfoot>

@@ -18,6 +18,7 @@ class CreateRecurrentTransactionTable extends Migration
             $table->string('title', 45);
             $table->float('amount')->unsigned();
             $table->integer('day')->length(2)->unsigned();
+            $table->boolean('next_month')->default(false);
             $table->integer('transaction_type_id')->unsigned();
             $table->integer('category_id')->unsigned()->nullable();
             $table->integer('account_id')->unsigned();

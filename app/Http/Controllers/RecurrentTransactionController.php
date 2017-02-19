@@ -10,11 +10,14 @@ class RecurrentTransactionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param \Budgeck\Models\Account $account
+     *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($account)
     {
-        return view('accounts.recurrent_transactions.create');
+        return view('accounts.recurrent_transactions.create')
+            ->with('account', $account);
     }
 
     /**
@@ -58,6 +61,7 @@ class RecurrentTransactionController extends Controller
     public function edit($account, $recurrent_transaction)
     {
         return view('accounts.recurrent_transactions.edit')
+            ->with('account', $account)
             ->with('recurrent_transaction', $recurrent_transaction);
     }
 
@@ -82,6 +86,11 @@ class RecurrentTransactionController extends Controller
         // Set account_budget_id to null if empty
         if (empty($request->input('account_budget_id'))) {
             $recurrent_transaction->account_budget_id = null;
+        }
+
+        // Set next_month to false if empty
+        if (empty($request->input('next_month'))) {
+            $recurrent_transaction->next_month = false;
         }
 
         $recurrent_transaction->save();

@@ -39,12 +39,12 @@
 </div>
 <div class="ui grid inline fields">
     <div class="three wide column field">
-        <label>Clôturer</label>
+        {!! Form::label('closed', 'Clôturer le budget') !!}
     </div>
     <div class="six wide column field">
         <div class="ui toggle checkbox">
             {!! Form::checkbox('closed', true, false, ['id' => 'closed']) !!}
-            {!! Form::label('closed', 'Clôturer le budget') !!}
+            {!! Form::label('', '&nbsp;') !!}
         </div>
     </div>
 </div>

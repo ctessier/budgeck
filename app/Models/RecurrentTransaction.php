@@ -2,6 +2,11 @@
 
 namespace Budgeck\Models;
 
+/**
+ * Class RecurrentTransaction
+ *
+ * @package Budgeck\Models
+ */
 class RecurrentTransaction extends BaseModel
 {
     /**
@@ -9,12 +14,14 @@ class RecurrentTransaction extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['title', 'amount', 'day', 'transaction_type_id', 'category_id', 'account_budget_id'];
+    protected $guarded = [
+        'account_id',
+    ];
 
     /**
      * Return the account which the recurrent transaction belongs to.
      *
-     * @return Account
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function account()
     {
@@ -24,11 +31,21 @@ class RecurrentTransaction extends BaseModel
     /**
      * Return the account budget which the recurrent transaction belongs to.
      *
-     * @return AccountBudget
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function account_budget()
     {
         return $this->belongsTo($this->getBaseNamespace().'\AccountBudget');
+    }
+
+    /**
+     * Return the category which the recurrent transaction belongs to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo($this->getBaseNamespace().'\Category');
     }
 
     /**
