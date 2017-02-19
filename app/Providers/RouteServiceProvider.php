@@ -5,6 +5,7 @@ namespace Budgeck\Providers;
 use Budgeck\Models\Account;
 use Budgeck\Models\AccountBudget;
 use Budgeck\Models\Budget;
+use Budgeck\Models\RecurrentTransaction;
 use Budgeck\Models\Transaction;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
@@ -70,6 +71,15 @@ class RouteServiceProvider extends ServiceProvider
         $router->bind('transactions', function ($transaction_id, $route) {
             return Transaction::where([
                     'id'         => $transaction_id,
+                    'account_id' => $route->getParameter('accounts')->id,
+                ])
+                ->firstOrFail();
+        });
+
+        // Define route model binding for a recurrent transactions
+        $router->bind('recurrent_transactions', function ($recurrent_transaction_id, $route) {
+            return RecurrentTransaction::where([
+                    'id'         => $recurrent_transaction_id,
                     'account_id' => $route->getParameter('accounts')->id,
                 ])
                 ->firstOrFail();

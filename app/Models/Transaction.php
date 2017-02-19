@@ -2,6 +2,8 @@
 
 namespace Budgeck\Models;
 
+use Carbon\Carbon;
+
 class Transaction extends BaseModel
 {
     /**
@@ -50,5 +52,47 @@ class Transaction extends BaseModel
     public function isExpense()
     {
         return $this->transaction_type_id == TransactionType::EXPENSE;
+    }
+
+    /**
+     * Create a new transaction from a given recurrent transaction.
+     *
+     * @param RecurrentTransaction $recurrentTransaction
+     * @param bool                 $isCommand
+     *
+     * @return bool
+     */
+    public static function createFromRecurrentTransaction(RecurrentTransaction $recurrentTransaction, $isCommand = true)
+    {
+        $transaction_date = $recurrentTransaction->getCurrentMonthDate();
+        $budget = $recurrentTransaction->getCurrentBudget();
+
+        // Create the transaction only if the day is not passed
+        if ($isCommand || $transaction_date->toDateTimeString() >= Carbon::now()->toDateTimeString()) {
+            $transaction = new self();
+            $transaction->title = $recurrentTransaction->title;
+            $transaction->amount = $recurrentTransaction->amount;
+            $transaction->transaction_date = $transaction_date;
+            $transaction->transaction_type_id = $recurrentTransaction->transaction_type_id;
+            $transaction->category_id = $recurrentTransaction->category_id;
+            $transaction->account_id = $recurrentTransaction->account_id;
+            $transaction->recurrent_transaction_id = $recurrentTransaction->id;
+
+            // Set year and month
+            if ($recurrentTransaction->next_month) {
+                $transaction_date->addMonth(1);
+            }
+            $transaction->year = $transaction_date->year;
+            $transaction->month = $transaction_date->month;
+
+            // Set budget
+            if ($budget) {
+                $transaction->budget_id = $budget->id;
+            }
+
+            return $transaction->save();
+        }
+
+        return false;
     }
 }

@@ -32,6 +32,16 @@ class Account extends BaseModel
     }
 
     /**
+     * Return the collection of the account recurrent transactions.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function recurrent_transactions()
+    {
+        return $this->hasMany($this->getBaseNamespace().'\RecurrentTransaction');
+    }
+
+    /**
      * Return the balance of the current account.
      *
      * @return float

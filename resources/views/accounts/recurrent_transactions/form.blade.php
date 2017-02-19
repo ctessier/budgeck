@@ -3,15 +3,7 @@
         {!! Form::label('title', 'Titre') !!}
     </div>
     <div class="six wide column field">
-        {!! Form::text('title', null, ['placeholder' => 'Titre du budget']) !!}
-    </div>
-</div>
-<div class="ui grid inline fields">
-    <div class="three wide column field">
-        {!! Form::label('description') !!}
-    </div>
-    <div class="six wide column field">
-        {!! Form::text('description', null, ['placeholder' => 'Description du budget']) !!}
+        {!! Form::text('title', null, ['placeholder' => 'Titre de l\'opération']) !!}
     </div>
 </div>
 <div class="ui grid inline fields">
@@ -29,29 +21,45 @@
 </div>
 <div class="ui grid inline fields">
     <div class="three wide column field">
-        {!! Form::label('default_category_id', 'Catégorie par défaut') !!}
+        {!! Form::label('Jour') !!}
     </div>
     <div class="six wide column field">
+        {!! Form::selectRange('day', 1, 31, isset($recurrent_transaction) ? $recurrent_transaction->day : null, ['id' => 'day-selector', 'class' => 'ui search dropdown']) !!}
+    </div>
+</div>
+<div class="ui grid inline fields">
+    <div class="three wide column field">
+        {!! Form::label('account_budget_id', 'Budget') !!}
+    </div>
+    <div class="six wide column field">
+        {{--*/ $accountBudgetArray = $account->account_budgets; /*--}}
+        @include('elements.account-budget-selector')
+    </div>
+</div>
+<div class="ui grid inline fields">
+    <div class="three wide column field">
+        {!! Form::label('category_id', 'Catégorie') !!}
+    </div>
+    <div class="six wide column field">
+        {{--*/ $categoryFieldName = "category_id" /*--}}
         {{--*/ $categoryArray = Budgeck\Models\Category::getList(Budgeck\Models\CategoryType::EXPENSE) /*--}}
-        {{--*/ $categoryFieldName = "default_category_id" /*--}}
         @include('elements.category-selector')
     </div>
 </div>
 <div class="ui grid inline fields">
     <div class="three wide column field">
-        {!! Form::label('closed', 'Clôturer le budget') !!}
+        {!! Form::label('next_month', 'Compter pour le mois suivant') !!}
     </div>
     <div class="six wide column field">
         <div class="ui toggle checkbox">
-            {!! Form::checkbox('closed', true, false, ['id' => 'closed']) !!}
+            {!! Form::checkbox('next_month', true, false, ['id' => 'next_month']) !!}
             {!! Form::label('', '&nbsp;') !!}
         </div>
     </div>
 </div>
 
-{!! Form::hidden('year', $year) !!}
-{!! Form::hidden('month', $month) !!}
+{!! Form::hidden('transaction_type_id', \Budgeck\Models\TransactionType::EXPENSE) !!}
 
 <script>
-    $('.dropdown').dropdown();
+    $('#day-selector').dropdown();
 </script>

@@ -16,6 +16,8 @@ class Kernel extends ConsoleKernel
         \Budgeck\Console\Commands\Inspire::class,
         \Budgeck\Console\Commands\BudgeckPrepareMonths::class,
         \Budgeck\Console\Commands\BudgeckCreateUser::class,
+        \Budgeck\Console\Commands\BudgeckCreateRecurrentTransactions::class,
+        \Budgeck\Console\Commands\BudgeckUpdateRecurrentTransactions::class,
     ];
 
     /**
@@ -27,7 +29,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // Launch budgeck preparemonths command the 1st of each month, at 1 AM
-        $schedule->command('budgeck:preparemonths')->cron('* 1 1 * * *');
+        // Schedule budgeck preparemonths
+        $schedule->command('budgeck:preparemonths')->monthly()->at('01:00');
+
+        // Schedule budgeck create recurrent transactions
+        $schedule->command('budgeck:createrecurrenttransactions')->monthly()->at('02:00');
+
+        // Schedule budgeck update recurrent transactions
+        $schedule->command('budgeck:updaterecurrenttransactions')->dailyAt('03:00');
     }
 }
