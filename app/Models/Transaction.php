@@ -58,16 +58,17 @@ class Transaction extends BaseModel
      * Create a new transaction from a given recurrent transaction.
      *
      * @param RecurrentTransaction $recurrentTransaction
+     * @param bool                 $isCommand
      *
      * @return bool
      */
-    public static function createFromRecurrentTransaction(RecurrentTransaction $recurrentTransaction)
+    public static function createFromRecurrentTransaction(RecurrentTransaction $recurrentTransaction, $isCommand = true)
     {
         $transaction_date = $recurrentTransaction->getCurrentMonthDate();
         $budget = $recurrentTransaction->getCurrentBudget();
 
         // Create the transaction only if the day is not passed
-        if ($transaction_date->toDateTimeString() >= Carbon::now()->toDateTimeString()) {
+        if ($isCommand || $transaction_date->toDateTimeString() >= Carbon::now()->toDateTimeString()) {
             $transaction = new self();
             $transaction->title = $recurrentTransaction->title;
             $transaction->amount = $recurrentTransaction->amount;

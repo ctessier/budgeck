@@ -99,5 +99,5 @@ class RecurrentTransaction extends BaseModel
 }
 
 RecurrentTransaction::created(function ($recurrentTransaction) {
-    Transaction::createFromRecurrentTransaction($recurrentTransaction);
+    Transaction::createFromRecurrentTransaction($recurrentTransaction, false);
 });
