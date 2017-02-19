@@ -24,9 +24,11 @@ class RecurrentTransactionRequest extends Request
     public function rules()
     {
         return [
-            'title'  => 'required|max:255',
-            'amount' => ['required', 'regex:"(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)"'],
-            'day'    => 'required|integer|min:1|max:31',
+            'title'             => 'required|max:255',
+            'amount'            => ['required', 'regex:"(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)"'],
+            'day'               => 'required|integer|min:1|max:31',
+            'account_budget_id' => 'exists:account_budgets,id',
+            'category_id'       => 'exists:categories,id',
         ];
     }
 }
