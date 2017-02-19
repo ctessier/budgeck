@@ -30,10 +30,13 @@ class Controller extends BaseController
             // information for the controllers and the views
             if (!$request->session()->has('account')) {
                 $this->current_account = $this->user->defaultAccount();
-                $request->session()->set('account', $this->current_account);
             } else {
                 $this->current_account = $request->session()->get('account');
+                if ($this->current_account->user_id !== $this->user->id) {
+                    $this->current_account = $this->user->defaultAccount();
+                }
             }
+            $request->session()->set('account', $this->current_account);
             view()->share('current_account', $this->current_account);
         }
     }
