@@ -54,11 +54,6 @@ class BudgetController extends Controller
             $budget->default_category_id = null;
         }
 
-        // Set closed to false if empty
-        if (empty($request->input('closed'))) {
-            $budget->closed = false;
-        }
-
         $budget->save();
 
         return response()->json([
