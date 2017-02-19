@@ -67,7 +67,7 @@ class TransactionController extends Controller
         $transaction->save();
 
         return response()->json([
-            'redirect' => route('history'),
+            'redirect' => $this->getRedirectUrl(),
         ]);
     }
 
