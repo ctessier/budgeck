@@ -9,16 +9,6 @@ use Budgeck\Models\AccountBudget;
 class AccountBudgetController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @param Account $account
@@ -55,18 +45,6 @@ class AccountBudgetController extends Controller
         return response()->json([
             'redirect' => route('accounts.show', $account),
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param AccountBudget $account_budget
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($account_budget)
-    {
-        //
     }
 
     /**
