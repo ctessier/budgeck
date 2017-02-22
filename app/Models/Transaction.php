@@ -55,6 +55,16 @@ class Transaction extends BaseModel
     }
 
     /**
+     * Returns the recurrent transaction which the transaction has been created from.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function recurrent_transaction()
+    {
+        return $this->belongsTo($this->getBaseNamespace().'\RecurrentTransaction');
+    }
+
+    /**
      * Create a new transaction from a given recurrent transaction.
      *
      * @param RecurrentTransaction $recurrentTransaction
