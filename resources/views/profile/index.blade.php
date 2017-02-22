@@ -3,7 +3,7 @@
 @section('title', 'Mon profil')
 
 @section('content')
-<div class="ui grid">
+<div class="ui stackable grid">
     @include('menu.sidebar.profile')
     <div class="twelve wide column">
         <div class="ui segment">

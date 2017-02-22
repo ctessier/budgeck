@@ -3,7 +3,7 @@
 @section('title', 'Historique')
 
 @section('content')
-<div class="ui grid">
+<div class="ui stackable grid">
     @include('menu.sidebar.history')
     <div class="twelve wide column">
         @if ($awaitings->count() === 0 && $transactions->count() === 0)
