@@ -53,5 +53,7 @@
 {!! Form::hidden('month', $month) !!}
 
 <script>
-    $('.dropdown').dropdown();
+    $('.dropdown').dropdown({
+        allowCategorySelection: true
+    });
 </script>
