@@ -16,7 +16,6 @@
             <table class="ui table">
                 <thead>
                     <tr>
-                        <th></th>
                         <th>Date</th>
                         <th>Intitulé</th>
                         <th>Budget</th>
