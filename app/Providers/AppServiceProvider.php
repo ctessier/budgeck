@@ -2,6 +2,7 @@
 
 namespace Budgeck\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
         // Set locale
         if (config('app.locale') === 'fr') {
             setlocale(LC_TIME, 'fr_FR.UTF-8');
+            Carbon::setLocale('fr');
         }
 
         // Provide Blade directive for amounts

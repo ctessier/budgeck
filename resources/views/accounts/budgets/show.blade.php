@@ -1,4 +1,4 @@
-<div class="header">
+<div class="ui header">
     <div class="content">
         {{ $budget->title }}
         <div class="sub header">{{ $budget->description }}</div>
@@ -18,11 +18,11 @@
             <tr>
                 <td>{{ $transaction->title }}</td>
                 <td>@amount($transaction->amount)</td>
-                <td>{{ $transaction->transaction_date->format('d/m/Y') }}</td>
+                <td>{{ $transaction->transaction_date->formatLocalized('%A %d %B %Y') }}</td>
                 <td>
                     @if (!is_null($transaction->value_date))
                     <i class="large green checkmark icon"></i>
-                    {{ $transaction->value_date->format('d/m/Y') }}
+                    {{ $transaction->value_date->diffForHumans($transaction->transaction_date) }}
                     @endif
                 </td>
             </tr>

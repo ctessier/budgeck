@@ -15,7 +15,7 @@
             @else
                 <div class="ui three stackable cards">
                     @foreach ($budgets as $budget)
-                        {{--*/ $progressPourcent = min(100, ($budget->getAmountSpent() / $budget->amount) * 100) /*--}}
+                        {{--*/ $progressPercent = min(100, ($budget->getAmountSpent() / $budget->amount) * 100) /*--}}
                         <div class="card">
                             <div class="content">
                                 <div class="right floated meta">
@@ -36,9 +36,11 @@
                                     @endif
                                     {{ $budget->title }}
                                 </div>
-                                <div class="meta">{{$budget->description}} - {{$budget->transactions->count()}} transaction(s)</div>
+                                <div class="meta">
+                                    {{--*/ $transactionsCount = $budget->transactions->count() /*--}}
+                                    {{ $transactionsCount }} transaction{{ $transactionsCount > 1 ? 's' : '' }}</div>
                                 <div class="description">
-                                    <div class="ui blue progress" data-percent="{{$progressPourcent}}">
+                                    <div class="ui blue progress" data-percent="{{ $progressPercent }}">
                                         <div class="bar"></div>
                                         <div class="label">@amount($budget->getAmountSpent()) / @amount($budget->amount)</div>
                                     </div>
