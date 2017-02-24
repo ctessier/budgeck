@@ -16,7 +16,6 @@
             <table class="ui table">
                 <thead>
                     <tr>
-                        <th></th>
                         <th>Date</th>
                         <th>Intitulé</th>
                         <th>Budget</th>
@@ -75,7 +74,12 @@
                 @foreach ($transactions as $transaction)
                     <tr class="{{!$transaction->isExpense() ? 'positive' : ''}}">
                         <td>{{$transaction->transaction_date->format('d/m/Y')}}</td>
-                        <td>{{$transaction->title}}</td>
+                        <td>
+                            @if ($transaction->recurrent_transaction)
+                                <i class="history icon"></i>
+                            @endif
+                            {{$transaction->title}}
+                        </td>
                         <td>
                             @if ($transaction->budget)
                             <div class="ui small blue horizontal label">

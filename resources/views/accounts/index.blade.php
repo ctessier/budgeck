@@ -3,7 +3,7 @@
 @section('title', 'Mes comptes')
 
 @section('content')
-<div class="ui grid">
+<div class="ui stackable grid">
     @include('menu.sidebar.profile')
     <div class="twelve wide column">
         @if ($user->accounts->count() > 0)
