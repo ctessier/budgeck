@@ -38,4 +38,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('.dropdown.settings-icon').dropdown({
+        action: "hide"
+    });
+</script>
 @stop
