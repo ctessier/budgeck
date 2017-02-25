@@ -67,4 +67,14 @@ class Budget extends BaseModel
     {
         return $this->amount - $this->getAmountSpent();
     }
+
+    /**
+     * Tells whether the budget is healthy or not (aka. money can still be spent).
+     *
+     * @return bool
+     */
+    public function isHealthy()
+    {
+        return $this->getAmountRemaining() > 0;
+    }
 }
