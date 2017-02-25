@@ -128,7 +128,7 @@ class Account extends BaseModel
         foreach ($this->getBudgets($year, $month) as $budget) {
             if ($budget->closed) { // budget is closed, we deduct only what's pending
                 $expected -= $budget->getAmountSpent(Transaction::AWAITING);
-            } else if ($budget->isHealthy()) { // budget is healthy, we deduct what's pending or left to spend
+            } elseif ($budget->isHealthy()) { // budget is healthy, we deduct what's pending or left to spend
                 $expected -= $budget->amount - $budget->getAmountSpent(Transaction::EFFECTIVE);
             } else { // budget is not healthy,
                 $expected -= $budget->getAmountSpent(Transaction::AWAITING);
