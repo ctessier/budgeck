@@ -61,9 +61,3 @@
     <i class="add icon"></i>
     Ajouter une opération récurrente
 </a>
-
-<script>
-    $('.dropdown').dropdown({
-        action: "hide"
-    });
-</script>
