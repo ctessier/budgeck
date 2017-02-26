@@ -48,9 +48,3 @@
     <i class="add icon"></i>
     Ajouter un budget
 </a>
-
-<script>
-    $('.dropdown').dropdown({
-        action: "hide"
-    });
-</script>

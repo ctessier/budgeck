@@ -107,6 +107,50 @@ class Account extends BaseModel
     }
 
     /**
+     * Returns the expected balance of the account by the end of the given month and year.
+     *
+     * @param int|null $month
+     * @param int|null $year
+     *
+     * @return float
+     */
+    public function getExpectedBalance($month = null, $year = null)
+    {
+        if (!isset($month)) {
+            $month = intval(date('n'));
+        }
+        if (!isset($year)) {
+            $year = intval(date('Y'));
+        }
+
+        $expected = $this->getBalance();
+
+        foreach ($this->getBudgets($year, $month) as $budget) {
+            if ($budget->closed) { // budget is closed, we deduct only what's pending
+                $expected -= $budget->getAmountSpent(Transaction::AWAITING);
+            } elseif ($budget->isHealthy()) { // budget is healthy, we deduct what's pending or left to spend
+                $expected -= $budget->amount - $budget->getAmountSpent(Transaction::EFFECTIVE);
+            } else { // budget is not healthy,
+                $expected -= $budget->getAmountSpent(Transaction::AWAITING);
+            }
+        }
+
+        foreach ($this->getTransactions(Transaction::AWAITING) as $transaction) {
+            if ($transaction->budget || $transaction->month !== $month || $transaction->year !== $year) {
+                continue;
+            }
+            $amount = $transaction->amount;
+            if ($transaction->isExpense()) {
+                $expected -= $amount;
+            } else {
+                $expected += $amount;
+            }
+        }
+
+        return $expected;
+    }
+
+    /**
      * Make account the default one.
      *
      * @return void
