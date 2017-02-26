@@ -21,8 +21,12 @@
                 <td>{{ $transaction->transaction_date->formatLocalized('%A %d %B %Y') }}</td>
                 <td>
                     @if (!is_null($transaction->value_date))
-                    <i class="large green checkmark icon"></i>
-                    {{ $transaction->value_date->diffForHumans($transaction->transaction_date) }}
+                        <i class="large green checkmark icon"></i>
+                        @if ($transaction->value_date->diffInDays($transaction->transaction_date) === 0)
+                            le même jour
+                        @else
+                            {{ $transaction->value_date->diffForHumans($transaction->transaction_date) }}
+                        @endif
                     @endif
                 </td>
             </tr>
