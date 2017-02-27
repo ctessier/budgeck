@@ -62,3 +62,7 @@
 </div>
 
 {!! Form::hidden('transaction_type_id', \Budgeck\Models\TransactionType::INCOME) !!}
+
+<script>
+    $('#month-selector').monthSelector();
+</script>
