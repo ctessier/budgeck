@@ -136,14 +136,13 @@ class Account extends BaseModel
         }
 
         foreach ($this->getTransactions(Transaction::AWAITING) as $transaction) {
-            if ($transaction->budget || $transaction->month !== $month || $transaction->year !== $year) {
+            if ($transaction->budget || $transaction->month > $month || $transaction->year > $year) {
                 continue;
             }
-            $amount = $transaction->amount;
             if ($transaction->isExpense()) {
-                $expected -= $amount;
+                $expected -= $transaction->amount;
             } else {
-                $expected += $amount;
+                $expected += $transaction->amount;
             }
         }
 
