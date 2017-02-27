@@ -1,5 +1,5 @@
 <div class="four wide column">
-    <div class="ui vertical fluid menu">
+    <div class="ui vertical pointing fluid menu">
         {!! HTML::linkRoute('profile', 'Mon profil', [], ['class' => 'item' . (Route::currentRouteNamed('profile') ? ' active' : '')]) !!}
         <a href="{{ route('accounts.index') }}" class="item {{ Route::currentRouteNamed('accounts.index') ? ' active' : '' }}">
             Tous mes comptes
