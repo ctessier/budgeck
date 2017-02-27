@@ -1,36 +1,36 @@
 (function() {
     $.fn.allowClear = function () {
-        var dropdown = $(this);
+        var dropDown = $(this);
 
         var resetButton = $('<i class="trash icon"></i>')
             .css({
                 cursor: 'pointer'
             })
             .on('click', function () {
-                dropdown.dropdown('clear');
+                dropDown.dropdown('clear');
             });
 
         $(this).after(resetButton);
     };
 
-    $.fn.budgetSelector = function (endpoint) {
-        var dropdown = $(this);
-        var currentYear, currentMonth;
-        var monthSelector =  $('.month-selector');
-        var categorySelector = $('#category-selector');
+    $.fn.monthSelector = function (callback) {
+        var monthButtons =  $('#month-selector .month');
         var monthField = $('input[data-month="true"]');
         var yearField = $('input[data-year="true"]');
 
-        if (monthSelector.length < 2 || monthField.length === 0 || yearField.length === 0) {
-            console.log('Unable to initialize budgets selector');
+        if (monthButtons.length < 3 || monthField.length === 0 || yearField.length === 0) {
+            console.log('Unable to initialize month selector');
             return;
         }
 
-        updateBudgets(monthField.val(), yearField.val());
+        if (callback !== undefined) {
+            console.log(monthField.val(), yearField.val());
+            callback(monthField.val(), yearField.val());
+        }
 
-        monthSelector.on('click', function () {
-            currentYear = $(this).attr('data-year');
-            currentMonth = $(this).attr('data-month');
+        monthButtons.on('click', function () {
+            var currentYear = $(this).attr('data-year');
+            var currentMonth = $(this).attr('data-month');
 
             if (currentMonth === undefined || currentYear === undefined) {
                 console.log('Unable to retrieve current month and year');
@@ -39,19 +39,27 @@
 
             monthField.val(currentMonth);
             yearField.val(currentYear);
-            monthSelector.removeClass('active');
+            monthButtons.removeClass('active');
             $(this).addClass('active');
 
-            updateBudgets(currentMonth, currentYear);
+            if (callback !== undefined) {
+                callback(currentMonth, currentYear);
+            }
         });
+    };
+
+    $.fn.budgetSelector = function (endpoint) {
+        var DropDown = $(this);
 
         function updateBudgets(month, year) {
+            var categorySelector = $('#category-selector');
+
             // clear dropdown
-            dropdown.find('.menu').empty();
-            dropdown.dropdown('clear');
+            DropDown.find('.menu').empty();
+            DropDown.dropdown('clear');
 
             // add loading classes
-            dropdown.addClass('loading').addClass('disabled');
+            DropDown.addClass('loading').addClass('disabled');
 
             $.ajax({
                 url: endpoint,
@@ -64,17 +72,17 @@
                         var item = $('<div class="item" data-value="' + element.id + '" data-default-category="' + element.default_category_id + '">' + element.title + '</div>');
 
                         // check if we can preselect the dropdown as it was previously or with one from the same account budget
-                        if (parseInt(dropdown.attr('data-budget-id')) == element.id || parseInt(dropdown.attr('data-account-budget-id')) == element.account_budget_id) {
+                        if (parseInt(DropDown.attr('data-budget-id')) == element.id || parseInt(DropDown.attr('data-account-budget-id')) == element.account_budget_id) {
                             selected = element.id;
                         }
 
                         // append option to dropdown items
-                        dropdown.find('.menu').append(item);
+                        DropDown.find('.menu').append(item);
                     });
 
                     // redraw dropdown and remove loading classes
-                    dropdown.dropdown('refresh');
-                    dropdown.dropdown({
+                    DropDown.dropdown('refresh');
+                    DropDown.dropdown({
                         onChange: function (value, text, el) {
                             // preselect default category id if exists
                             if (typeof el !== 'undefined' && el.attr('data-default-category')) {
@@ -85,26 +93,27 @@
 
                     // preselect budget if needed
                     if (selected) {
-                        dropdown.dropdown('set selected', selected);
+                        DropDown.dropdown('set selected', selected);
                     }
 
                     // remove loading classes
-                    dropdown.removeClass('loading').removeClass('disabled');
+                    DropDown.removeClass('loading').removeClass('disabled');
                 }
             });
         }
+
+        $(this).monthSelector(updateBudgets);
     };
 
     $.fn.categorySelector = function () {
-        var dropdown = $(this).dropdown({
+        var dropDown = $(this).dropdown({
             allowCategorySelection: true
         });
-
-        dropdown.allowClear();
+        dropDown.allowClear();
     };
 
     $.fn.accountBudgetSelector = function () {
-        var dropdown = $(this).dropdown();
-        dropdown.allowClear();
+        var dropDown = $(this).dropdown();
+        dropDown.allowClear();
     };
 })();
