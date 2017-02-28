@@ -70,6 +70,9 @@
                     data.forEach(function (element) {
                         // create dropdown item
                         var item = $('<div class="item" data-value="' + element.id + '" data-default-category="' + element.default_category_id + '">' + element.title + '</div>');
+                        if (element.closed) {
+                            item.prepend('<i class="lock icon"></i> ');
+                        }
 
                         // check if we can preselect the dropdown as it was previously or with one from the same account budget
                         if (parseInt(DropDown.attr('data-budget-id')) == element.id || parseInt(DropDown.attr('data-account-budget-id')) == element.account_budget_id) {

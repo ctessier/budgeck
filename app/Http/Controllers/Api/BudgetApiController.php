@@ -18,12 +18,11 @@ class BudgetApiController extends Controller
     public function get(Request $request)
     {
         if ($request->has('month') || $request->has('year')) {
-            return Budget::select('id', 'title', 'amount', 'account_budget_id', 'default_category_id')
+            return Budget::select('id', 'title', 'amount', 'account_budget_id', 'default_category_id', 'closed')
                 ->where([
                     'month'      => $request->get('month'),
                     'year'       => $request->get('year'),
                     'account_id' => $this->current_account->id,
-                    'closed'     => false,
                 ])
                 ->get();
         } else {
