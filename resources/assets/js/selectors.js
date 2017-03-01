@@ -24,7 +24,6 @@
         }
 
         if (callback !== undefined) {
-            console.log(monthField.val(), yearField.val());
             callback(monthField.val(), yearField.val());
         }
 
@@ -70,7 +69,7 @@
                     data.forEach(function (element) {
                         // create dropdown item
                         var item = $('<div class="item" data-value="' + element.id + '" data-default-category="' + element.default_category_id + '">' + element.title + '</div>');
-                        if (element.closed) {
+                        if (element.closed == 1) {
                             item.prepend('<i class="lock icon"></i> ');
                         }
 
