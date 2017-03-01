@@ -2,7 +2,7 @@
 
 [![Build Status](https://img.shields.io/travis/ctessier/budgeck/master.svg?style=flat-square)](https://travis-ci.org/ctessier/budgeck)
 [![StyleCI](https://styleci.io/repos/41213910/shield?branch=master)](https://styleci.io/repos/41213910)
-[![codecov](https://codecov.io/gh/ctessier/budgeck/branch/master/graph/badge.svg?style=flat-square)](https://codecov.io/gh/ctessier/budgeck)
+[![codecov](https://codecov.io/gh/ctessier/budgeck/branch/master/graph/badge.svg)](https://codecov.io/gh/ctessier/budgeck)
 
 Budgeck is a budget monitoring web application build with Laravel 5.1.
 
