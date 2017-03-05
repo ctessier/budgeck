@@ -25,6 +25,5 @@
             @yield('content')
         </div>
         @yield('tail')
-        @include('elements.footer')
     </body>
 </html>
