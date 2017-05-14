@@ -87,22 +87,22 @@ class Account extends BaseModel
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getTransactions($status)
+    public function getTransactions($status, $sort = 'DESC')
     {
         $transactions = Transaction::select('transactions.*')
             ->where('account_id', $this->id)
-            ->orderBy('year', 'DESC')
-            ->orderBy('month', 'DESC')
-            ->orderBy('transaction_date', 'DESC');
+            ->orderBy('year', $sort)
+            ->orderBy('month', $sort)
+            ->orderBy('transaction_date', $sort);
 
         if ($status === Transaction::AWAITING) {
             return $transactions
                 ->whereNull('value_date')
-                ->get();
+                ->paginate(5, ['*'], 'pending');
         } else {
             return $transactions
                 ->whereNotNull('value_date')
-                ->paginate(20);
+                ->paginate(20, ['*'], 'effective');
         }
     }
 

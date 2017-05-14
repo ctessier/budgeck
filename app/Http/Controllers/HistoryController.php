@@ -14,7 +14,7 @@ class HistoryController extends Controller
     public function show()
     {
         return view('history.show')
-            ->with('awaitings', $this->current_account->getTransactions(Transaction::AWAITING))
+            ->with('awaitings', $this->current_account->getTransactions(Transaction::AWAITING, 'ASC'))
             ->with('transactions', $this->current_account->getTransactions(Transaction::EFFECTIVE));
     }
 }

@@ -56,6 +56,7 @@
                 @endforeach
                 </tbody>
             </table>
+            @include('pagination.default', ['paginator' => $awaitings])
         @endif
 
         @if ($transactions->count() > 0)
