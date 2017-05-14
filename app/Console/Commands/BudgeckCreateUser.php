@@ -8,6 +8,11 @@ use Budgeck\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * Class BudgeckCreateUser
+ *
+ * @package Budgeck\Console\Commands
+ */
 class BudgeckCreateUser extends Command
 {
     /**
@@ -70,17 +75,21 @@ class BudgeckCreateUser extends Command
         $this->info('The user has been created successfully.');
 
         // Send e-mail to the new user
-        Mail::send('emails.register', [
-            'email'     => $user->email,
-            'password'  => $password,
-            'firstname' => $user->firstname,
-        ], function ($message) use ($user) {
-            $message
-                ->to($user->email, $user->firstname.' '.$user->lastname)
-                ->subject('Bienvenue sur Budgeck !');
+        Mail::send(
+            'emails.register',
+            [
+                'email'     => $user->email,
+                'password'  => $password,
+                'firstname' => $user->firstname,
+            ],
+            function ($message) use ($user) {
+                $message
+                    ->to($user->email, $user->firstname.' '.$user->lastname)
+                    ->subject('Bienvenue sur Budgeck !');
 
-            $this->info('A message has been sent to '.$user->email);
-        });
+                $this->info('A message has been sent to '.$user->email);
+            }
+        );
 
         User::reguard();
         Account::reguard();
